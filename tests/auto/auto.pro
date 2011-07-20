@@ -9,12 +9,12 @@ SUBDIRS += \
     qgalleryqueryrequest \
     qgalleryresource \
     qgallerytyperequest \
-    qdeclarativedocumentgalleryitem \
-    qdeclarativedocumentgallerymodel \
-    qdeclarativedocumentgallerytype
+#    qdeclarativedocumentgalleryitem \
+#    qdeclarativedocumentgallerymodel \
+#    qdeclarativedocumentgallerytype
 
 linux-*: contains(QT_CONFIG, dbus): contains(tracker_enabled, yes) {
     SUBDIRS += \
-        qgallerytrackerresultset_tracker \
-        qgallerytrackerschema_tracker
+#        qgallerytrackerresultset_tracker \
+#        qgallerytrackerschema_tracker
 }
