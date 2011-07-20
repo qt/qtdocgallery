@@ -159,8 +159,8 @@ protected:
 
 private:
     Q_DECLARE_PRIVATE(QGalleryTrackerResultSet)
-//    Q_PRIVATE_SLOT(d_func(), void _q_queryFinished(QDBusPendingCallWatcher *))
-//    Q_PRIVATE_SLOT(d_func(), void _q_parseFinished())
+    Q_PRIVATE_SLOT(d_func(), void _q_queryFinished(QDBusPendingCallWatcher *))
+    Q_PRIVATE_SLOT(d_func(), void _q_parseFinished())
 };
 
 QT_END_NAMESPACE

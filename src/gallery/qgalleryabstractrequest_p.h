@@ -53,10 +53,10 @@
 #ifndef QGALLERYABSTRACTREQUEST_P_H
 #define QGALLERYABSTRACTREQUEST_P_H
 
-#include "qgalleryabstractrequest.h"
+#include <qgalleryabstractrequest.h>
 
-#include "qabstractgallery.h"
-#include "qgalleryabstractresponse.h"
+#include <qabstractgallery.h>
+#include <qgalleryabstractresponse.h>
 
 #include <QtCore/qsharedpointer.h>
 

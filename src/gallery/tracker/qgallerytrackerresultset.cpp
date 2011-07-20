@@ -749,3 +749,5 @@ void QGalleryTrackerResultSet::refresh(int updateId)
 }
 
 QT_END_NAMESPACE
+
+#include "moc_qgallerytrackerresultset_p.cpp"

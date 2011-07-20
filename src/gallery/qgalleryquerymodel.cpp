@@ -1028,3 +1028,5 @@ Qt::ItemFlags QGalleryQueryModel::flags(const QModelIndex &index) const
 }
 
 QT_END_NAMESPACE
+
+#include "moc_qgalleryquerymodel.cpp"

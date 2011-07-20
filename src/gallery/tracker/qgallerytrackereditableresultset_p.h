@@ -76,7 +76,7 @@ public:
 
 private:
     Q_DECLARE_PRIVATE(QGalleryTrackerEditableResultSet)
-//    Q_PRIVATE_SLOT(d_func(), void _q_editFinished(QGalleryTrackerMetaDataEdit *))
+    Q_PRIVATE_SLOT(d_func(), void _q_editFinished(QGalleryTrackerMetaDataEdit *))
 };
 
 QT_END_NAMESPACE

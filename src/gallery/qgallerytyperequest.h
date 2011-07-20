@@ -101,11 +101,11 @@ protected:
 
 private:
     Q_DECLARE_PRIVATE(QGalleryTypeRequest)
-//    Q_PRIVATE_SLOT(d_func(), void _q_itemsInserted(int, int))
-//    Q_PRIVATE_SLOT(d_func(), void _q_itemsRemoved(int, int))
-//    Q_PRIVATE_SLOT(d_func(), void _q_itemsMoved(int, int, int))
-//    Q_PRIVATE_SLOT(d_func(), void _q_currentItemChanged())
-//    Q_PRIVATE_SLOT(d_func(), void _q_metaDataChanged(int, int, const QList<int> &))
+    Q_PRIVATE_SLOT(d_func(), void _q_itemsInserted(int, int))
+    Q_PRIVATE_SLOT(d_func(), void _q_itemsRemoved(int, int))
+    Q_PRIVATE_SLOT(d_func(), void _q_itemsMoved(int, int, int))
+    Q_PRIVATE_SLOT(d_func(), void _q_currentItemChanged())
+    Q_PRIVATE_SLOT(d_func(), void _q_metaDataChanged(int, int, const QList<int> &))
 };
 
 QT_END_NAMESPACE

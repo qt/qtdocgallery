@@ -12,14 +12,6 @@ DEFINES += QT_BUILD_GALLERY_LIB QT_MAKEDLL
 
 load(qt_module_config)
 
-PRIVATE_HEADERS += \
-    qgallery_p.h \
-    qabstractgallery_p.h \
-    qgalleryabstractrequest_p.h \
-    qgalleryabstractresponse_p.h \
-    qgallerynullresultset_p.h \
-    qgalleryresultset_p.h
-
 PUBLIC_HEADERS += \
     qabstractgallery.h \
     qdocumentgallery.h \
@@ -34,6 +26,14 @@ PUBLIC_HEADERS += \
     qgalleryresultset.h \
     qgallerytype.h \
     qgallerytyperequest.h
+
+PRIVATE_HEADERS += \
+    qgallery_p.h \
+    qabstractgallery_p.h \
+    qgalleryabstractrequest_p.h \
+    qgalleryabstractresponse_p.h \
+    qgallerynullresultset_p.h \
+    qgalleryresultset_p.h
 
 SOURCES += \
     qabstractgallery.cpp \

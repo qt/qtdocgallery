@@ -395,3 +395,5 @@ void QGalleryTypeRequest::setResponse(QGalleryAbstractResponse *response)
 }
 
 QT_END_NAMESPACE
+
+#include "moc_qgallerytyperequest.cpp"

@@ -344,3 +344,5 @@ void QGalleryTrackerTypeResultSet::refresh(int serviceId)
 }
 
 QT_END_NAMESPACE
+
+#include "moc_qgallerytrackertyperesultset_p.cpp"

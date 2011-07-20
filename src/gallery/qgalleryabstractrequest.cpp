@@ -39,9 +39,9 @@
 **
 ****************************************************************************/
 
+#include <qgalleryabstractrequest.h>
 #include "qgalleryabstractrequest_p.h"
-
-#include "qabstractgallery.h"
+#include <qabstractgallery.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -602,3 +602,5 @@ void QGalleryAbstractRequest::clear()
 */
 
 QT_END_NAMESPACE
+
+#include "moc_qgalleryabstractrequest.cpp"

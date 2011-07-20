@@ -137,3 +137,5 @@ bool QGalleryTrackerEditableResultSet::setMetaData(int key, const QVariant &valu
 }
 
 QT_END_NAMESPACE
+
+#include "moc_qgallerytrackereditableresultset_p.cpp"

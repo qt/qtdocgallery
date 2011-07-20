@@ -47,6 +47,7 @@
 #include <QtCore/qobject.h>
 #include <QtCore/qstringlist.h>
 
+QT_BEGIN_HEADER
 QT_BEGIN_NAMESPACE
 
 class QAbstractGallery;
@@ -136,12 +137,13 @@ protected:
 
 private:
     Q_DECLARE_PRIVATE(QGalleryAbstractRequest)
-//    Q_PRIVATE_SLOT(d_func(), void _q_finished())
-//    Q_PRIVATE_SLOT(d_func(), void _q_canceled())
-//    Q_PRIVATE_SLOT(d_func(), void _q_resumed())
-//    Q_PRIVATE_SLOT(d_func(), void _q_progressChanged(int, int))
+    Q_PRIVATE_SLOT(d_func(), void _q_finished())
+    Q_PRIVATE_SLOT(d_func(), void _q_canceled())
+    Q_PRIVATE_SLOT(d_func(), void _q_resumed())
+    Q_PRIVATE_SLOT(d_func(), void _q_progressChanged(int, int))
 };
 
 QT_END_NAMESPACE
+QT_END_HEADER
 
 #endif
