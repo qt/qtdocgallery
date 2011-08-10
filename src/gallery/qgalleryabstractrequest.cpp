@@ -122,7 +122,6 @@ void QGalleryAbstractRequestPrivate::_q_progressChanged(int current, int maximum
 
     \ingroup gallery
     \ingroup gallery-requests
-    \since 1.1
 
     \inmodule QtGallery
 
@@ -207,7 +206,6 @@ void QGalleryAbstractRequestPrivate::_q_progressChanged(int current, int maximum
     Constructs a new gallery \a type request.
 
     The \a parent is passed to QObject.
-    \since 1.1
 */
 
 QGalleryAbstractRequest::QGalleryAbstractRequest(RequestType type, QObject *parent)
@@ -221,7 +219,6 @@ QGalleryAbstractRequest::QGalleryAbstractRequest(RequestType type, QObject *pare
     Constructs a new \a type request for the given \a gallery.
 
     The \a parent is passed to QObject.
-    \since 1.1
 */
 
 QGalleryAbstractRequest::QGalleryAbstractRequest(
@@ -255,7 +252,6 @@ QGalleryAbstractRequest::~QGalleryAbstractRequest()
     \property QGalleryAbstractRequest::gallery
 
     \brief The gallery service a request acts on.
-    \since 1.1
 */
 
 QAbstractGallery *QGalleryAbstractRequest::gallery() const
@@ -277,14 +273,12 @@ void QGalleryAbstractRequest::setGallery(QAbstractGallery *gallery)
     \fn QGalleryAbstractRequest::galleryChanged()
 
     Signals that the value of \l gallery has changed.
-    \since 1.1
 */
 
 /*!
     \property QGalleryAbstractRequest::supported
 
     \brief Whether a request is supported by its current \a gallery.
-    \since 1.1
 */
 
 bool QGalleryAbstractRequest::isSupported() const
@@ -296,13 +290,11 @@ bool QGalleryAbstractRequest::isSupported() const
     \fn QGalleryAbstractRequest::supportedChanged()
 
     Signals the \l supported property has changed.
-    \since 1.1
 */
 
 
 /*!
     Returns the type of a request.
-    \since 1.1
 */
 QGalleryAbstractRequest::RequestType QGalleryAbstractRequest::type() const
 {
@@ -313,7 +305,6 @@ QGalleryAbstractRequest::RequestType QGalleryAbstractRequest::type() const
     \property QGalleryAbstractRequest::state
 
     \brief The state of a request.
-    \since 1.1
 */
 
 QGalleryAbstractRequest::State QGalleryAbstractRequest::state() const
@@ -328,7 +319,6 @@ QGalleryAbstractRequest::State QGalleryAbstractRequest::state() const
 
     Common errors are defined in \l Error, more specific errors are defined by
     the gallery implementations such as in QDocumentGallery::Error.
-    \since 1.1
 */
 
 int QGalleryAbstractRequest::error() const
@@ -342,7 +332,6 @@ int QGalleryAbstractRequest::error() const
     \brief A string describing the cause of an \l error in more detail.
 
     This may be an empty string if more information is not known.
-    \since 1.1
 */
 
 QString QGalleryAbstractRequest::errorString() const
@@ -354,14 +343,12 @@ QString QGalleryAbstractRequest::errorString() const
     \fn QGalleryAbstractRequest::errorChanged()
 
     Signals that the \l error and \l errorString properties have changed.
-    \since 1.1
 */
 
 /*!
     \property QGalleryAbstractRequest::currentProgress
 
     \brief the current progress of a request.
-    \since 1.1
 */
 
 int QGalleryAbstractRequest::currentProgress() const
@@ -373,7 +360,6 @@ int QGalleryAbstractRequest::currentProgress() const
     \property QGalleryAbstractRequest::maximumProgress
 
     \brief the maximum value of \l currentProgress
-    \since 1.1
 */
 
 int QGalleryAbstractRequest::maximumProgress() const
@@ -385,7 +371,6 @@ int QGalleryAbstractRequest::maximumProgress() const
     \fn QGalleryAbstractRequest::progressChanged(int current, int maximum)
 
     Signals that the \a current or \a maximum progress value has changed.
-    \since 1.1
 */
 
 /*!
@@ -393,7 +378,6 @@ int QGalleryAbstractRequest::maximumProgress() const
 
     Returns true if the request has finished on return, and returns false if the
     wait time expires or the request is inactive or idle.
-    \since 1.1
 */
 bool QGalleryAbstractRequest::waitForFinished(int msecs)
 {
@@ -407,7 +391,6 @@ bool QGalleryAbstractRequest::waitForFinished(int msecs)
 
     \bold {Note}: A valid \l gallery must be set before a request can be
     executed.
-    \since 1.1
 */
 
 void QGalleryAbstractRequest::execute()
@@ -510,7 +493,6 @@ void QGalleryAbstractRequest::execute()
 /*!
     Cancels the execution of a request.  If the request is idle this will stop
     any future updates.
-    \since 1.1
 */
 
 void QGalleryAbstractRequest::cancel()
@@ -528,7 +510,6 @@ void QGalleryAbstractRequest::cancel()
     Clears the results of a request.
 
     If the request is active or idle it will be canceled.
-    \since 1.1
 */
 
 void QGalleryAbstractRequest::clear()
@@ -569,21 +550,18 @@ void QGalleryAbstractRequest::clear()
     \fn QGalleryAbstractRequest::finished()
 
     Signals that a request has finished.
-    \since 1.1
 */
 
 /*!
     \fn QGalleryAbstractRequest::canceled()
 
     Signals that a request was canceled before it could finish.
-    \since 1.1
 */
 
 /*!
     \fn QGalleryAbstractRequest::stateChanged(QGalleryAbstractRequest::State state)
 
     Signals that the \a state of a request has changed.
-    \since 1.1
 */
 
 /*!
@@ -591,14 +569,12 @@ void QGalleryAbstractRequest::clear()
 
     Signals that a request failed with the given \a error.  The \a errorString
     may provide more detail.
-    \since 1.1
 */
 
 /*!
     \fn QGalleryAbstractRequest::setResponse(QGalleryAbstractResponse *response)
 
     Sets the \a response to an executed request.
-    \since 1.1
 */
 
 QT_END_NAMESPACE

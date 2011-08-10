@@ -108,7 +108,6 @@ public:
     \ingroup gallery-requests
 
     \inmodule QtGallery
-    \since 1.1
 
     \brief The QGalleryTypeRequest class provides an interface for requesting
     the properties of a type from a gallery.
@@ -164,7 +163,6 @@ QGalleryTypeRequest::~QGalleryTypeRequest()
 
     \brief A list of names of meta-data properties a request should return
     values for.
-    \since 1.1
 */
 
 
@@ -186,7 +184,6 @@ void QGalleryTypeRequest::setPropertyNames(const QStringList &names)
     \fn QGalleryTypeRequest::propertyNamesChanged()
 
     Signals that the value of \l propertyNames has changed.
-    \since 1.1
 */
 
 /*!
@@ -197,7 +194,6 @@ void QGalleryTypeRequest::setPropertyNames(const QStringList &names)
 
     If this is true the request will go into the Idle state when the request has
     finished rather than returning to Inactive.
-    \since 1.1
 */
 
 
@@ -219,15 +215,12 @@ void QGalleryTypeRequest::setAutoUpdate(bool enabled)
     \fn QGalleryTypeRequest::autoUpdateChanged()
 
     Signals that the value of \l autoUpdate has changed.
-    \since 1.1
 */
 
 /*!
     \property QGalleryTypeRequest::itemType
 
     \brief the type a request should return the properties of.
-
-    \since 1.1
 */
 
 QString QGalleryTypeRequest::itemType() const
@@ -248,12 +241,10 @@ void QGalleryTypeRequest::setItemType(const QString &itemType)
     \fn QGalleryTypeRequest::itemTypeChanged()
 
     Signals that the \l itemType property has changed.
-    \since 1.1
 */
 
 /*!
     Returns the result set containing the meta-data of a type.
-    \since 1.1
 */
 
 QGalleryResultSet *QGalleryTypeRequest::resultSet() const
@@ -266,19 +257,16 @@ QGalleryResultSet *QGalleryTypeRequest::resultSet() const
 
     Signals that the \a resultSet containing the meta-data of a type has
     changed.
-    \since 1.1
 */
 
 /*!
     \fn QGalleryTypeRequest::typeChanged()
 
     Signals that the properties of a type have changed.
-    \since 1.1
 */
 
 /*!
     Returns the key of \a property.
-    \since 1.1
 */
 
 int QGalleryTypeRequest::propertyKey(const QString &property) const
@@ -288,7 +276,6 @@ int QGalleryTypeRequest::propertyKey(const QString &property) const
 
 /*!
     Returns the attributes of the property identified by \a key.
-    \since 1.1
 */
 
 QGalleryProperty::Attributes QGalleryTypeRequest::propertyAttributes(int key) const
@@ -298,7 +285,6 @@ QGalleryProperty::Attributes QGalleryTypeRequest::propertyAttributes(int key) co
 
 /*!
     Returns the type of the property identified by \a key.
-    \since 1.1
 */
 
 QVariant::Type QGalleryTypeRequest::propertyType(int key) const
@@ -310,7 +296,6 @@ QVariant::Type QGalleryTypeRequest::propertyType(int key) const
     \property QGalleryTypeRequest::valid
 
     \brief Whether the request currently holds valid type information.
-    \since 1.1
 */
 
 bool QGalleryTypeRequest::isValid() const
@@ -320,7 +305,6 @@ bool QGalleryTypeRequest::isValid() const
 
 /*!
     Returns the value of a meta-data property identified by \a key.
-    \since 1.1
 */
 
 
@@ -331,7 +315,6 @@ QVariant QGalleryTypeRequest::metaData(int key) const
 
 /*!
     Returns the value of a meta-data \a property.
-    \since 1.1
 */
 
 QVariant QGalleryTypeRequest::metaData(const QString &property) const
@@ -345,12 +328,10 @@ QVariant QGalleryTypeRequest::metaData(const QString &property) const
 
     Signals that the values of meta-data properties identified by \a keys
     have changed.
-    \since 1.1
 */
 
 /*!
     \reimp
-    \since 1.1
 */
 
 void QGalleryTypeRequest::setResponse(QGalleryAbstractResponse *response)
