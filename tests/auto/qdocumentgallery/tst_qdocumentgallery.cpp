@@ -63,7 +63,7 @@ private:
 
 void tst_QDocumentGallery::isRequestSupported()
 {
-#if defined(Q_OS_LINUX) && !defined(QT_NO_DBUS) || defined (Q_OS_SYMBIAN)
+#if (defined(Q_OS_LINUX) && defined(QT_TRACKER_ENABLED)) || defined (Q_OS_SYMBIAN)
     const bool platformSupported = true;
 #else
     const bool platformSupported = false;
@@ -84,7 +84,7 @@ void tst_QDocumentGallery::itemTypeProperties_data()
     QTest::newRow("non-existent item type") << QString::fromLatin1("Hello") << QStringList();
 
     const QStringList fileProperties = QStringList()
-#if defined(Q_OS_LINUX) && !defined(QT_NO_DBUS)
+#if defined(Q_OS_LINUX) && defined(QT_TRACKER_ENABLED)
             << QDocumentGallery::author
             << QDocumentGallery::comments
             << QDocumentGallery::copyright
@@ -107,11 +107,11 @@ void tst_QDocumentGallery::itemTypeProperties_data()
             << QDocumentGallery::url
             << QDocumentGallery::fileName
             << QDocumentGallery::filePath
-            << QDocumentGallery::fileSize                
+            << QDocumentGallery::fileSize
             << QDocumentGallery::lastModified
             << QDocumentGallery::title
             << QDocumentGallery::mimeType
-            << QDocumentGallery::author            
+            << QDocumentGallery::author
             << QDocumentGallery::copyright
             << QDocumentGallery::description
             << QDocumentGallery::comments
@@ -121,7 +121,7 @@ void tst_QDocumentGallery::itemTypeProperties_data()
     QTest::newRow("File") << QString(QDocumentGallery::File) << (QStringList(fileProperties));
 
     QTest::newRow("Audio") << QString(QDocumentGallery::Audio) << (QStringList(fileProperties)
-#if defined(Q_OS_LINUX) && !defined(QT_NO_DBUS)
+#if defined(Q_OS_LINUX) && defined(QT_TRACKER_ENABLED)
             << QDocumentGallery::albumArtist
             << QDocumentGallery::albumTitle
             << QDocumentGallery::artist
@@ -150,12 +150,12 @@ void tst_QDocumentGallery::itemTypeProperties_data()
             << QDocumentGallery::albumArtist
             << QDocumentGallery::artist
             << QDocumentGallery::composer
-            << QDocumentGallery::genre 
+            << QDocumentGallery::genre
 #endif
     );
 
     QTest::newRow("Album") << QString(QDocumentGallery::Album) << (QStringList()
-#if defined(Q_OS_LINUX) && !defined(QT_NO_DBUS)
+#if defined(Q_OS_LINUX) && defined(QT_TRACKER_ENABLED)
             << QDocumentGallery::albumArtist
             << QDocumentGallery::albumTitle
             << QDocumentGallery::artist
@@ -165,14 +165,14 @@ void tst_QDocumentGallery::itemTypeProperties_data()
 #endif
     );
     QTest::newRow("PhotoAlbum") << QString(QDocumentGallery::PhotoAlbum) << (QStringList()
-#if defined(Q_OS_LINUX) && !defined(QT_NO_DBUS)
+#if defined(Q_OS_LINUX) && defined(QT_TRACKER_ENABLED)
                 << QDocumentGallery::count
                 << QDocumentGallery::title
 #elif defined (Q_OS_SYMBIAN)
                 << QDocumentGallery::url
                 << QDocumentGallery::title
 #endif
-    );    
+    );
 
 #if defined (Q_OS_SYMBIAN)
     QTest::newRow("Image") << QString(QDocumentGallery::Image) << (QStringList(fileProperties)
@@ -250,7 +250,7 @@ void tst_QDocumentGallery::propertyAttributes_data()
     QTest::newRow("File.fileName")
             << QString(QDocumentGallery::File)
             << QString(QDocumentGallery::fileName)
-#if defined(Q_OS_LINUX) && !defined(QT_NO_DBUS) || defined (Q_OS_SYMBIAN)
+#if (defined(Q_OS_LINUX) && defined(QT_TRACKER_ENABLED)) || defined (Q_OS_SYMBIAN)
             << (QGalleryProperty::CanRead
                     | QGalleryProperty::CanFilter
                     | QGalleryProperty::CanSort);
@@ -260,7 +260,7 @@ void tst_QDocumentGallery::propertyAttributes_data()
     QTest::newRow("File.filePath")
                     << QString(QDocumentGallery::File)
                     << QString(QDocumentGallery::filePath)
-#if defined(Q_OS_LINUX) && !defined(QT_NO_DBUS) || defined (Q_OS_SYMBIAN)
+#if (defined(Q_OS_LINUX) && defined(QT_TRACKER_ENABLED)) || defined (Q_OS_SYMBIAN)
                     << (QGalleryProperty::CanRead | QGalleryProperty::CanFilter);
 #else
                     << QGalleryProperty::Attributes();
@@ -269,7 +269,7 @@ void tst_QDocumentGallery::propertyAttributes_data()
     QTest::newRow("Audio.albumTitle")
             << QString(QDocumentGallery::Audio)
             << QString(QDocumentGallery::albumTitle)
-#if defined(Q_OS_LINUX) && !defined(QT_NO_DBUS) || defined (Q_OS_SYMBIAN)
+#if (defined(Q_OS_LINUX) && defined(QT_TRACKER_ENABLED)) || defined (Q_OS_SYMBIAN)
             << (QGalleryProperty::CanRead
                     | QGalleryProperty::CanFilter
                     | QGalleryProperty::CanSort);
@@ -279,7 +279,7 @@ void tst_QDocumentGallery::propertyAttributes_data()
     QTest::newRow("Album.duration")
             << QString(QDocumentGallery::Album)
             << QString(QDocumentGallery::duration)
-#if defined(Q_OS_LINUX) && !defined(QT_NO_DBUS)
+#if defined(Q_OS_LINUX) && defined(QT_TRACKER_ENABLED)
             << (QGalleryProperty::CanRead
                     | QGalleryProperty::CanFilter
                     | QGalleryProperty::CanSort);
