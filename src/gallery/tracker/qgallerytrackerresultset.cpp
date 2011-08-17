@@ -51,7 +51,7 @@
 
 Q_DECLARE_METATYPE(QVector<QStringList>)
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 class QGalleryTrackerResultSetParser
 {
@@ -748,6 +748,6 @@ void QGalleryTrackerResultSet::refresh(int updateId)
     }
 }
 
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE
 
 #include "moc_qgallerytrackerresultset_p.cpp"

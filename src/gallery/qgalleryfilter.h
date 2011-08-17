@@ -50,8 +50,11 @@
 #include <QtCore/qvector.h>
 
 QT_BEGIN_NAMESPACE
-
 class QDebug;
+QT_END_NAMESPACE
+
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
+
 class QGalleryFilter;
 class QGalleryIntersectionFilter;
 class QGalleryMetaDataFilter;
@@ -263,6 +266,6 @@ private:
     friend class QGalleryFilter;
 };
 
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE
 
 #endif

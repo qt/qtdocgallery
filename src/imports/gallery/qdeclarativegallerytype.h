@@ -63,7 +63,7 @@
 #include "qdeclarativedocumentgallery.h"
 #include "qdeclarativegalleryfilter.h"
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 class QDeclarativeGalleryType : public QObject, public QDeclarativeParserStatus
 {
@@ -166,8 +166,8 @@ Q_SIGNALS:
 
 };
 
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE
 
-QML_DECLARE_TYPE(QT_PREPEND_NAMESPACE(QDeclarativeDocumentGalleryType))
+QML_DECLARE_TYPE(QT_ADDON_GELLERY_PREPEND_NAMESPACE(QDeclarativeDocumentGalleryType))
 
 #endif

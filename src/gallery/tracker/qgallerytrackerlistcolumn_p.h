@@ -60,7 +60,7 @@
 #include <QtCore/qvector.h>
 
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 class QGalleryTrackerValueColumn
 {
@@ -198,6 +198,6 @@ private:
     const int m_column;
 };
 
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE
 
 #endif

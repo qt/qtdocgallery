@@ -48,7 +48,7 @@
 #include <mdeconstants.h>
 #include <e32base.h>
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 QMdeSession::QMdeSession(QObject *parent)
     :QObject(parent)
@@ -251,4 +251,4 @@ void QMdeSession::RemoveTrackedResultSet( QMDEGalleryResultSet* aResultSet )
     }
 }
 
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE
