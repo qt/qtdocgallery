@@ -39,51 +39,49 @@
 **
 ****************************************************************************/
 
-//
-//  W A R N I N G
-//  -------------
-//
-// This file is not part of the Qt API.  It exists purely as an
-// implementation detail.  This header file may change from version to
-// version without notice, or even be removed.
-//
-// We mean it.
-//
+#ifndef QMDLITEMUSIC_P_H
+#define QMDLITEMUSIC_P_H
 
-#ifndef QGALLERY_P_H
-#define QGALLERY_P_H
+#include <private/jsondb-connection_p.h>
+#include <jsondb-client.h>
+#include "qmdlite_p.h"
 
-#include <QtCore/qglobal.h>
+#include <QFileInfoList>
 
-#if defined(Q_OS_WIN)
-#  if defined(QT_NODLL)
-#    undef QT_MAKEDLL
-#    undef QT_DLL
-#  elif defined(QT_MAKEDLL)
-#    if defined(QT_DLL)
-#      undef QT_DLL
-#    endif
-#    if defined(QT_ADDON_GALLERY_LIB)
-#      define Q_GALLERY_EXPORT Q_DECL_EXPORT
-#    else
-#      define Q_GALLERY_EXPORT Q_DECL_IMPORT
-#    endif
-#  elif defined(QT_DLL)
-#    define Q_GALLERY_EXPORT Q_DECL_EXPORT
-#  endif
+class QMdLiteMusic;
+
+Q_ADDON_JSONDB_BEGIN_NAMESPACE
+class JsonDbConnection;
+class JsonDbClient;
+Q_ADDON_JSONDB_END_NAMESPACE
+
+Q_USE_JSONDB_NAMESPACE
+
+class QMdLiteMusicPrivate : public QMdLitePrivate
+{
+    Q_OBJECT
+
+public:
+#ifdef _SQLITE_QMDBACKEND
+    QMdLiteMusicPrivate(QMdLiteMusic *q);
+#else
+    QMdLiteMusicPrivate(QMdLiteMusic *q, JsonDbConnection *jsonDbConn);
 #endif
+    ~QMdLiteMusicPrivate();
+    static QString albumArtImageBaseName(const QString &albumArtist, const QString &title);
+    static QString albumArtImagePath(const QString &); // 512x512
+    static QString albumArtImageCompressedPath(const QString &); // 512x512 .pkm
+    static QString albumArtThumbnailImagePath(const QString &); // 128x128
+    static QString albumArtCompressedTexturePath(const QString &); // 128x128 .pkm file
+    static QString musicAlbumArtDir();
 
-#if !defined(Q_GALLERY_EXPORT)
-#  if defined(QT_SHARED)
-#    define Q_GALLERY_EXPORT Q_DECL_EXPORT
-#  else
-#    define Q_GALLERY_EXPORT
-#  endif
-#endif
+    int m_fileCount;
+    int m_albumCount;
+    int m_updateProgress;
 
-#define QT_ADDON_GALLERY_BEGIN_NAMESPACE namespace QtAddOn { namespace Gallery {
-#define QT_ADDON_GALLERY_END_NAMESPACE } }
-#define QT_ADDON_USE_GALLERY_NAMESPACE using namespace QtAddOn::Gallery;
-#define QT_ADDON_GELLERY_PREPEND_NAMESPACE(name) ::QtAddOn::Gallery::name
+    static QString m_albumArtDir;
 
-#endif // QGALLERY_P_H
+    QMdLiteMusic *m_q;
+};
+
+#endif // QMDLITEMUSIC_P_H

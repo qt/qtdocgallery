@@ -54,8 +54,12 @@ OTHER_FILES = \
 
 simulator: {
     include (simulator/simulator.pri)
-} else: linux-*: contains(QT_CONFIG, dbus): contains(tracker_enabled, yes) {
-    include (tracker/tracker.pri)
+} else: linux-* {
+    contains(QT_CONFIG, dbus): contains(tracker_enabled, yes): {
+        include (tracker/tracker.pri)
+    } else: contains(QT_CONFIG, jsondb): {
+        include (simple/simple.pri)
+    }
 } else: symbian: contains(mds_enabled, yes) {
      include (symbian/symbian.pri)
 } else {
