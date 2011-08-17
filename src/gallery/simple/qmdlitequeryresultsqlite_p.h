@@ -39,51 +39,42 @@
 **
 ****************************************************************************/
 
-//
-//  W A R N I N G
-//  -------------
-//
-// This file is not part of the Qt API.  It exists purely as an
-// implementation detail.  This header file may change from version to
-// version without notice, or even be removed.
-//
-// We mean it.
-//
+#ifndef QMDLITEQUERYRESULTSQLITE_P_H
+#define QMDLITEQUERYRESULTSQLITE_P_H
 
-#ifndef QGALLERY_P_H
-#define QGALLERY_P_H
+class QSqlQuery;
+class QSqlDatabase;
 
-#include <QtCore/qglobal.h>
+class QMdLiteQueryResultPrivate
+{
+public:
+    QMdLiteQueryResultPrivate(QSqlQuery &query) : m_query(query) {}
+    QSqlQuery m_query;
+};
 
-#if defined(Q_OS_WIN)
-#  if defined(QT_NODLL)
-#    undef QT_MAKEDLL
-#    undef QT_DLL
-#  elif defined(QT_MAKEDLL)
-#    if defined(QT_DLL)
-#      undef QT_DLL
-#    endif
-#    if defined(QT_ADDON_GALLERY_LIB)
-#      define Q_GALLERY_EXPORT Q_DECL_EXPORT
-#    else
-#      define Q_GALLERY_EXPORT Q_DECL_IMPORT
-#    endif
-#  elif defined(QT_DLL)
-#    define Q_GALLERY_EXPORT Q_DECL_EXPORT
-#  endif
-#endif
+class QMdLiteQueryResult : public QMdLiteQueryResultIf
+{
+public:
+    QMdLiteSqlQueryResult(QSqlQuery &query)
+        : d(new QMdLiteQueryResultPrivate(query)) {}
+    virtual ~QMdLiteSqlQueryResult() {}
 
-#if !defined(Q_GALLERY_EXPORT)
-#  if defined(QT_SHARED)
-#    define Q_GALLERY_EXPORT Q_DECL_EXPORT
-#  else
-#    define Q_GALLERY_EXPORT
-#  endif
-#endif
+    virtual int at() const;
+    virtual bool first();
+    virtual bool isActive() const;
+    virtual bool last();
+    virtual bool next();
+    virtual bool previous();
+    virtual bool seek(int index, bool relative = false, bool forceRefresh = false);
+    virtual int size() const;
+    virtual QVariant value(int index) const;
+    void setSqlQuery(QSqlQuery &query);
 
-#define QT_ADDON_GALLERY_BEGIN_NAMESPACE namespace QtAddOn { namespace Gallery {
-#define QT_ADDON_GALLERY_END_NAMESPACE } }
-#define QT_ADDON_USE_GALLERY_NAMESPACE using namespace QtAddOn::Gallery;
-#define QT_ADDON_GELLERY_PREPEND_NAMESPACE(name) ::QtAddOn::Gallery::name
+private:
+    friend class QMdLiteQueryResultPrivate;
+    QScopedPointer<QMdLiteQueryResultPrivate> d;
 
-#endif // QGALLERY_P_H
+    Q_DISABLE_COPY(QMdLiteSqlQueryResult);
+};
+
+#endif // QMDLITEQUERYRESULTSQLITE_P_H

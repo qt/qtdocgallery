@@ -39,51 +39,45 @@
 **
 ****************************************************************************/
 
-//
-//  W A R N I N G
-//  -------------
-//
-// This file is not part of the Qt API.  It exists purely as an
-// implementation detail.  This header file may change from version to
-// version without notice, or even be removed.
-//
-// We mean it.
-//
+#ifndef QMDLITEMUSIC_H
+#define QMDLITEMUSIC_H
 
-#ifndef QGALLERY_P_H
-#define QGALLERY_P_H
+#include <QString>
+#include <private/jsondb-connection_p.h>
+#include "qmdlite.h"
 
-#include <QtCore/qglobal.h>
+const QString cJsondbNamespace = QLatin1String("com.nokia.mp.content.");
 
-#if defined(Q_OS_WIN)
-#  if defined(QT_NODLL)
-#    undef QT_MAKEDLL
-#    undef QT_DLL
-#  elif defined(QT_MAKEDLL)
-#    if defined(QT_DLL)
-#      undef QT_DLL
-#    endif
-#    if defined(QT_ADDON_GALLERY_LIB)
-#      define Q_GALLERY_EXPORT Q_DECL_EXPORT
-#    else
-#      define Q_GALLERY_EXPORT Q_DECL_IMPORT
-#    endif
-#  elif defined(QT_DLL)
-#    define Q_GALLERY_EXPORT Q_DECL_EXPORT
-#  endif
-#endif
+class QMdLiteMusicPrivate;
+Q_ADDON_JSONDB_BEGIN_NAMESPACE
+class JsonDbConnection;
+Q_ADDON_JSONDB_END_NAMESPACE
 
-#if !defined(Q_GALLERY_EXPORT)
-#  if defined(QT_SHARED)
-#    define Q_GALLERY_EXPORT Q_DECL_EXPORT
-#  else
-#    define Q_GALLERY_EXPORT
-#  endif
-#endif
+Q_USE_JSONDB_NAMESPACE
 
-#define QT_ADDON_GALLERY_BEGIN_NAMESPACE namespace QtAddOn { namespace Gallery {
-#define QT_ADDON_GALLERY_END_NAMESPACE } }
-#define QT_ADDON_USE_GALLERY_NAMESPACE using namespace QtAddOn::Gallery;
-#define QT_ADDON_GELLERY_PREPEND_NAMESPACE(name) ::QtAddOn::Gallery::name
+class QMdLiteMusic : public QMdLite
+{
+    Q_OBJECT
 
-#endif // QGALLERY_P_H
+public:
+    explicit QMdLiteMusic(QObject *parent = 0, JsonDbConnection *jsonDbConn = 0);
+    ~QMdLiteMusic();
+
+    QMdLiteQueryResultIf *createAlbumQuery(const QStringList &properties, const QString &filterStr = QString(),
+                                           const QStringList &sortProperties = QStringList());
+    //QMdLiteQueryResult *createAlbumArtistQuery(const QString &filterStr = QString());
+    QMdLiteQueryResultIf *createArtistQuery(const QString &filterStr = QString());
+    QMdLiteQueryResultIf *createArtistAlbumsQuery(const QString &artist, const QString &filterStr);
+    QMdLiteQueryResultIf *createMusicQuery(const QStringList &properties, const QString &filterStr = QString(),
+                                           const QStringList &sortProperties = QStringList());
+
+    QMdLite::DBType dbType();
+
+private:
+    friend class QMdLiteMusicPrivate;
+    QScopedPointer<QMdLiteMusicPrivate> d;
+
+    Q_DISABLE_COPY(QMdLiteMusic)
+};
+
+#endif // QMDLITEMUSIC_H

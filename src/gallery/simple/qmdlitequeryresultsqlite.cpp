@@ -39,51 +39,64 @@
 **
 ****************************************************************************/
 
-//
-//  W A R N I N G
-//  -------------
-//
-// This file is not part of the Qt API.  It exists purely as an
-// implementation detail.  This header file may change from version to
-// version without notice, or even be removed.
-//
-// We mean it.
-//
+#include "qmdlitequeryresultsqlite_p.h"
 
-#ifndef QGALLERY_P_H
-#define QGALLERY_P_H
+#include <QSqlQuery>
+#include <QVariant>
 
-#include <QtCore/qglobal.h>
+int QMdLiteQueryResult::at () const
+{
+    return d->m_query.at ();
+}
 
-#if defined(Q_OS_WIN)
-#  if defined(QT_NODLL)
-#    undef QT_MAKEDLL
-#    undef QT_DLL
-#  elif defined(QT_MAKEDLL)
-#    if defined(QT_DLL)
-#      undef QT_DLL
-#    endif
-#    if defined(QT_ADDON_GALLERY_LIB)
-#      define Q_GALLERY_EXPORT Q_DECL_EXPORT
-#    else
-#      define Q_GALLERY_EXPORT Q_DECL_IMPORT
-#    endif
-#  elif defined(QT_DLL)
-#    define Q_GALLERY_EXPORT Q_DECL_EXPORT
-#  endif
-#endif
+bool QMdLiteQueryResult::first ()
+{
+    return d->m_query.first ();
+}
 
-#if !defined(Q_GALLERY_EXPORT)
-#  if defined(QT_SHARED)
-#    define Q_GALLERY_EXPORT Q_DECL_EXPORT
-#  else
-#    define Q_GALLERY_EXPORT
-#  endif
-#endif
+bool QMdLiteQueryResult::isActive () const
+{
+    return d->m_query.isActive();
+}
 
-#define QT_ADDON_GALLERY_BEGIN_NAMESPACE namespace QtAddOn { namespace Gallery {
-#define QT_ADDON_GALLERY_END_NAMESPACE } }
-#define QT_ADDON_USE_GALLERY_NAMESPACE using namespace QtAddOn::Gallery;
-#define QT_ADDON_GELLERY_PREPEND_NAMESPACE(name) ::QtAddOn::Gallery::name
+bool QMdLiteQueryResult::last ()
+{
+    return d->m_query.last();
+}
 
-#endif // QGALLERY_P_H
+bool QMdLiteQueryResult::next ()
+{
+    return d->m_query.next();
+}
+
+bool QMdLiteQueryResult::previous ()
+{
+    return d->m_query.previous ();
+}
+
+bool QMdLiteQueryResult::seek ( int index, bool relative )
+{
+    return d->m_query.seek(index, relative);
+}
+
+int QMdLiteQueryResult::size () const
+{
+    return d->m_query.size();
+}
+
+QVariant QMdLiteQueryResult::value ( int index ) const
+{
+    return d->m_query.value(index);
+}
+
+
+void QMdLiteQueryResult::setSqlQuery ( QSqlQuery& query  )
+{
+    d->m_query = query;
+}
+
+void QMdLiteQueryResult::isValid ( )
+{
+    return d->m_query.isValid();
+}
+
