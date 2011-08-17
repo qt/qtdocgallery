@@ -43,7 +43,7 @@
 
 #include <qgalleryfilter.h>
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 void QDeclarativeGalleryValueFilter::setValue(const QVariant &value)
 {
@@ -611,4 +611,6 @@ QGalleryFilter QDeclarativeGalleryFilterIntersection::filter() const
     return intersectionFilter;
 }
 
-QT_END_NAMESPACE
+#include "moc_qdeclarativegalleryfilter.cpp"
+
+QT_ADDON_GALLERY_END_NAMESPACE

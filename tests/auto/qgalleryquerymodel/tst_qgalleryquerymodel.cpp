@@ -52,6 +52,9 @@
 #include <QtTest/QtTest>
 
 Q_DECLARE_METATYPE(QModelIndex)
+
+QT_ADDON_USE_GALLERY_NAMESPACE
+
 Q_DECLARE_METATYPE(QGalleryAbstractRequest::State)
 
 class QtTestGallery;

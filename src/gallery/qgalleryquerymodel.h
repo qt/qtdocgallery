@@ -46,7 +46,7 @@
 
 #include <QtCore/qabstractitemmodel.h>
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 class QGalleryFilter;
 class QGalleryResultSet;
@@ -167,6 +167,6 @@ private:
     Q_PRIVATE_SLOT(d_func(), void _q_metaDataChanged(int, int, const QList<int> &))
 };
 
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE
 
 #endif

@@ -58,7 +58,7 @@
 #include <QtCore/QString>
 #include <QtCore/QMetaType>
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 struct DocGalleryImageItem
 {
     QString fileName;
@@ -80,7 +80,7 @@ struct DocGallerySimulatorData
 };
 
 void qt_registerDocGalleryTypes();
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE
 
 Q_DECLARE_METATYPE(Qt::DocGallerySimulatorData)
 

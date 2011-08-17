@@ -62,7 +62,7 @@
 #include <QtDeclarative/qdeclarative.h>
 #include <QtDeclarative/qdeclarativepropertymap.h>
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 class QDeclarativeGalleryItem : public QObject, public QDeclarativeParserStatus
 {
@@ -173,8 +173,8 @@ Q_SIGNALS:
     void itemTypeChanged();
 };
 
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE
 
-QML_DECLARE_TYPE(QT_PREPEND_NAMESPACE(QDeclarativeDocumentGalleryItem))
+QML_DECLARE_TYPE(QT_ADDON_GELLERY_PREPEND_NAMESPACE(QDeclarativeDocumentGalleryItem))
 
 #endif

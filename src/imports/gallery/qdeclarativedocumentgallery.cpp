@@ -47,7 +47,7 @@
 #include <QtDeclarative/qdeclarativecontext.h>
 #include <QtDeclarative/qdeclarativeengine.h>
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 Q_GLOBAL_STATIC(QDocumentGallery, qt_declarativeDocumentGalleryInstance)
 
@@ -83,4 +83,6 @@ QAbstractGallery *QDeclarativeDocumentGallery::gallery(QObject *object)
     return qt_declarativeDocumentGalleryInstance();
 }
 
-QT_END_NAMESPACE
+#include "moc_qdeclarativedocumentgallery.cpp"
+
+QT_ADDON_GALLERY_END_NAMESPACE

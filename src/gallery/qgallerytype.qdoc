@@ -30,7 +30,7 @@
 
     \ingroup gallery
 
-    \inmodule QtGallery
+    \inmodule QtAddOnGallery
 
     \brief The QGalleryType class provides a string constant identifying a
     gallery item type.

@@ -43,14 +43,14 @@
 
 #include "qgalleryresource.h"
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 /*!
     \class QGalleryResultSet
 
     \ingroup gallery
 
-    \inmodule QtGallery
+    \inmodule QtAddOnGallery
 
     \brief The QGalleryResultSet class provides a gallery response which returns
     the results of a query.
@@ -322,4 +322,6 @@ bool QGalleryResultSet::fetchLast()
     at \a index has changed.
 */
 
-QT_END_NAMESPACE
+#include "moc_qgalleryresultset.cpp"
+
+QT_ADDON_GALLERY_END_NAMESPACE

@@ -62,7 +62,7 @@ QT_BEGIN_HEADER
 
 class QLocalSocket;
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 namespace Simulator {
 class MobilityConnection;
@@ -92,7 +92,7 @@ private:
 };
 }
 
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE
 QT_END_HEADER
 
 #endif // DOCGALLERYCONNECTION_SIMULATOR_P_H

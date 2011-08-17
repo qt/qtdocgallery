@@ -64,7 +64,7 @@
 #include <mdequery.h>
 #include <e32std.h>
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 class QDocumentGalleryMDSUtility
 {
@@ -209,6 +209,6 @@ private:
     
 };
 
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE
 
 #endif // QDOCUMENTGALLERYMDSUTILITY_H
