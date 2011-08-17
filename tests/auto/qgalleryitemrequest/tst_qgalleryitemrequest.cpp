@@ -52,6 +52,9 @@
 #include <QtTest/QtTest>
 
 Q_DECLARE_METATYPE(QList<int>)
+
+QT_ADDON_USE_GALLERY_NAMESPACE
+
 Q_DECLARE_METATYPE(QGalleryResultSet*)
 
 class tst_QGalleryItemRequest : public QObject

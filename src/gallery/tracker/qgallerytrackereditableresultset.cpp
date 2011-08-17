@@ -49,7 +49,7 @@
 
 Q_DECLARE_METATYPE(QVector<QStringList>)
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 class QGalleryTrackerEditableResultSetPrivate : public QGalleryTrackerResultSetPrivate
 {
@@ -136,6 +136,6 @@ bool QGalleryTrackerEditableResultSet::setMetaData(int key, const QVariant &valu
     return true;
 }
 
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE
 
 #include "moc_qgallerytrackereditableresultset_p.cpp"

@@ -48,6 +48,8 @@
 
 #include <QtTest/QtTest>
 
+QT_ADDON_USE_GALLERY_NAMESPACE
+
 Q_DECLARE_METATYPE(QGalleryAbstractRequest::State)
 
 class tst_QGalleryAbstractRequest : public QObject

@@ -47,7 +47,7 @@
 //API
 #include "qgallerytyperequest.h"
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 
 QMDEGalleryTypeResultSet::QMDEGalleryTypeResultSet(QMdeSession *session, QGalleryTypeRequest *request)
@@ -214,4 +214,4 @@ void QMDEGalleryTypeResultSet::HandleQueryCompleted(CMdEQuery &aQuery, TInt aErr
     }
 }
 
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE

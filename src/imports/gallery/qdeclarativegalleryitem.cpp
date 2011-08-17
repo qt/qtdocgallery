@@ -47,7 +47,7 @@
 #include <QtDeclarative/qdeclarativeinfo.h>
 #include <QtDeclarative/qdeclarativepropertymap.h>
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 QDeclarativeGalleryItem::QDeclarativeGalleryItem(QObject *parent)
     : QObject(parent)
@@ -260,7 +260,7 @@ void QDeclarativeGalleryItem::_q_metaDataChanged(const QList<int> &keys)
 /*!
     \qmlclass DocumentGalleryItem QDeclarativeDocumentGalleryItem
 
-    \inmodule QtGallery
+    \inmodule QtAddOnGallery
     \ingroup qml-gallery
 
     \brief The DocumentGalleryItem element allows you to request information
@@ -395,4 +395,6 @@ QDeclarativeDocumentGallery::ItemType QDeclarativeDocumentGalleryItem::itemType(
     Clears the results of a request.
 */
 
-QT_END_NAMESPACE
+#include "moc_qdeclarativegalleryitem.cpp"
+
+QT_ADDON_GALLERY_END_NAMESPACE

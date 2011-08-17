@@ -53,7 +53,7 @@
 #ifndef QABSTRACTGALLERY_P_H
 #define QABSTRACTGALLERY_P_H
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 class QAbstractGallery;
 
@@ -72,6 +72,6 @@ public:
     QAbstractGallery *q_ptr;
 };
 
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE
 
 #endif

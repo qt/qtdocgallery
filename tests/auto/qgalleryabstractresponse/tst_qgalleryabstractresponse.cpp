@@ -45,6 +45,8 @@
 
 #include <QtTest/QtTest>
 
+QT_ADDON_USE_GALLERY_NAMESPACE
+
 class tst_QGalleryAbstractResponse : public QObject
 {
     Q_OBJECT

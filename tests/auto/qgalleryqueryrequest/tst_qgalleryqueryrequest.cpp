@@ -51,6 +51,8 @@
 
 #include <QtTest/QtTest>
 
+QT_ADDON_USE_GALLERY_NAMESPACE
+
 Q_DECLARE_METATYPE(QGalleryResultSet*)
 
 class tst_QGalleryQueryRequest : public QObject
