@@ -28,7 +28,7 @@
 /*!
     \class QGalleryProperty
 
-    \inmodule QtGallery
+    \inmodule QtAddOnGallery
 
     \brief The QGalleryProperty class provides a string constant identifying a
     gallery property.

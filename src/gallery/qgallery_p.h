@@ -63,7 +63,7 @@
 #    if defined(QT_DLL)
 #      undef QT_DLL
 #    endif
-#    if defined(QT_BUILD_GALLERY_LIB)
+#    if defined(QT_ADDON_GALLERY_LIB)
 #      define Q_GALLERY_EXPORT Q_DECL_EXPORT
 #    else
 #      define Q_GALLERY_EXPORT Q_DECL_IMPORT
@@ -80,6 +80,11 @@
 #    define Q_GALLERY_EXPORT
 #  endif
 #endif
+
+#define QT_ADDON_GALLERY_BEGIN_NAMESPACE namespace QtAddOn { namespace Gallery {
+#define QT_ADDON_GALLERY_END_NAMESPACE } }
+#define QT_ADDON_USE_GALLERY_NAMESPACE using namespace QtAddOn::Gallery;
+#define QT_ADDON_GELLERY_PREPEND_NAMESPACE(name) ::QtAddOn::Gallery::name
 
 #endif // QGALLERY_P_H
 

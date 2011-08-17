@@ -63,7 +63,7 @@
 #include <QtDeclarative/qdeclarative.h>
 #include <QtScript/QtScript>
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 class QDeclarativeGalleryFilterBase;
 
@@ -229,9 +229,9 @@ protected:
     QVariant itemType(const QString &type) const;
 };
 
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE
 
-QML_DECLARE_TYPE(QT_PREPEND_NAMESPACE(QDeclarativeDocumentGalleryModel))
+QML_DECLARE_TYPE(QT_ADDON_GELLERY_PREPEND_NAMESPACE(QDeclarativeDocumentGalleryModel))
 
 #endif
 

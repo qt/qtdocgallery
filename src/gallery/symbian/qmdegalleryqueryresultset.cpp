@@ -47,7 +47,7 @@
 #include "qdocumentgallery.h"
 #include "qgalleryqueryrequest.h"
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 QMDEGalleryQueryResultSet::QMDEGalleryQueryResultSet(QMdeSession *session, QObject *parent)
 :QMDEGalleryResultSet(parent)
@@ -356,4 +356,4 @@ void QMDEGalleryQueryResultSet::handleUpdatedResults()
     m_currentObjectIDs = m_updatedObjectIDs;
 }
 
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE
