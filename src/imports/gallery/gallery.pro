@@ -1,5 +1,5 @@
 TARGET  = declarative_gallery
-TARGETPATH = Qt/gallery
+TARGETPATH = QtAddOn/gallery
 
 include(qgalleryimport.pri)
 target.path = $$[QT_INSTALL_IMPORTS]/$$TARGETPATH

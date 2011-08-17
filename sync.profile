@@ -1,16 +1,16 @@
 %modules = ( # path to module name map
-    "QtGallery" => "$basedir/src/gallery",
+    "QtAddOnGallery" => "$basedir/src/gallery",
 );
 %moduleheaders = ( # restrict the module headers to those found in relative path
 );
 %classnames = (
-    "qtgalleryversion.h" => "QtGalleryVersion",
+    "qtaddongalleryversion.h" => "QtAddOnGalleryVersion",
 );
 %mastercontent = (
-    "gallery" => "#include <QtGallery/QtGallery>\n",
+    "gallery" => "#include <QtAddOnGallery/QtAddOnGallery>\n",
 );
 %modulepris = (
-    "QtGallery" => "$basedir/modules/qt_gallery.pri",
+    "QtAddOnGallery" => "$basedir/modules/qt_gallery.pri",
 );
 # Module dependencies.
 # Every module that is required to build this module should have one entry.

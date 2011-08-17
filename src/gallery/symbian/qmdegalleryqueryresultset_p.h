@@ -58,7 +58,7 @@
 #include <mdequery.h>
 #include <mdesession.h>
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 class QGalleryQueryRequest;
 
@@ -122,6 +122,6 @@ private:
     bool m_query_running;
 };
 
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE
 
 #endif // QMDEGALLERYQUERYRESULTSET_H

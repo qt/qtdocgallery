@@ -48,7 +48,9 @@
 
 #include <QtTest/QtTest>
 
-Q_DECLARE_METATYPE(QGalleryAbstractRequest::State)
+Q_DECLARE_METATYPE(QT_ADDON_GELLERY_PREPEND_NAMESPACE(QGalleryAbstractRequest::State))
+
+QT_ADDON_USE_GALLERY_NAMESPACE
 
 class tst_QGalleryAbstractRequest : public QObject
 {

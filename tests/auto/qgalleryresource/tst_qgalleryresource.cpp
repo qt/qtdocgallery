@@ -45,7 +45,9 @@
 
 #include <QtTest/QtTest>
 
-Q_DECLARE_METATYPE(QT_PREPEND_NAMESPACE(QGalleryResource))
+Q_DECLARE_METATYPE(QT_ADDON_GELLERY_PREPEND_NAMESPACE(QGalleryResource))
+
+QT_ADDON_USE_GALLERY_NAMESPACE
 
 class tst_QGalleryResource : public QObject
 {
