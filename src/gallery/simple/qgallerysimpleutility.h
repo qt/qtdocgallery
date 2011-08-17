@@ -39,51 +39,80 @@
 **
 ****************************************************************************/
 
-//
-//  W A R N I N G
-//  -------------
-//
-// This file is not part of the Qt API.  It exists purely as an
-// implementation detail.  This header file may change from version to
-// version without notice, or even be removed.
-//
-// We mean it.
-//
+#ifndef QDOCUMENTGALLERYSIMPLEUTILITY_H
+#define QDOCUMENTGALLERYSIMPLEUTILITY_H
 
-#ifndef QGALLERY_P_H
-#define QGALLERY_P_H
+#include <QString>
+#include <QDateTime>
+//API
+#include "qgalleryqueryrequest.h"
 
-#include <QtCore/qglobal.h>
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
-#if defined(Q_OS_WIN)
-#  if defined(QT_NODLL)
-#    undef QT_MAKEDLL
-#    undef QT_DLL
-#  elif defined(QT_MAKEDLL)
-#    if defined(QT_DLL)
-#      undef QT_DLL
-#    endif
-#    if defined(QT_ADDON_GALLERY_LIB)
-#      define Q_GALLERY_EXPORT Q_DECL_EXPORT
-#    else
-#      define Q_GALLERY_EXPORT Q_DECL_IMPORT
-#    endif
-#  elif defined(QT_DLL)
-#    define Q_GALLERY_EXPORT Q_DECL_EXPORT
-#  endif
-#endif
+class QDocumentGallerySimpleUtility
+{
+public:
+    enum TPropertyKeys {
+        EUri = 0,
+        //EFileSize,
+        //ELastModified,
+        ETitle,
+        //EMime,
+        //EAuthor,
+        EArtist,
+        EAlbumArtist,
+        EAlbumTitle,
+        EAlbumArt,
+        ECount,
+        EAlbumCount,
+        EGenre,
+        ETrackNumber,
+        ESongCount,
+        EAlbums,
+        ECovers,
+        EAlbumId,
+        //ECopyright,
+        //EDescription,
+        EComments/*,
+        ERating,
+        EDuration,
+        EPerformer,
+        EAudioCodec,
+        EAudioBitrate,
+        EPlayCount,
+        ESampleRate,
+        EWidth,
+        EHeight,
+        EOrientation,
+        EDateTaken,
+        ECameraManufacturer,
+        ECameraModel,
+        EExposureProgram,
+        EExposureTime,
+        EFNumber,
+        EFlashEnabled,
+        EFocalLength,
+        EMeteringMode,
+        EWhiteBalance,
+        EVideoBitrate,
+        ELanguage,
+        EFrameRate,
+        EResumePosition*/
+    };
 
-#if !defined(Q_GALLERY_EXPORT)
-#  if defined(QT_SHARED)
-#    define Q_GALLERY_EXPORT Q_DECL_EXPORT
-#  else
-#    define Q_GALLERY_EXPORT
-#  endif
-#endif
+    QDocumentGallerySimpleUtility();
+    ~QDocumentGallerySimpleUtility();
 
-#define QT_ADDON_GALLERY_BEGIN_NAMESPACE namespace QtAddOn { namespace Gallery {
-#define QT_ADDON_GALLERY_END_NAMESPACE } }
-#define QT_ADDON_USE_GALLERY_NAMESPACE using namespace QtAddOn::Gallery;
-#define QT_ADDON_GELLERY_PREPEND_NAMESPACE(name) ::QtAddOn::Gallery::name
+    /**
+     * Maps Document Gallery itemtype to MdE object class
+     *
+     */
+    static void GetDataFieldsForItemType(QStringList &propertyList, QString itemType);
+    static int GetPropertyKey(const QString &property);
+    static QVariant::Type GetPropertyType(int key);
+    static int GetPropertyIndex(int key, const QString &itemType);
+};
 
-#endif // QGALLERY_P_H
+QT_ADDON_GALLERY_END_NAMESPACE
+
+#endif // QDOCUMENTGALLERYSIMPLEUTILITY_H

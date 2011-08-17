@@ -39,51 +39,39 @@
 **
 ****************************************************************************/
 
-//
-//  W A R N I N G
-//  -------------
-//
-// This file is not part of the Qt API.  It exists purely as an
-// implementation detail.  This header file may change from version to
-// version without notice, or even be removed.
-//
-// We mean it.
-//
+//Backend
+#include "qsimplegalleryitemresultset.h"
+#include "qgallerysimpleutility.h"
+//API
+#include "qdocumentgallery.h"
+#include "qgalleryitemrequest.h"
 
-#ifndef QGALLERY_P_H
-#define QGALLERY_P_H
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
-#include <QtCore/qglobal.h>
+QSimpleGalleryItemResultSet::QSimpleGalleryItemResultSet(QObject *parent)
+:QSimpleGalleryResultSet(parent)
+{
+    m_request = static_cast<QGalleryItemRequest *>(parent);
+    //m_live = m_request->autoUpdate();
 
-#if defined(Q_OS_WIN)
-#  if defined(QT_NODLL)
-#    undef QT_MAKEDLL
-#    undef QT_DLL
-#  elif defined(QT_MAKEDLL)
-#    if defined(QT_DLL)
-#      undef QT_DLL
-#    endif
-#    if defined(QT_ADDON_GALLERY_LIB)
-#      define Q_GALLERY_EXPORT Q_DECL_EXPORT
-#    else
-#      define Q_GALLERY_EXPORT Q_DECL_IMPORT
-#    endif
-#  elif defined(QT_DLL)
-#    define Q_GALLERY_EXPORT Q_DECL_EXPORT
-#  endif
-#endif
+    createQuery();
+}
 
-#if !defined(Q_GALLERY_EXPORT)
-#  if defined(QT_SHARED)
-#    define Q_GALLERY_EXPORT Q_DECL_EXPORT
-#  else
-#    define Q_GALLERY_EXPORT
-#  endif
-#endif
+QSimpleGalleryItemResultSet::~QSimpleGalleryItemResultSet()
+{
+}
 
-#define QT_ADDON_GALLERY_BEGIN_NAMESPACE namespace QtAddOn { namespace Gallery {
-#define QT_ADDON_GALLERY_END_NAMESPACE } }
-#define QT_ADDON_USE_GALLERY_NAMESPACE using namespace QtAddOn::Gallery;
-#define QT_ADDON_GELLERY_PREPEND_NAMESPACE(name) ::QtAddOn::Gallery::name
+QString QSimpleGalleryItemResultSet::itemType() const
+{
+    if (isValid()) {
+        return m_request->itemType();
+    }
+    return QString();
+}
 
-#endif // QGALLERY_P_H
+void QSimpleGalleryItemResultSet::createQuery()
+{
+}
+
+#include "moc_qsimplegalleryitemresultset.cpp"
+QT_ADDON_GALLERY_END_NAMESPACE
