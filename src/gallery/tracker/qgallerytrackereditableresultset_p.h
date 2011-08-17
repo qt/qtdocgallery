@@ -55,7 +55,7 @@
 
 #include "qgallerytrackerresultset_p.h"
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 class QGalleryTrackerMetaDataEdit;
 
@@ -79,6 +79,6 @@ private:
     Q_PRIVATE_SLOT(d_func(), void _q_editFinished(QGalleryTrackerMetaDataEdit *))
 };
 
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE
 
 #endif

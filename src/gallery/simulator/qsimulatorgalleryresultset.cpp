@@ -45,7 +45,7 @@
 
 #include <QtCore/QDateTime>
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 namespace Utility {
 enum PropertyKeys {
@@ -261,4 +261,4 @@ QFileInfo QSimulatorGalleryResultSet::currentFileInfo() const
         return QFileInfo(filePath);
 }
 
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE

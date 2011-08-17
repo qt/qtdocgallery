@@ -47,7 +47,7 @@
 
 #include <QtDeclarative/qdeclarativeinfo.h>
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 QDeclarativeGalleryQueryModel::QDeclarativeGalleryQueryModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -495,7 +495,7 @@ void QDeclarativeGalleryQueryModel::_q_itemsChanged(int index, int count)
 /*!
     \qmlclass DocumentGalleryModel QDeclarativeDocumentGalleryModel
 
-    \inmodule QtGallery
+    \inmodule QtAddOnGallery
 
     \brief The DocumentGalleryModel element is used to specify a model
     containing items from the document gallery.
@@ -751,4 +751,6 @@ QVariant QDeclarativeDocumentGalleryModel::itemType(const QString &type) const
     return QVariant::fromValue(QDeclarativeDocumentGallery::itemTypeFromString(type));
 }
 
-QT_END_NAMESPACE
+#include "moc_qdeclarativegalleryquerymodel.cpp"
+
+QT_ADDON_GALLERY_END_NAMESPACE

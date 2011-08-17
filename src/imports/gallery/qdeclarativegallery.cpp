@@ -50,7 +50,7 @@
 #include "qdeclarativegalleryquerymodel.h"
 #include "qdeclarativegallerytype.h"
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 class QGalleryDeclarativeModule : public QDeclarativeExtensionPlugin
 {
@@ -85,6 +85,6 @@ public:
 
 #include "qdeclarativegallery.moc"
 
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE
 
-Q_EXPORT_PLUGIN2(qgallerydeclarativemodule, QT_PREPEND_NAMESPACE(QGalleryDeclarativeModule))
+Q_EXPORT_PLUGIN2(qgallerydeclarativemodule, QT_ADDON_GELLERY_PREPEND_NAMESPACE(QGalleryDeclarativeModule))

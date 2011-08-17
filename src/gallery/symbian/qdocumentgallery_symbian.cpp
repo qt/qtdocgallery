@@ -57,7 +57,7 @@
 #include "qmdegallerycategoryresultset_p.h"
 #include "qmdesession_p.h"
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 class QDocumentGalleryPrivate : public QAbstractGalleryPrivate
 {
@@ -187,4 +187,4 @@ QGalleryAbstractResponse* QDocumentGallery::createResponse(QGalleryAbstractReque
     }
 }
 
-QT_END_NAMESPACE
+QT_ADDON_GALLERY_END_NAMESPACE

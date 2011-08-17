@@ -1,6 +1,6 @@
 load(qt_module)
 
-TARGET = QtGallery
+TARGET = QtAddOnGallery
 QPRO_PWD = $PWD
 
 CONFIG += module
@@ -8,7 +8,7 @@ MODULE_PRI = ../../modules/qt_gallery.pri
 
 QT = core
 
-DEFINES += QT_BUILD_GALLERY_LIB QT_MAKEDLL
+DEFINES += QT_MAKEDLL
 
 load(qt_module_config)
 
@@ -62,4 +62,4 @@ simulator: {
     DEFINES += QT_DOCUMENT_GALLERY_NULL
 }
 
-HEADERS = qtgalleryversion.h $$PUBLIC_HEADERS $$PRIVATE_HEADERS
+HEADERS = qtaddongalleryversion.h $$PUBLIC_HEADERS $$PRIVATE_HEADERS

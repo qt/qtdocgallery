@@ -44,7 +44,7 @@
 
 #include <QtCore/qstringlist.h>
 
-QT_BEGIN_NAMESPACE
+QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 /*!
     \class QDocumentGallery
@@ -52,7 +52,7 @@ QT_BEGIN_NAMESPACE
     \ingroup gallery
     \ingroup gallery-galleries
 
-    \inmodule QtGallery
+    \inmodule QtAddOnGallery
 
     \brief The QDocumentGallery class provides access to a gallery of documents
     and media present on a device.
@@ -985,13 +985,10 @@ Q_DEFINE_GALLERY_PROPERTY(QDocumentGallery, count)
 QDocumentGallery::QDocumentGallery(QObject *parent)
     : QAbstractGallery(parent)
 {
-
 }
-
 
 QDocumentGallery::~QDocumentGallery()
 {
-
 }
 
 bool QDocumentGallery::isRequestSupported(QGalleryAbstractRequest::RequestType) const
@@ -1014,7 +1011,8 @@ QGalleryAbstractResponse *QDocumentGallery::createResponse(QGalleryAbstractReque
     return 0;
 }
 
-#endif
+#include "moc_qdocumentgallery.cpp"
 
-QT_END_NAMESPACE
+#endif // QT_DOCUMENT_GALLERY_NULL
 
+QT_ADDON_GALLERY_END_NAMESPACE
