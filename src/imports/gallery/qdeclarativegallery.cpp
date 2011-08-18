@@ -58,7 +58,7 @@ class QGalleryDeclarativeModule : public QDeclarativeExtensionPlugin
 public:
     virtual void registerTypes(const char *uri)
     {
-        Q_ASSERT(QLatin1String(uri) == QLatin1String("QtMobility.gallery"));
+        Q_ASSERT(QLatin1String(uri) == QLatin1String("QtAddOn.gallery"));
 
         qRegisterMetaType<QDeclarativeDocumentGallery::ItemType>();
 
