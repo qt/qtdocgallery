@@ -8,6 +8,7 @@ MODULE_PRI = ../../modules/qt_gallery.pri
 
 QT = core
 
+DEFINES += QT_BUILD_ADDON_GALLERY_LIB
 DEFINES += QT_MAKEDLL
 
 load(qt_module_config)

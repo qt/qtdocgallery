@@ -63,13 +63,13 @@
 #    if defined(QT_DLL)
 #      undef QT_DLL
 #    endif
-#    if defined(QT_ADDON_GALLERY_LIB)
+#    if defined(QT_BUILD_ADDON_GALLERY_LIB)
 #      define Q_GALLERY_EXPORT Q_DECL_EXPORT
 #    else
 #      define Q_GALLERY_EXPORT Q_DECL_IMPORT
 #    endif
 #  elif defined(QT_DLL)
-#    define Q_GALLERY_EXPORT Q_DECL_EXPORT
+#    define Q_GALLERY_EXPORT Q_DECL_IMPORT
 #  endif
 #endif
 
