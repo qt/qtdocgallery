@@ -535,14 +535,14 @@ static bool qt_writeCondition(
 
 static QString qt_encodedFilePathUrl(const QString &filePath)
 {
-    QString encodedUrl = QString::fromUtf8(QUrl::fromLocalFile(filePath).toEncoded());
+    QString encodedUrl = QUrl::fromLocalFile(filePath).toString(QUrl::FullyEncoded);
     encodedUrl.replace(QLatin1Char('\''), QLatin1String("\\\'"));
     return encodedUrl;
 }
 
 static QString qt_encodedFilePathFragment(const QString &fragment)
 {
-    QString encodedFragment = QString::fromUtf8(QUrl(fragment).toEncoded());
+    QString encodedFragment = QUrl(fragment).toString(QUrl::FullyEncoded);
     encodedFragment.replace(QLatin1Char('\''), QLatin1String("\\\'"));
     return encodedFragment;
 }
