@@ -63,8 +63,6 @@ simulator: {
     } else: {
         DEFINES += QT_DOCUMENT_GALLERY_NULL
     }
-} else: symbian: contains(mds_enabled, yes) {
-     include (symbian/symbian.pri)
 } else {
     DEFINES += QT_DOCUMENT_GALLERY_NULL
 }

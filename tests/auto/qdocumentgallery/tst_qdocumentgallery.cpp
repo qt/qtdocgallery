@@ -65,7 +65,7 @@ private:
 
 void tst_QDocumentGallery::isRequestSupported()
 {
-#if (defined(Q_OS_LINUX) && (defined(QT_TRACKER_ENABLED) || defined(QT_SIMPLE_ENABLED))) || defined (Q_OS_SYMBIAN)
+#if (defined(Q_OS_LINUX) && (defined(QT_TRACKER_ENABLED) || defined(QT_SIMPLE_ENABLED)))
     const bool platformSupported = true;
 #else
     const bool platformSupported = false;
@@ -110,19 +110,6 @@ void tst_QDocumentGallery::itemTypeProperties_data()
             << QDocumentGallery::subject
             << QDocumentGallery::title
             << QDocumentGallery::url;
-#elif defined (Q_OS_SYMBIAN)
-            << QDocumentGallery::url
-            << QDocumentGallery::fileName
-            << QDocumentGallery::filePath
-            << QDocumentGallery::fileSize
-            << QDocumentGallery::lastModified
-            << QDocumentGallery::title
-            << QDocumentGallery::mimeType
-            << QDocumentGallery::author
-            << QDocumentGallery::copyright
-            << QDocumentGallery::description
-            << QDocumentGallery::comments
-            << QDocumentGallery::rating
 #endif
             ;
     QTest::newRow("File") << QString(QDocumentGallery::File) << (QStringList(fileProperties));
@@ -156,19 +143,6 @@ void tst_QDocumentGallery::itemTypeProperties_data()
             << QDocumentGallery::genre
             << QLatin1String("albumArt")
 #endif
-#elif defined (Q_OS_SYMBIAN)
-            << QDocumentGallery::duration
-            << QDocumentGallery::performer
-            << QDocumentGallery::audioCodec
-            << QDocumentGallery::audioBitRate
-            << QDocumentGallery::playCount
-            << QDocumentGallery::sampleRate
-            << QDocumentGallery::albumTitle
-            << QDocumentGallery::trackNumber
-            << QDocumentGallery::albumArtist
-            << QDocumentGallery::artist
-            << QDocumentGallery::composer
-            << QDocumentGallery::genre
 #endif
     );
 
@@ -193,41 +167,8 @@ void tst_QDocumentGallery::itemTypeProperties_data()
 #if defined(Q_OS_LINUX) && defined(QT_TRACKER_ENABLED)
                 << QDocumentGallery::count
                 << QDocumentGallery::title
-#elif defined (Q_OS_SYMBIAN)
-                << QDocumentGallery::url
-                << QDocumentGallery::title
 #endif
     );
-
-#if defined (Q_OS_SYMBIAN)
-    QTest::newRow("Image") << QString(QDocumentGallery::Image) << (QStringList(fileProperties)
-            << QDocumentGallery::width
-            << QDocumentGallery::height
-            << QDocumentGallery::orientation
-            << QDocumentGallery::dateTaken
-            << QDocumentGallery::cameraManufacturer
-            << QDocumentGallery::cameraModel
-            << QDocumentGallery::exposureProgram
-            << QDocumentGallery::exposureTime
-            << QDocumentGallery::fNumber
-            << QDocumentGallery::flashEnabled
-            << QDocumentGallery::focalLength
-            << QDocumentGallery::meteringMode
-            << QDocumentGallery::whiteBalance
-    );
-    QTest::newRow("Video") << QString(QDocumentGallery::Video) << (QStringList(fileProperties)
-            << QDocumentGallery::duration
-            << QDocumentGallery::performer
-            << QDocumentGallery::videoBitRate
-            << QDocumentGallery::playCount
-            << QDocumentGallery::width
-            << QDocumentGallery::height
-            << QDocumentGallery::language
-            << QDocumentGallery::frameRate
-            << QDocumentGallery::resumePosition
-    );
-#endif
-
 }
 
 void tst_QDocumentGallery::itemTypeProperties()
@@ -275,7 +216,7 @@ void tst_QDocumentGallery::propertyAttributes_data()
     QTest::newRow("File.fileName")
             << QString(QDocumentGallery::File)
             << QString(QDocumentGallery::fileName)
-#if (defined(Q_OS_LINUX) && defined(QT_TRACKER_ENABLED)) || defined (Q_OS_SYMBIAN)
+#if (defined(Q_OS_LINUX) && defined(QT_TRACKER_ENABLED))
             << (QGalleryProperty::CanRead
                     | QGalleryProperty::CanFilter
                     | QGalleryProperty::CanSort);
@@ -285,7 +226,7 @@ void tst_QDocumentGallery::propertyAttributes_data()
     QTest::newRow("File.filePath")
                     << QString(QDocumentGallery::File)
                     << QString(QDocumentGallery::filePath)
-#if (defined(Q_OS_LINUX) && defined(QT_TRACKER_ENABLED)) || defined (Q_OS_SYMBIAN)
+#if (defined(Q_OS_LINUX) && defined(QT_TRACKER_ENABLED))
                     << (QGalleryProperty::CanRead | QGalleryProperty::CanFilter);
 #else
                     << QGalleryProperty::Attributes();
@@ -294,7 +235,7 @@ void tst_QDocumentGallery::propertyAttributes_data()
     QTest::newRow("Audio.albumTitle")
             << QString(QDocumentGallery::Audio)
             << QString(QDocumentGallery::albumTitle)
-#if (defined(Q_OS_LINUX) && defined(QT_TRACKER_ENABLED)) || defined (Q_OS_SYMBIAN)
+#if (defined(Q_OS_LINUX) && defined(QT_TRACKER_ENABLED))
             << (QGalleryProperty::CanRead
                     | QGalleryProperty::CanFilter
                     | QGalleryProperty::CanSort);
