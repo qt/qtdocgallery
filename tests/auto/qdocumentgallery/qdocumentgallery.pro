@@ -7,5 +7,3 @@ linux-*: {
 
     contains(QT_CONFIG, jsondb): DEFINES += QT_SIMPLE_ENABLED
 }
-
-symbian: TARGET.CAPABILITY = ReadDeviceData ReadUserData WriteDeviceData
