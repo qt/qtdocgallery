@@ -59,7 +59,7 @@
 #include <jsondb-client.h>
 #include <private/jsondb-strings_p.h>
 #include "qmdlitequeryresultjsondb_p.h"
-Q_USE_JSONDB_NAMESPACE
+QT_ADDON_JSONDB_USE_NAMESPACE
 #endif
 
 QMdLitePrivate::QMdLitePrivate ()

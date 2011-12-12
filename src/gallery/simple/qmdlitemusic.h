@@ -49,11 +49,11 @@
 const QString cJsondbNamespace = QLatin1String("com.nokia.mp.content.");
 
 class QMdLiteMusicPrivate;
-Q_ADDON_JSONDB_BEGIN_NAMESPACE
+QT_ADDON_JSONDB_BEGIN_NAMESPACE
 class JsonDbConnection;
-Q_ADDON_JSONDB_END_NAMESPACE
+QT_ADDON_JSONDB_END_NAMESPACE
 
-Q_USE_JSONDB_NAMESPACE
+QT_ADDON_JSONDB_USE_NAMESPACE
 
 class QMdLiteMusic : public QMdLite
 {

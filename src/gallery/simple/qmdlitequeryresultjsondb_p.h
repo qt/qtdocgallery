@@ -56,12 +56,12 @@
 // When to update the cache
 #define SAFETY_MARGIN 15
 
-Q_ADDON_JSONDB_BEGIN_NAMESPACE
+QT_ADDON_JSONDB_BEGIN_NAMESPACE
 class JsonDbConnection;
 class JsonDbClient;
-Q_ADDON_JSONDB_END_NAMESPACE
+QT_ADDON_JSONDB_END_NAMESPACE
 
-Q_USE_JSONDB_NAMESPACE
+QT_ADDON_JSONDB_USE_NAMESPACE
 class QMdLiteQueryResult;
 
 class QMdLiteQueryResultPrivate : public QObject

@@ -53,10 +53,10 @@
 class QDqlDatabase;
 #else
 #include <private/jsondb-connection_p.h>
-Q_ADDON_JSONDB_BEGIN_NAMESPACE
+QT_ADDON_JSONDB_BEGIN_NAMESPACE
 class JsonDbConnection;
-Q_ADDON_JSONDB_END_NAMESPACE
-Q_USE_JSONDB_NAMESPACE
+QT_ADDON_JSONDB_END_NAMESPACE
+QT_ADDON_JSONDB_USE_NAMESPACE
 #endif
 
 class QMdLitePrivate : public QObject
