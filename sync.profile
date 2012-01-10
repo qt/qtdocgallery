@@ -24,4 +24,5 @@
     "qtsvg" => "refs/heads/master",
     "qtxmlpatterns" => "refs/heads/master",
     "qtdeclarative" => "refs/heads/master",
+    "qtjsbackend" => "refs/heads/master",
 );
