@@ -1,6 +1,6 @@
 INCLUDEPATH += $$PWD
 
-QT += gui jsondb jsondb-private
+QT += gui jsondbcompat jsondbcompat-private
 
 PRIVATE_HEADERS += \
     $$PWD/qsimplegalleryresultset.h \
