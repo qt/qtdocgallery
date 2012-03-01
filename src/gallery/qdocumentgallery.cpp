@@ -64,13 +64,13 @@ QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
     \list
 
-    \o QGalleryQueryRequest can be used with QDocumentGallery to find and
+    \li QGalleryQueryRequest can be used with QDocumentGallery to find and
     navigate items present on a device.
 
-    \o QGalleryItemRequest provides an API to query information about a single
+    \li QGalleryItemRequest provides an API to query information about a single
     item in a QDocumentGallery.
 
-    \o QGalleryTypeRequest provides a query for information about an item type
+    \li QGalleryTypeRequest provides a query for information about an item type
     supported by QDocumentGallery.
 
     \endlist
@@ -83,24 +83,24 @@ QT_ADDON_GALLERY_BEGIN_NAMESPACE
     \section3 File types
 
     \list
-    \o \l File
-    \o \l Folder
-    \o \l Document
-    \o \l Text
-    \o \l Audio
-    \o \l Image
-    \o \l Video
-    \o \l Playlist
+    \li \l File
+    \li \l Folder
+    \li \l Document
+    \li \l Text
+    \li \l Audio
+    \li \l Image
+    \li \l Video
+    \li \l Playlist
     \endlist
 
     \section3 Categorical types
 
     \list
-    \o \l Artist
-    \o \l AlbumArtist
-    \o \l Album
-    \o \l AudioGenre
-    \o \l PhotoAlbum
+    \li \l Artist
+    \li \l AlbumArtist
+    \li \l Album
+    \li \l AudioGenre
+    \li \l PhotoAlbum
     \endlist
 
     \section2 Properties
@@ -117,22 +117,22 @@ QT_ADDON_GALLERY_BEGIN_NAMESPACE
     for the categorical types.
 
     \list
-    \o \l author
-    \o \l comments
-    \o \l copyright
-    \o \l description
-    \o \l keywords
-    \o \l language
-    \o \l rating
-    \o \l subject
-    \o \l title
-    \o \l url
+    \li \l author
+    \li \l comments
+    \li \l copyright
+    \li \l description
+    \li \l keywords
+    \li \l language
+    \li \l rating
+    \li \l subject
+    \li \l title
+    \li \l url
     \endlist
 
     \section3 Common type properties
 
     \list
-    \o \l count
+    \li \l count
     \endlist
 */
 
@@ -157,14 +157,14 @@ QT_ADDON_GALLERY_BEGIN_NAMESPACE
     Properties typically available from files include:
 
     \list
-    \o \l fileExtension
-    \o \l fileName
-    \o \l filePath
-    \o \l fileSize
-    \o \l lastModified
-    \o \l lastAccessed
-    \o \l mimeType
-    \o \l path
+    \li \l fileExtension
+    \li \l fileName
+    \li \l filePath
+    \li \l fileSize
+    \li \l lastModified
+    \li \l lastAccessed
+    \li \l mimeType
+    \li \l path
     \endlist
 */
 
@@ -191,9 +191,9 @@ Q_DEFINE_GALLERY_TYPE(QDocumentGallery, Folder)
     also provide:
 
     \list
-    \o \l created
-    \o \l pageCount
-    \o \l wordCount
+    \li \l created
+    \li \l pageCount
+    \li \l wordCount
     \endlist
 */
 
@@ -209,7 +209,7 @@ Q_DEFINE_GALLERY_TYPE(QDocumentGallery, Document)
     also provide:
 
     \list
-    \o \l wordCount
+    \li \l wordCount
     \endlist
 */
 
@@ -224,23 +224,23 @@ Q_DEFINE_GALLERY_TYPE(QDocumentGallery, Text)
     also provide:
 
     \list
-    \o \l albumArtist
-    \o \l albumTitle
-    \o \l artist
-    \o \l audioBitRate
-    \o \l audioCodec
-    \o \l channelCount
-    \o \l composer
-    \o \l discNumber
-    \o \l genre
-    \o \l duration
-    \o \l lastPlayed
-    \o \l lyrics
-    \o \l performer
-    \o \l playCount
-    \o \l producer
-    \o \l sampleRate
-    \o \l trackNumber
+    \li \l albumArtist
+    \li \l albumTitle
+    \li \l artist
+    \li \l audioBitRate
+    \li \l audioCodec
+    \li \l channelCount
+    \li \l composer
+    \li \l discNumber
+    \li \l genre
+    \li \l duration
+    \li \l lastPlayed
+    \li \l lyrics
+    \li \l performer
+    \li \l playCount
+    \li \l producer
+    \li \l sampleRate
+    \li \l trackNumber
     \endlist
 */
 
@@ -255,19 +255,19 @@ Q_DEFINE_GALLERY_TYPE(QDocumentGallery, Audio)
     also provide:
 
     \list
-    \o \l cameraManufacturer
-    \o \l cameraModel
-    \o \l dateTaken
-    \o \l exposureProgram
-    \o \l exposureTime
-    \o \l flashEnabled
-    \o \l fNumber
-    \o \l focalLength
-    \o \l height
-    \o \l meteringMode
-    \o \l orientation
-    \o \l width
-    \o \l whiteBalance
+    \li \l cameraManufacturer
+    \li \l cameraModel
+    \li \l dateTaken
+    \li \l exposureProgram
+    \li \l exposureTime
+    \li \l flashEnabled
+    \li \l fNumber
+    \li \l focalLength
+    \li \l height
+    \li \l meteringMode
+    \li \l orientation
+    \li \l width
+    \li \l whiteBalance
     \endlist
 */
 
@@ -282,22 +282,22 @@ Q_DEFINE_GALLERY_TYPE(QDocumentGallery, Image)
     also provide:
 
     \list
-    \o \l audioBitRate
-    \o \l audioCodec
-    \o \l channelCount
-    \o \l director
-    \o \l duration
-    \o \l frameRate
-    \o \l height
-    \o \l lastPlayed
-    \o \l performer
-    \o \l playCount
-    \o \l producer
-    \o \l resumePosition
-    \o \l sampleRate
-    \o \l videoBitRate
-    \o \l videoCodec
-    \o \l width
+    \li \l audioBitRate
+    \li \l audioCodec
+    \li \l channelCount
+    \li \l director
+    \li \l duration
+    \li \l frameRate
+    \li \l height
+    \li \l lastPlayed
+    \li \l performer
+    \li \l playCount
+    \li \l producer
+    \li \l resumePosition
+    \li \l sampleRate
+    \li \l videoBitRate
+    \li \l videoCodec
+    \li \l width
     \endlist
 */
 
@@ -312,8 +312,8 @@ Q_DEFINE_GALLERY_TYPE(QDocumentGallery, Video)
     may also provide:
 
     \list
-    \o \l duration
-    \o \l trackCount
+    \li \l duration
+    \li \l trackCount
     \endlist
 
 */
@@ -328,9 +328,9 @@ Q_DEFINE_GALLERY_TYPE(QDocumentGallery, Playlist)
     Properties typically available from artists include:
 
     \list
-    \o \l artist
-    \o \l duration
-    \o \l trackCount
+    \li \l artist
+    \li \l duration
+    \li \l trackCount
     \endlist
 */
 
@@ -344,10 +344,10 @@ Q_DEFINE_GALLERY_TYPE(QDocumentGallery, Artist)
     Properties typically available from album artists include:
 
     \list
-    \o \l albumArtist
-    \o \l artist
-    \o \l duration
-    \o \l trackCount
+    \li \l albumArtist
+    \li \l artist
+    \li \l duration
+    \li \l trackCount
     \endlist
 */
 
@@ -361,11 +361,11 @@ Q_DEFINE_GALLERY_TYPE(QDocumentGallery, AlbumArtist)
     Properties typically available from albums include:
 
     \list
-    \o \l albumArtist
-    \o \l albumTitle
-    \o \l artist
-    \o \l duration
-    \o \l trackCount
+    \li \l albumArtist
+    \li \l albumTitle
+    \li \l artist
+    \li \l duration
+    \li \l trackCount
     \endlist
 */
 
@@ -379,9 +379,9 @@ Q_DEFINE_GALLERY_TYPE(QDocumentGallery, Album)
     Properties typically available from genres include:
 
     \list
-    \o \l duration
-    \o \l genre
-    \o \l trackCount
+    \li \l duration
+    \li \l genre
+    \li \l trackCount
     \endlist
 */
 
@@ -393,7 +393,7 @@ Q_DEFINE_GALLERY_TYPE(QDocumentGallery, AudioGenre)
     This type matches all photo albums in the document gallery.
 
     \list
-    \o \l count
+    \li \l count
     \endlist
 */
 

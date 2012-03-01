@@ -249,7 +249,7 @@ void QDeclarativeGalleryType::_q_metaDataChanged(const QList<int> &keys)
     \brief The DocumentGalleryType element allows you to request information
     about an item type from the document gallery.
 
-    This element is part of the \bold {QtMobility.gallery 1.1} module.
+    This element is part of the \b {QtMobility.gallery 1.1} module.
 
     \sa DocumentGalleryModel, DocumentGalleryItem
 */
@@ -274,15 +274,15 @@ void QDeclarativeDocumentGalleryType::classBegin()
     This property holds the status of a type request.  It can be one of:
 
     \list
-    \o Null No \l itemType has been specified.
-    \o Active Information about an \l itemType is being fetched from the gallery.
-    \o Finished Information about an \l itemType is available.
-    \o Idle Information about an \l itemType which will be automatically
+    \li Null No \l itemType has been specified.
+    \li Active Information about an \l itemType is being fetched from the gallery.
+    \li Finished Information about an \l itemType is available.
+    \li Idle Information about an \l itemType which will be automatically
     updated is available.
-    \o Canceling The query was canceled but hasn't yet reached the
+    \li Canceling The query was canceled but hasn't yet reached the
     canceled status.
-    \o Canceled The query was canceled.
-    \o Error Information about a type could not be retrieved due to an error.
+    \li Canceled The query was canceled.
+    \li Error Information about a type could not be retrieved due to an error.
     \endlist
 */
 
@@ -313,20 +313,20 @@ void QDeclarativeDocumentGalleryType::classBegin()
     It can be one of:
 
     \list
-    \o DocumentGallery.InvalidType
-    \o DocumentGallery.File
-    \o DocumentGallery.Folder
-    \o DocumentGallery.Document
-    \o DocumentGallery.Text
-    \o DocumentGallery.Audio
-    \o DocumentGallery.Image
-    \o DocumentGallery.Video
-    \o DocumentGallery.Playlist
-    \o DocumentGallery.Artist
-    \o DocumentGallery.AlbumArtist
-    \o DocumentGallery.Album
-    \o DocumentGallery.AudioGenre
-    \o DocumentGallery.PhotoAlbum
+    \li DocumentGallery.InvalidType
+    \li DocumentGallery.File
+    \li DocumentGallery.Folder
+    \li DocumentGallery.Document
+    \li DocumentGallery.Text
+    \li DocumentGallery.Audio
+    \li DocumentGallery.Image
+    \li DocumentGallery.Video
+    \li DocumentGallery.Playlist
+    \li DocumentGallery.Artist
+    \li DocumentGallery.AlbumArtist
+    \li DocumentGallery.Album
+    \li DocumentGallery.AudioGenre
+    \li DocumentGallery.PhotoAlbum
     \endlist
 */
 
