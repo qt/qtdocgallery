@@ -123,7 +123,7 @@ QGalleryFilter QDeclarativeGalleryStringFilter::filter() const
     \ingroup qml-gallery
     \ingroup qml-gallery-filters
 
-    This element is part of the \bold {QtMobility.gallery 1.0} module.
+    This element is part of the \b {QtMobility.gallery 1.0} module.
 
     \qml
     GalleryEqualsFilter {
@@ -173,7 +173,7 @@ QGalleryFilter QDeclarativeGalleryEqualsFilter::filter() const
     \ingroup qml-gallery
     \ingroup qml-gallery-filters
 
-    This element is part of the \bold {QtMobility.gallery 1.0} module.
+    This element is part of the \b {QtMobility.gallery 1.0} module.
 
     \qml
     GalleryLessThanFilter {
@@ -211,7 +211,7 @@ QGalleryFilter QDeclarativeGalleryEqualsFilter::filter() const
     \ingroup qml-gallery
     \ingroup qml-gallery-filters
 
-    This element is part of the \bold {QtMobility.gallery 1.0} module.
+    This element is part of the \b {QtMobility.gallery 1.0} module.
 
     \qml
     GalleryLessThanEqualsFilter {
@@ -249,7 +249,7 @@ QGalleryFilter QDeclarativeGalleryEqualsFilter::filter() const
     \ingroup qml-gallery
     \ingroup qml-gallery-filters
 
-    This element is part of the \bold {QtMobility.gallery 1.0} module.
+    This element is part of the \b {QtMobility.gallery 1.0} module.
 
     \qml
     GalleryGreaterThanFilter {
@@ -286,7 +286,7 @@ QGalleryFilter QDeclarativeGalleryEqualsFilter::filter() const
     \ingroup qml-gallery
     \ingroup qml-gallery-filters
 
-    This element is part of the \bold {QtMobility.gallery 1.0} module.
+    This element is part of the \b {QtMobility.gallery 1.0} module.
 
     \qml
     GalleryGreaterThanEqualsFilter {
@@ -323,7 +323,7 @@ QGalleryFilter QDeclarativeGalleryEqualsFilter::filter() const
     \ingroup qml-gallery
     \ingroup qml-gallery-filters
 
-    This element is part of the \bold {QtMobility.gallery 1.0} module.
+    This element is part of the \b {QtMobility.gallery 1.0} module.
 
     \qml
     GalleryContainsFilter {
@@ -360,7 +360,7 @@ QGalleryFilter QDeclarativeGalleryEqualsFilter::filter() const
     \ingroup qml-gallery
     \ingroup qml-gallery-filters
 
-    This element is part of the \bold {QtMobility.gallery 1.0} module.
+    This element is part of the \b {QtMobility.gallery 1.0} module.
 
     \qml
     GalleryStartsWithFilter {
@@ -397,7 +397,7 @@ QGalleryFilter QDeclarativeGalleryEqualsFilter::filter() const
     \ingroup qml-gallery
     \ingroup qml-gallery-filters
 
-    This element is part of the \bold {QtMobility.gallery 1.0} module.
+    This element is part of the \b {QtMobility.gallery 1.0} module.
 
     \qml
     GalleryEndsWithFilter {
@@ -434,7 +434,7 @@ QGalleryFilter QDeclarativeGalleryEqualsFilter::filter() const
     \ingroup qml-gallery
     \ingroup qml-gallery-filters
 
-    This element is part of the \bold {QtMobility.gallery 1.0} module.
+    This element is part of the \b {QtMobility.gallery 1.0} module.
 
     \qml
     GalleryWildcardFilter {
@@ -536,7 +536,7 @@ void QDeclarativeGalleryFilterGroup::clear(
     \ingroup qml-gallery
     \ingroup qml-gallery-filters
 
-    This element is part of the \bold {QtMobility.gallery 1.0} module.
+    This element is part of the \b {QtMobility.gallery 1.0} module.
 */
 
 /*!
@@ -578,7 +578,7 @@ QGalleryFilter QDeclarativeGalleryFilterUnion::filter() const
     \ingroup qml-gallery
     \ingroup qml-gallery-filters
 
-    This element is part of the \bold {QtMobility.gallery 1.0} module.
+    This element is part of the \b {QtMobility.gallery 1.0} module.
 */
 
 /*!

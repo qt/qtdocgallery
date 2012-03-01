@@ -502,15 +502,15 @@ void QDeclarativeGalleryQueryModel::_q_itemsChanged(int index, int count)
 
     \ingroup qml-gallery
 
-    This element is part of the \bold {QtMobility.gallery 1.1} module.
+    This element is part of the \b {QtMobility.gallery 1.1} module.
 
     The properties that should be returned for each item by the query are
     specified in \l properties. In addition all queries return the following
     properties:
 
     \list
-    \o itemId The ID of an item.
-    \o itemType The type of an item.
+    \li itemId The ID of an item.
+    \li itemType The type of an item.
     \endlist
 
     \qml
@@ -568,16 +568,16 @@ void QDeclarativeDocumentGalleryModel::classBegin()
     This property holds the status of a query.  It can be one of:
 
     \list
-    \o Null No query parameters have been specified.
-    \o Active Items matching the query parameters are being fetched from the
+    \li Null No query parameters have been specified.
+    \li Active Items matching the query parameters are being fetched from the
     gallery.
-    \o Finished The query has finished
-    \o Idle The query is finished and will be automatically updated as new
+    \li Finished The query has finished
+    \li Idle The query is finished and will be automatically updated as new
     items become available.
-    \o Canceling The query was canceled but hasn't yet reached the
+    \li Canceling The query was canceled but hasn't yet reached the
     canceled status.
-    \o Canceled The query was canceled.
-    \o Error Information about a type could not be retrieved due to an error.
+    \li Canceled The query was canceled.
+    \li Error Information about a type could not be retrieved due to an error.
     \endlist
 */
 
@@ -632,20 +632,20 @@ void QDeclarativeDocumentGalleryModel::classBegin()
     It can be one of:
 
     \list
-    \o DocumentGallery.InvalidType
-    \o DocumentGallery.File
-    \o DocumentGallery.Folder
-    \o DocumentGallery.Document
-    \o DocumentGallery.Text
-    \o DocumentGallery.Audio
-    \o DocumentGallery.Image
-    \o DocumentGallery.Video
-    \o DocumentGallery.Playlist
-    \o DocumentGallery.Artist
-    \o DocumentGallery.AlbumArtist
-    \o DocumentGallery.Album
-    \o DocumentGallery.AudioGenre
-    \o DocumentGallery.PhotoAlbum
+    \li DocumentGallery.InvalidType
+    \li DocumentGallery.File
+    \li DocumentGallery.Folder
+    \li DocumentGallery.Document
+    \li DocumentGallery.Text
+    \li DocumentGallery.Audio
+    \li DocumentGallery.Image
+    \li DocumentGallery.Video
+    \li DocumentGallery.Playlist
+    \li DocumentGallery.Artist
+    \li DocumentGallery.AlbumArtist
+    \li DocumentGallery.Album
+    \li DocumentGallery.AudioGenre
+    \li DocumentGallery.PhotoAlbum
     \endlist
 
     The default value is DocumentGallery.File

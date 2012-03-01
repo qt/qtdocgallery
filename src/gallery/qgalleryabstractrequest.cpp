@@ -389,7 +389,7 @@ bool QGalleryAbstractRequest::waitForFinished(int msecs)
 /*!
     Executes a request.
 
-    \bold {Note}: A valid \l gallery must be set before a request can be
+    \b {Note}: A valid \l gallery must be set before a request can be
     executed.
 */
 
