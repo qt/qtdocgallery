@@ -45,8 +45,8 @@
 #include <qgalleryresultset.h>
 
 #include <QtCore/qcoreapplication.h>
-#include <QtDeclarative/qdeclarativeinfo.h>
-#include <QtDeclarative/qdeclarativepropertymap.h>
+#include <QtQml/qqmlinfo.h>
+#include <QtQml/qqmlpropertymap.h>
 
 QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
@@ -65,7 +65,7 @@ QDeclarativeGalleryType::QDeclarativeGalleryType(QObject *parent)
     connect(&m_request, SIGNAL(metaDataChanged(QList<int>)),
             this, SLOT(_q_metaDataChanged(QList<int>)));
 
-    m_metaData = new QDeclarativePropertyMap(this);
+    m_metaData = new QQmlPropertyMap(this);
 }
 
 QDeclarativeGalleryType::~QDeclarativeGalleryType()
