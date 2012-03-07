@@ -59,15 +59,15 @@
 
 #include <QtCore/qpointer.h>
 #include <QtCore/qurl.h>
-#include <QtDeclarative/qdeclarative.h>
-#include <QtDeclarative/qdeclarativepropertymap.h>
+#include <QtQml/qqml.h>
+#include <QtQml/qqmlpropertymap.h>
 
 QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
-class QDeclarativeGalleryItem : public QObject, public QDeclarativeParserStatus
+class QDeclarativeGalleryItem : public QObject, public QQmlParserStatus
 {
     Q_OBJECT
-    Q_INTERFACES(QDeclarativeParserStatus)
+    Q_INTERFACES(QQmlParserStatus)
     Q_ENUMS(Status)
     Q_PROPERTY(Status status READ status NOTIFY statusChanged)
     Q_PROPERTY(qreal progress READ progress NOTIFY progressChanged)
@@ -144,7 +144,7 @@ protected:
     bool event(QEvent *event);
 
     QGalleryItemRequest m_request;
-    QDeclarativePropertyMap *m_metaData;
+    QQmlPropertyMap *m_metaData;
     QHash<int, QString> m_propertyKeys;
     Status m_status;
     UpdateStatus m_updateStatus;

@@ -476,14 +476,14 @@ void QDeclarativeGalleryFilterGroup::componentComplete()
         connect(*it, SIGNAL(filterChanged()), this, SIGNAL(filterChanged()));
 }
 
-QDeclarativeListProperty<QDeclarativeGalleryFilterBase> QDeclarativeGalleryFilterGroup::filters()
+QQmlListProperty<QDeclarativeGalleryFilterBase> QDeclarativeGalleryFilterGroup::filters()
 {
-    return QDeclarativeListProperty<QDeclarativeGalleryFilterBase>(
+    return QQmlListProperty<QDeclarativeGalleryFilterBase>(
             this, &m_filters, append, count, at, clear);
 }
 
 void QDeclarativeGalleryFilterGroup::append(
-        QDeclarativeListProperty<QDeclarativeGalleryFilterBase> *filters,
+        QQmlListProperty<QDeclarativeGalleryFilterBase> *filters,
         QDeclarativeGalleryFilterBase *filter)
 {
     QDeclarativeGalleryFilterGroup *filterGroup
@@ -499,19 +499,19 @@ void QDeclarativeGalleryFilterGroup::append(
 }
 
 int QDeclarativeGalleryFilterGroup::count(
-        QDeclarativeListProperty<QDeclarativeGalleryFilterBase> *filters)
+        QQmlListProperty<QDeclarativeGalleryFilterBase> *filters)
 {
     return static_cast<QList<QDeclarativeGalleryFilterBase *>*>(filters->data)->count();
 }
 
 QDeclarativeGalleryFilterBase *QDeclarativeGalleryFilterGroup::at(
-        QDeclarativeListProperty<QDeclarativeGalleryFilterBase> *filters, int index)
+        QQmlListProperty<QDeclarativeGalleryFilterBase> *filters, int index)
 {
     return static_cast<QList<QDeclarativeGalleryFilterBase *>*>(filters->data)->at(index);
 }
 
 void QDeclarativeGalleryFilterGroup::clear(
-        QDeclarativeListProperty<QDeclarativeGalleryFilterBase> *filters)
+        QQmlListProperty<QDeclarativeGalleryFilterBase> *filters)
 {
     QDeclarativeGalleryFilterGroup *filterGroup
             = static_cast<QDeclarativeGalleryFilterGroup *>(filters->object);

@@ -44,8 +44,8 @@
 #include <qgalleryabstractrequest.h>
 
 #include <QtCore/qmetaobject.h>
-#include <QtDeclarative/qdeclarativecontext.h>
-#include <QtDeclarative/qdeclarativeengine.h>
+#include <QtQml/qqmlcontext.h>
+#include <QtQml/qqmlengine.h>
 
 QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
@@ -73,7 +73,7 @@ QAbstractGallery *QDeclarativeDocumentGallery::gallery(QObject *object)
 #ifndef QTM_BUILD_UNITTESTS
     Q_UNUSED(object);
 #else
-    if  (QDeclarativeContext *context = QDeclarativeEngine::contextForObject(object)) {
+    if (QQmlContext *context = QQmlEngine::contextForObject(object)) {
         if (QAbstractGallery *gallery = qobject_cast<QAbstractGallery *>(
                 context->contextProperty(QLatin1String("qt_testGallery")).value<QObject *>())) {
             return gallery;

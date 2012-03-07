@@ -39,8 +39,8 @@
 **
 ****************************************************************************/
 
-#include <QtDeclarative/qdeclarativeextensionplugin.h>
-#include <QtDeclarative/qdeclarative.h>
+#include <QtQml/qqmlextensionplugin.h>
+#include <QtQml/qqml.h>
 
 #include <qdocumentgallery.h>
 
@@ -52,7 +52,7 @@
 
 QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
-class QGalleryDeclarativeModule : public QDeclarativeExtensionPlugin
+class QGalleryDeclarativeModule : public QQmlExtensionPlugin
 {
     Q_OBJECT
 public:
