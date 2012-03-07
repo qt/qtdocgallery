@@ -60,17 +60,17 @@
 
 #include <QtCore/qabstractitemmodel.h>
 #include <QtCore/qpointer.h>
-#include <QtDeclarative/qdeclarative.h>
+#include <QtQml/qqml.h>
 #include <QtScript/QtScript>
 
 QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
 class QDeclarativeGalleryFilterBase;
 
-class QDeclarativeGalleryQueryModel : public QAbstractListModel, public QDeclarativeParserStatus
+class QDeclarativeGalleryQueryModel : public QAbstractListModel, public QQmlParserStatus
 {
     Q_OBJECT
-    Q_INTERFACES(QDeclarativeParserStatus)
+    Q_INTERFACES(QQmlParserStatus)
     Q_ENUMS(Status)
     Q_ENUMS(Scope)
     Q_PROPERTY(Status status READ status NOTIFY statusChanged)
