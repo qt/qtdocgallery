@@ -54,7 +54,7 @@
 #define QDECLARATIVEGALLERYFILTER_H
 
 #include <qgalleryfilter.h>
-#include <QtDeclarative/qdeclarative.h>
+#include <QtQml/qqml.h>
 
 QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
@@ -252,11 +252,11 @@ public:
 
 class QDeclarativeGalleryFilterGroup
     : public QDeclarativeGalleryFilterBase
-    , public QDeclarativeParserStatus
+    , public QQmlParserStatus
 {
     Q_OBJECT
-    Q_INTERFACES(QDeclarativeParserStatus)
-    Q_PROPERTY(QDeclarativeListProperty<QDeclarativeGalleryFilterBase> filters READ filters)
+    Q_INTERFACES(QQmlParserStatus)
+    Q_PROPERTY(QQmlListProperty<QDeclarativeGalleryFilterBase> filters READ filters)
     Q_CLASSINFO("DefaultProperty", "filters")
 public:
     explicit QDeclarativeGalleryFilterGroup(QObject *parent = 0)
@@ -268,7 +268,7 @@ public:
     void classBegin();
     void componentComplete();
 
-    QDeclarativeListProperty<QDeclarativeGalleryFilterBase> filters();
+    QQmlListProperty<QDeclarativeGalleryFilterBase> filters();
 
 protected:
     QList<QDeclarativeGalleryFilterBase *> m_filters;
@@ -277,12 +277,12 @@ private:
     bool m_complete;
 
     static void append(
-            QDeclarativeListProperty<QDeclarativeGalleryFilterBase> *filters,
+            QQmlListProperty<QDeclarativeGalleryFilterBase> *filters,
             QDeclarativeGalleryFilterBase *filter);
-    static int count(QDeclarativeListProperty<QDeclarativeGalleryFilterBase> *filters);
+    static int count(QQmlListProperty<QDeclarativeGalleryFilterBase> *filters);
     static QDeclarativeGalleryFilterBase *at(
-            QDeclarativeListProperty<QDeclarativeGalleryFilterBase> *filters, int index);
-    static void clear(QDeclarativeListProperty<QDeclarativeGalleryFilterBase> *filters);
+            QQmlListProperty<QDeclarativeGalleryFilterBase> *filters, int index);
+    static void clear(QQmlListProperty<QDeclarativeGalleryFilterBase> *filters);
 };
 
 class QDeclarativeGalleryFilterUnion : public QDeclarativeGalleryFilterGroup

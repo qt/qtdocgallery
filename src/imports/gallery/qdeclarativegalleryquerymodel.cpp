@@ -45,7 +45,7 @@
 
 #include <qgalleryresultset.h>
 
-#include <QtDeclarative/qdeclarativeinfo.h>
+#include <QtQml/qqmlinfo.h>
 
 QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
