@@ -55,6 +55,8 @@ QT_ADDON_GALLERY_BEGIN_NAMESPACE
 class QGalleryDeclarativeModule : public QQmlExtensionPlugin
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface" FILE "gallery.json")
+
 public:
     virtual void registerTypes(const char *uri)
     {
@@ -86,5 +88,3 @@ public:
 #include "qdeclarativegallery.moc"
 
 QT_ADDON_GALLERY_END_NAMESPACE
-
-Q_EXPORT_PLUGIN2(qgallerydeclarativemodule, QT_ADDON_GELLERY_PREPEND_NAMESPACE(QGalleryDeclarativeModule))
