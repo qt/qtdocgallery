@@ -3,9 +3,6 @@ load(qt_module)
 TARGET = QtAddOnGallery
 QPRO_PWD = $PWD
 
-CONFIG += module
-MODULE_PRI = ../../modules/qt_gallery.pri
-
 QT = core
 
 DEFINES += QT_BUILD_ADDON_GALLERY_LIB
