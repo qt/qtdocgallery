@@ -42,7 +42,7 @@
 #ifndef QGALLERYABSTRACTREQUEST_H
 #define QGALLERYABSTRACTREQUEST_H
 
-#include "qgallery_p.h"
+#include "qgalleryglobal.h"
 
 #include <QtCore/qobject.h>
 #include <QtCore/qstringlist.h>

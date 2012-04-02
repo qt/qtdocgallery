@@ -50,8 +50,8 @@
 // We mean it.
 //
 
-#ifndef QGALLERY_P_H
-#define QGALLERY_P_H
+#ifndef QGALLERYGLOBAL_H
+#define QGALLERYGLOBAL_H
 
 #include <QtCore/qglobal.h>
 
@@ -86,4 +86,4 @@
 #define QT_ADDON_USE_GALLERY_NAMESPACE using namespace QtAddOn::Gallery;
 #define QT_ADDON_GELLERY_PREPEND_NAMESPACE(name) ::QtAddOn::Gallery::name
 
-#endif // QGALLERY_P_H
+#endif // QGALLERYGLOBAL_H

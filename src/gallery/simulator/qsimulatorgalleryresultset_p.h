@@ -53,7 +53,7 @@
 #ifndef QSIMULATORGALLERYRESULTSET_H
 #define QSIMULATORGALLERYRESULTSET_H
 
-#include "qgallery_p.h"
+#include "qgalleryglobal.h"
 #include "docgalleryconnection_simulator.h"
 #include "qgalleryresultset.h"
 #include "qgalleryqueryrequest.h"

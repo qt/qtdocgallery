@@ -42,7 +42,7 @@
 #ifndef QGALLERYFILTER_H
 #define QGALLERYFILTER_H
 
-#include "qgallery_p.h"
+#include "qgalleryglobal.h"
 
 #include <QtCore/qset.h>
 #include <QtCore/qshareddata.h>

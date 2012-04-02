@@ -53,7 +53,7 @@
 #ifndef QGALLERYTRACKERLISTCOLUMN_P_H
 #define QGALLERYTRACKERLISTCOLUMN_P_H
 
-#include "qgallery_p.h"
+#include "qgalleryglobal.h"
 
 #include <QtCore/qshareddata.h>
 #include <QtCore/qvariant.h>

@@ -53,7 +53,7 @@
 #ifndef QGALLERYDBUSINTERFACE_P_H
 #define QGALLERYDBUSINTERFACE_P_H
 
-#include "qgallery_p.h"
+#include "qgalleryglobal.h"
 
 #include <QtCore/qshareddata.h>
 #include <QtDBus/qdbusabstractinterface.h>

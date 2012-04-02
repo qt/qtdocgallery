@@ -42,7 +42,7 @@
 #ifndef QGALLERYRESOURCE_H
 #define QGALLERYRESOURCE_H
 
-#include "qgallery_p.h"
+#include "qgalleryglobal.h"
 
 #include <QtCore/qurl.h>
 #include <QtCore/qvariant.h>

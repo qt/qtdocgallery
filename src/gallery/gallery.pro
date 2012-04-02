@@ -14,6 +14,7 @@ DEFINES += QT_MAKEDLL
 load(qt_module_config)
 
 PUBLIC_HEADERS += \
+    qgalleryglobal.h \
     qabstractgallery.h \
     qdocumentgallery.h \
     qgalleryabstractrequest.h \
@@ -29,7 +30,6 @@ PUBLIC_HEADERS += \
     qgallerytyperequest.h
 
 PRIVATE_HEADERS += \
-    qgallery_p.h \
     qabstractgallery_p.h \
     qgalleryabstractrequest_p.h \
     qgalleryabstractresponse_p.h \

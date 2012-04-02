@@ -42,7 +42,7 @@
 #ifndef QGALLERYTYPE_H
 #define QGALLERYTYPE_H
 
-#include "qgallery_p.h"
+#include "qgalleryglobal.h"
 
 #include <QtCore/qstring.h>
 
