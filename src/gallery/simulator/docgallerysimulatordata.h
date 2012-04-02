@@ -53,7 +53,7 @@
 #ifndef DOCGALLERYSIMULATORDATA_H
 #define DOCGALLERYSIMULATORDATA_H
 
-#include "qgallery_p.h"
+#include "qgalleryglobal.h"
 #include <QtCore/QList>
 #include <QtCore/QString>
 #include <QtCore/QMetaType>

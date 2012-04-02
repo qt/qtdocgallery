@@ -53,7 +53,7 @@
 #ifndef QGALLERYTRACKERMETADATAEDIT_P_H
 #define QGALLERYTRACKERMETADATAEDIT_P_H
 
-#include "qgallery_p.h"
+#include "qgalleryglobal.h"
 #include "qgallerydbusinterface_p.h"
 
 #include <QtCore/qstringlist.h>

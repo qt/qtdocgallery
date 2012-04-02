@@ -53,7 +53,7 @@
 #ifndef DOCGALLERYCONNECTION_SIMULATOR_P_H
 #define DOCGALLERYCONNECTION_SIMULATOR_P_H
 
-#include "qgallery_p.h"
+#include "qgalleryglobal.h"
 #include "docgallerysimulatordata.h"
 #include <QtCore/QObject>
 #include <QtCore/QList>
