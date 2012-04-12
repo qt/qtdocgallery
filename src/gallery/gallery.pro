@@ -4,7 +4,6 @@ TARGET = QtAddOnGallery
 QPRO_PWD = $PWD
 
 CONFIG += module
-MODULE_PRI = ../../modules/qt_gallery.pri
 
 QT = core
 
