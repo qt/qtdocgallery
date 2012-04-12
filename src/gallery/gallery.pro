@@ -1,14 +1,7 @@
-load(qt_module)
+load(qt_build_config)
 
 TARGET = QtAddOnGallery
-QPRO_PWD = $PWD
-
-CONFIG += module
-
 QT = core
-
-DEFINES += QT_BUILD_ADDON_GALLERY_LIB
-DEFINES += QT_MAKEDLL
 
 load(qt_module_config)
 
@@ -66,4 +59,4 @@ simulator: {
     DEFINES += QT_DOCUMENT_GALLERY_NULL
 }
 
-HEADERS = qtaddongalleryversion.h $$PUBLIC_HEADERS $$PRIVATE_HEADERS
+HEADERS += $$PUBLIC_HEADERS $$PRIVATE_HEADERS
