@@ -3,9 +3,6 @@
 );
 %moduleheaders = ( # restrict the module headers to those found in relative path
 );
-%classnames = (
-    "qtaddongalleryversion.h" => "QtAddOnGalleryVersion",
-);
 %mastercontent = (
     "gallery" => "#include <QtAddOnGallery/QtAddOnGallery>\n",
 );
