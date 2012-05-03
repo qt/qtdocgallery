@@ -87,34 +87,34 @@ void QSimpleGalleryQueryResultSet::createQuery()
         bool isJsonDb = musicDb.dbType();
         //m_isValid = true;
         QStringList propertyList;
-        propertyList << QString::fromAscii("albumArt")
-                     << QString::fromAscii("title")
-                     << QString::fromAscii("artist")
-                     << QString::fromAscii("albumArtist");
+        propertyList << QString::fromLatin1("albumArt")
+                     << QString::fromLatin1("title")
+                     << QString::fromLatin1("artist")
+                     << QString::fromLatin1("albumArtist");
         //m_result.clear();
-        QString filterStr = filterToString(QString::fromAscii("albums"), m_request->filter(), isJsonDb);
+        QString filterStr = filterToString(QString::fromLatin1("albums"), m_request->filter(), isJsonDb);
         // Add the root item to the query
         if (!m_request->rootItem().toString().isEmpty()) {
 
-            QStringList parts = m_request->rootItem().toString().split(QString::fromAscii(":/"));
-            if (QString::compare(QString::fromAscii("artist"), parts.at(0), Qt::CaseInsensitive) == 0) {
+            QStringList parts = m_request->rootItem().toString().split(QString::fromLatin1(":/"));
+            if (QString::compare(QString::fromLatin1("artist"), parts.at(0), Qt::CaseInsensitive) == 0) {
                 QString artistCleaned(parts.at(1));
                 // TODO: Jsondb stuff here
 
                 if (isJsonDb) {
-                    artistCleaned.replace(QString::fromAscii("\""), QString::fromAscii("\\\""));
-                    artistCleaned.replace(QString::fromAscii("\\"), QString::fromAscii("\\\\"));
+                    artistCleaned.replace(QString::fromLatin1("\""), QString::fromLatin1("\\\""));
+                    artistCleaned.replace(QString::fromLatin1("\\"), QString::fromLatin1("\\\\"));
                     QString artistFilter(QLatin1String("[?artist=\""));
-                    artistFilter.append(artistCleaned).append(QString::fromAscii("\"]"));
+                    artistFilter.append(artistCleaned).append(QString::fromLatin1("\"]"));
                     filterStr.prepend(artistFilter);
                     //qDebug() << filterStr;
                 }
                 else {
-                    artistCleaned.replace(QString::fromAscii("'"), QString::fromAscii("''"));
+                    artistCleaned.replace(QString::fromLatin1("'"), QString::fromLatin1("''"));
                     if (!filterStr.isEmpty())
-                        filterStr.append(QString::fromAscii(" AND artist = '")).append(artistCleaned).append(QString::fromAscii("'"));
+                        filterStr.append(QString::fromLatin1(" AND artist = '")).append(artistCleaned).append(QString::fromLatin1("'"));
                     else
-                        filterStr.append(QString::fromAscii("artist = '")).append(artistCleaned).append(QString::fromAscii("'"));
+                        filterStr.append(QString::fromLatin1("artist = '")).append(artistCleaned).append(QString::fromLatin1("'"));
                 }
             }
         }
@@ -157,11 +157,11 @@ void QSimpleGalleryQueryResultSet::createQuery()
         bool isJsonDb = musicDb.dbType();
         //m_isValid = true;
         //m_result.clear();
-        QString filterStr = filterToString(QString::fromAscii("songs"), m_request->filter(), isJsonDb);
+        QString filterStr = filterToString(QString::fromLatin1("songs"), m_request->filter(), isJsonDb);
         bool artistRootItem = false;
         if (!m_request->rootItem().toString().isEmpty()) {
-            QStringList parts = m_request->rootItem().toString().split(QString::fromAscii(":/"));
-            if (QString::compare(QString::fromAscii("artist"), parts.at(0), Qt::CaseInsensitive) == 0) {
+            QStringList parts = m_request->rootItem().toString().split(QString::fromLatin1(":/"));
+            if (QString::compare(QString::fromLatin1("artist"), parts.at(0), Qt::CaseInsensitive) == 0) {
                 artistRootItem = true;
                 m_itemType = QDocumentGallery::AlbumArtist;
                 m_resultQuery = musicDb.createArtistAlbumsQuery(parts.at(1), filterStr);
@@ -217,19 +217,19 @@ void QSimpleGalleryQueryResultSet::createQuery()
         //m_isValid = true;
         //m_result.clear();
         QStringList propertyList;
-        propertyList << QString::fromAscii("url")
-                     << QString::fromAscii("title")
-                     << QString::fromAscii("artist")
-                     << QString::fromAscii("albumTitle")
-                     << QString::fromAscii("albumArtist")
-                     << QString::fromAscii("albumArt")
-                     << QString::fromAscii("trackNumber")
-                     << QString::fromAscii("genre");
-        QString filterStr = filterToString(QString::fromAscii("songs"), m_request->filter(), isJsonDb);
+        propertyList << QString::fromLatin1("url")
+                     << QString::fromLatin1("title")
+                     << QString::fromLatin1("artist")
+                     << QString::fromLatin1("albumTitle")
+                     << QString::fromLatin1("albumArtist")
+                     << QString::fromLatin1("albumArt")
+                     << QString::fromLatin1("trackNumber")
+                     << QString::fromLatin1("genre");
+        QString filterStr = filterToString(QString::fromLatin1("songs"), m_request->filter(), isJsonDb);
         // Add the root item to the query
         // TODO: add jsondb support to below
         if (!m_request->rootItem().toString().isEmpty()) {
-            QStringList parts = m_request->rootItem().toString().split(QString::fromAscii(":/"));
+            QStringList parts = m_request->rootItem().toString().split(QString::fromLatin1(":/"));
             /*if (QString::compare("album", parts.at(0), Qt::CaseInsensitive) == 0) {
                 if (isJsonDb) {
                     QString albumFilter(QLatin1String("[?_uuid in \""));
@@ -244,22 +244,22 @@ void QSimpleGalleryQueryResultSet::createQuery()
                         filterStr.append("songs.albumId = ").append(parts.at(1));
                 }
             }
-            else*/  if (QString::compare(QString::fromAscii("artist"), parts.at(0), Qt::CaseInsensitive) == 0) {
+            else*/  if (QString::compare(QString::fromLatin1("artist"), parts.at(0), Qt::CaseInsensitive) == 0) {
                 QString artistCleaned(parts.at(1));
                 if (isJsonDb) {
-                    artistCleaned.replace(QString::fromAscii("\""), QString::fromAscii("\\\""));
-                    artistCleaned.replace(QString::fromAscii("\\"), QString::fromAscii("\\\\"));
+                    artistCleaned.replace(QString::fromLatin1("\""), QString::fromLatin1("\\\""));
+                    artistCleaned.replace(QString::fromLatin1("\\"), QString::fromLatin1("\\\\"));
                     QString artistFilter(QLatin1String("[?artist=\""));
-                    artistFilter.append(artistCleaned).append(QString::fromAscii("\"]"));
+                    artistFilter.append(artistCleaned).append(QString::fromLatin1("\"]"));
                     filterStr.prepend(artistFilter);
                     //qDebug() << filterStr;
                 }
                 else {
-                    artistCleaned.replace(QString::fromAscii("'"), QString::fromAscii("''"));
+                    artistCleaned.replace(QString::fromLatin1("'"), QString::fromLatin1("''"));
                     if (!filterStr.isEmpty())
-                        filterStr.append(QString::fromAscii(" AND songs.artist = ")).append(artistCleaned);
+                        filterStr.append(QString::fromLatin1(" AND songs.artist = ")).append(artistCleaned);
                     else
-                        filterStr.append(QString::fromAscii("songs.artist = ")).append(artistCleaned);
+                        filterStr.append(QString::fromLatin1("songs.artist = ")).append(artistCleaned);
                 }
             }
         }

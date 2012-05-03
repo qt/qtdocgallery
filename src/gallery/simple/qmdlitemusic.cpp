@@ -148,9 +148,9 @@ QMdLiteMusicPrivate::~QMdLiteMusicPrivate ()
 QString QMdLiteMusicPrivate::albumArtImageBaseName (const QString& albumArtist, const QString& title)
 {
     QString helper = cleanStr (title);
-    QString ret = QString::fromAscii(QCryptographicHash::hash ( helper.toLocal8Bit(), QCryptographicHash::Md5).toHex());
+    QString ret = QString::fromLatin1(QCryptographicHash::hash ( helper.toLocal8Bit(), QCryptographicHash::Md5).toHex());
     helper = cleanStr(albumArtist);
-    ret.append(QLatin1String("-")).append(QString::fromAscii(QCryptographicHash::hash ( helper.toLocal8Bit(), QCryptographicHash::Md5).toHex()));
+    ret.append(QLatin1String("-")).append(QString::fromLatin1(QCryptographicHash::hash ( helper.toLocal8Bit(), QCryptographicHash::Md5).toHex()));
     return ret;
 }
 
@@ -495,12 +495,12 @@ QString QMdLiteMusic::albumArtThumbnailImagePath (const QString& title)
 #ifdef QT_OPENGL_ES
     thumbnailName = QMdLiteMusicPrivate::albumArtCompressedTexturePath(QMdLiteMusicPrivate::musicAlbumArtDir()+imageBaseName);
     if (!QFile::exists(thumbnailName)) {
-        thumbnailName = QMdLiteMusicPrivate::albumArtCompressedTexturePath(QString::fromAscii(":/image/default"));
+        thumbnailName = QMdLiteMusicPrivate::albumArtCompressedTexturePath(QString::fromLatin1(":/image/default"));
     }
 #else
     thumbnailName = QMdLiteMusicPrivate::albumArtThumbnailImagePath(QMdLiteMusicPrivate::musicAlbumArtDir()+imageBaseName);
     if (!QFile::exists(thumbnailName)) {
-        thumbnailName = QMdLiteMusicPrivate::albumArtThumbnailImagePath(QString::fromAscii(":/image/default"));
+        thumbnailName = QMdLiteMusicPrivate::albumArtThumbnailImagePath(QString::fromLatin1(":/image/default"));
     }
 #endif
     //qDebug() << "albumArtThumbnailImagePath returning: " << thumbnailName;

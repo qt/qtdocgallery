@@ -187,7 +187,7 @@ QVariant QMdLitePrivate::insert (const QString &table, QStringList& properties, 
     Q_ASSERT (properties.length() == values.length());
 
 #ifdef _SQLITE_QMDBACKEND
-    QString queryStr(QString::fromAscii("INSERT INTO ").append(table).append(" ("));
+    QString queryStr(QString::fromLatin1("INSERT INTO ").append(table).append(" ("));
     queryStr.append(properties.join(", ")).append(") VALUES (");
     for (int ii=0; ii<values.length(); ii++) {
         if (values.at(ii).isNull())
@@ -229,7 +229,7 @@ bool QMdLitePrivate::update (const QString &table, QVariant id, const QStringLis
 {
     Q_ASSERT (properties.length() == values.length());
 #ifdef _SQLITE_QMDBACKEND
-    QString queryStr(QString::fromAscii("UPDATE ").append(table).append(" SET "));
+    QString queryStr(QString::fromLatin1("UPDATE ").append(table).append(" SET "));
     for (int ii=0; ii<properties.length(); ii++) {
         if (values.at(ii).isNull())
             queryStr.append("=NULL");
@@ -280,7 +280,7 @@ bool QMdLitePrivate::update (const QString &table, QVariant id, const QStringLis
 }
 
 QString QMdLitePrivate::cleanStr (const QString &str) {
-    if (str.isNull() || str.length() < 1) return QString::fromAscii(" ");
+    if (str.isNull() || str.length() < 1) return QString::fromLatin1(" ");
     QString ret = str;
     //QRegExp re("\\(.*\\)|\\{.*\\}|\\[.*\\]|<.*>|[\\(\\)_\\{\\}\\[\\]\\!@#$\\^&\\*\\+\\=\\|\\\\/\"'\\?~`]");
     QRegExp re(QLatin1String("[\\(\\)_\\{\\}\\[\\]\\!@#$\\^&\\*\\+\\=\\|\\\\/\"'\\?~`]"));
@@ -305,7 +305,7 @@ bool QMdLitePrivate::remove(const QString &table, QList<QVariant> &ids)
         idStrs.append(numStr);
     }
 
-    QString queryStr(QString::fromAscii("DELETE FROM ").append(table).append(" WHERE id IN ("));
+    QString queryStr(QString::fromLatin1("DELETE FROM ").append(table).append(" WHERE id IN ("));
     queryStr.append(idStrs.join(", ")).append(")");
 
     qDebug() << "Delete query: " << queryStr;
@@ -347,7 +347,7 @@ QString QMdLitePrivate::dbDirName ()
 {
     QString ret = QDir::homePath();
     if (ret.isEmpty())
-        ret = QString::fromAscii("/krakatau");
+        ret = QString::fromLatin1("/krakatau");
     ret.append (QDir::separator()).append(QLatin1String(".qmdlite"));
 
     if (!QFile::exists (ret)) {

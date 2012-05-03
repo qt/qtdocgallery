@@ -92,7 +92,7 @@ QString QSimpleGalleryResultSet::_jsonDbFilterToString(const QString &tableName,
         QGalleryUnionFilter unionFilter = filter.toUnionFilter();
         for (int ii=0; ii<unionFilter.filters().length(); ii++) {
             if (ii)
-                ret.append(QString::fromAscii(" | "));
+                ret.append(QString::fromLatin1(" | "));
             ret.append(_jsonDbFilterToString(tableName, unionFilter.filters()[ii], !inOr));
         }
         if (!inOr)
@@ -103,10 +103,10 @@ QString QSimpleGalleryResultSet::_jsonDbFilterToString(const QString &tableName,
         QGalleryMetaDataFilter metadataFilter = filter.toMetaDataFilter();
         if (!inOr)
             ret.append(QLatin1String("[?"));
-        if (metadataFilter.propertyName().compare(QString::fromAscii("albumTitle"), Qt::CaseInsensitive) == 0)
-            ret.append(QString::fromAscii("album.title"));
-        else if (metadataFilter.propertyName().compare(QString::fromAscii("albumArtist"), Qt::CaseInsensitive) == 0)
-            ret.append(QString::fromAscii("album.artist"));
+        if (metadataFilter.propertyName().compare(QString::fromLatin1("albumTitle"), Qt::CaseInsensitive) == 0)
+            ret.append(QString::fromLatin1("album.title"));
+        else if (metadataFilter.propertyName().compare(QString::fromLatin1("albumArtist"), Qt::CaseInsensitive) == 0)
+            ret.append(QString::fromLatin1("album.artist"));
         /*else if (metadataFilter.propertyName().compare("albumCover", Qt::CaseInsensitive) == 0)
             ret.append ("albumId->url");*/
         else
@@ -114,62 +114,62 @@ QString QSimpleGalleryResultSet::_jsonDbFilterToString(const QString &tableName,
         switch (metadataFilter.comparator()) {
         case QGalleryFilter::Equals:
             if (metadataFilter.isNegated())
-                ret.append(QString::fromAscii("!"));
-            ret.append(QString::fromAscii("="));
-            ret.append(QString::fromAscii("\"")).append(metadataFilter.value().toString()).append(QString::fromAscii("\""));
+                ret.append(QString::fromLatin1("!"));
+            ret.append(QString::fromLatin1("="));
+            ret.append(QString::fromLatin1("\"")).append(metadataFilter.value().toString()).append(QString::fromLatin1("\""));
             break;
         case QGalleryFilter::LessThan:
             if (metadataFilter.isNegated())
-                ret.append(QString::fromAscii(">="));
+                ret.append(QString::fromLatin1(">="));
             else
-                ret.append(QString::fromAscii("<"));
+                ret.append(QString::fromLatin1("<"));
             ret.append(metadataFilter.value().toString());
             break;
         case QGalleryFilter::GreaterThan:
             if (metadataFilter.isNegated())
-                ret.append(QString::fromAscii("<="));
+                ret.append(QString::fromLatin1("<="));
             else
-                ret.append(QString::fromAscii(">"));
+                ret.append(QString::fromLatin1(">"));
             ret.append(metadataFilter.value().toString());
             break;
         case QGalleryFilter::LessThanEquals:
             if (metadataFilter.isNegated())
-                ret.append(QString::fromAscii(">"));
+                ret.append(QString::fromLatin1(">"));
             else
-                ret.append(QString::fromAscii("<="));
+                ret.append(QString::fromLatin1("<="));
             ret.append(metadataFilter.value().toString());
             break;
         case QGalleryFilter::GreaterThanEquals:
             if (metadataFilter.isNegated())
-                ret.append(QString::fromAscii("<"));
+                ret.append(QString::fromLatin1("<"));
             else
-                ret.append(QString::fromAscii(">="));
+                ret.append(QString::fromLatin1(">="));
             ret.append(metadataFilter.value().toString());
             break;
         case QGalleryFilter::Contains:
-            ret.append(QString::fromAscii("=~"));
-            ret.append(QString::fromAscii("\"/*")).append(metadataFilter.value().toString().
-                                      replace(QString::fromAscii("\""), QString::fromAscii("\\\""))).append(QString::fromAscii("*/iw\""));
+            ret.append(QString::fromLatin1("=~"));
+            ret.append(QString::fromLatin1("\"/*")).append(metadataFilter.value().toString().
+                                      replace(QString::fromLatin1("\""), QString::fromLatin1("\\\""))).append(QString::fromLatin1("*/iw\""));
             break;
         case QGalleryFilter::StartsWith:
-            ret.append(QString::fromAscii("=~"));
-            ret.append(QString::fromAscii("\"/")).append(metadataFilter.value().toString().
-                                     replace(QString::fromAscii("\""), QString::fromAscii("\\\""))).append(QString::fromAscii("*/iw\""));
+            ret.append(QString::fromLatin1("=~"));
+            ret.append(QString::fromLatin1("\"/")).append(metadataFilter.value().toString().
+                                     replace(QString::fromLatin1("\""), QString::fromLatin1("\\\""))).append(QString::fromLatin1("*/iw\""));
             break;
         case QGalleryFilter::EndsWith:
-            ret.append(QString::fromAscii("=~"));
-            ret.append(QString::fromAscii("\"/*")).append(metadataFilter.value().toString().
-                                     replace(QString::fromAscii("\""), QString::fromAscii("\\\""))).append(QString::fromAscii("/iw\""));
+            ret.append(QString::fromLatin1("=~"));
+            ret.append(QString::fromLatin1("\"/*")).append(metadataFilter.value().toString().
+                                     replace(QString::fromLatin1("\""), QString::fromLatin1("\\\""))).append(QString::fromLatin1("/iw\""));
             break;
         case QGalleryFilter::Wildcard:
-            ret.append(QString::fromAscii("=~"));
-            ret.append(QString::fromAscii("\"/*")).append(metadataFilter.value().toString().
-                                      replace(QString::fromAscii("\""), QString::fromAscii("\\\""))).append(QString::fromAscii("*/iw\""));
+            ret.append(QString::fromLatin1("=~"));
+            ret.append(QString::fromLatin1("\"/*")).append(metadataFilter.value().toString().
+                                      replace(QString::fromLatin1("\""), QString::fromLatin1("\\\""))).append(QString::fromLatin1("*/iw\""));
             break;
         case QGalleryFilter::RegExp:
-            ret.append(QString::fromAscii("=~"));
-            ret.append(QString::fromAscii("\"/")).append(metadataFilter.value().toString().
-                                      replace(QString::fromAscii("\""), QString::fromAscii("\\\""))).append(QString::fromAscii("/i\""));
+            ret.append(QString::fromLatin1("=~"));
+            ret.append(QString::fromLatin1("\"/")).append(metadataFilter.value().toString().
+                                      replace(QString::fromLatin1("\""), QString::fromLatin1("\\\""))).append(QString::fromLatin1("/i\""));
             break;
         }
         if (!inOr)
