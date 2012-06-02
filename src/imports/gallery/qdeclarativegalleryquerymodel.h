@@ -61,7 +61,7 @@
 #include <QtCore/qabstractitemmodel.h>
 #include <QtCore/qpointer.h>
 #include <QtQml/qqml.h>
-#include <QtScript/QtScript>
+#include <QtQml/qjsvalue.h>
 
 QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
@@ -148,10 +148,10 @@ public:
 
     int count() const { return m_rowCount; }
 
-    Q_INVOKABLE QScriptValue get(const QScriptValue &index) const;
+    Q_INVOKABLE QJSValue get(const QJSValue &index) const;
     Q_INVOKABLE QVariant property(int index, const QString &property) const;
 
-    Q_INVOKABLE void set(int index, const QScriptValue &value);
+    Q_INVOKABLE void set(int index, const QJSValue &value);
     Q_INVOKABLE void setProperty(int index, const QString &property, const QVariant &value);
 
     void componentComplete();
