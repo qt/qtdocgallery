@@ -10,7 +10,7 @@ qmldir.files += $$PWD/qmldir
 qmldir.path +=  $$[QT_INSTALL_IMPORTS]/$$TARGETPATH
 INSTALLS += qmldir
 
-QT += qml gallery script
+QT += qml gallery 
 
 HEADERS += \
     qdeclarativedocumentgallery.h \
