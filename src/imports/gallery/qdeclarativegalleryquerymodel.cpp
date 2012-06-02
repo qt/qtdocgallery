@@ -46,6 +46,8 @@
 #include <qgalleryresultset.h>
 
 #include <QtQml/qqmlinfo.h>
+#include <QtQml/qjsengine.h>
+#include <QtCore/qcoreapplication.h>
 
 QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
@@ -251,32 +253,31 @@ bool QDeclarativeGalleryQueryModel::setData(
 
 }
 
-QModelIndex QDeclarativeGalleryQueryModel::index(
-        int row, int column, const QModelIndex &parent) const
+QModelIndex QDeclarativeGalleryQueryModel::index(int row, int column, const QModelIndex &parent) const
 {
     return !parent.isValid() && row >= 0 && row < m_rowCount && column == 0
             ? createIndex(row, column)
             : QModelIndex();
 }
 
-QScriptValue QDeclarativeGalleryQueryModel::get(const QScriptValue &index) const
+QJSValue QDeclarativeGalleryQueryModel::get(const QJSValue &index) const
 {
-    QScriptEngine *scriptEngine = index.engine();
+    QJSEngine *scriptEngine = index.engine();
 
     if (!scriptEngine)
-       return QScriptValue();
+       return QJSValue();
 
-    const int i = index.toInt32();
+    const int i = index.toInt();
 
     if (i < 0 || i >= m_rowCount || (i != m_resultSet->currentIndex() && !m_resultSet->fetch(i)))
-       return scriptEngine->undefinedValue();
+       return QJSValue();
 
-    QScriptValue object = scriptEngine->newObject();
+    QJSValue object = scriptEngine->newObject();
 
     object.setProperty(
-            QLatin1String("itemId"), qScriptValueFromValue(scriptEngine, m_resultSet->itemId()));
+            QLatin1String("itemId"), scriptEngine->toScriptValue(m_resultSet->itemId()));
     object.setProperty(
-            QLatin1String("itemUrl"), qScriptValueFromValue(scriptEngine, m_resultSet->itemUrl()));
+            QLatin1String("itemUrl"), scriptEngine->toScriptValue(m_resultSet->itemUrl()));
 
     typedef QVector<QPair<int, QString> >::const_iterator iterator;
     for (iterator it = m_propertyNames.constBegin(), end = m_propertyNames.constEnd();
@@ -287,7 +288,7 @@ QScriptValue QDeclarativeGalleryQueryModel::get(const QScriptValue &index) const
         if (value.isNull())
             value = QVariant(m_resultSet->propertyType(it->first));
 
-        object.setProperty(it->second, qScriptValueFromValue(scriptEngine, value));
+        object.setProperty(it->second, scriptEngine->toScriptValue(value));
     }
 
     return object;
@@ -316,7 +317,7 @@ QVariant QDeclarativeGalleryQueryModel::property(int index, const QString &prope
     }
 }
 
-void QDeclarativeGalleryQueryModel::set(int index, const QScriptValue &values)
+void QDeclarativeGalleryQueryModel::set(int index, const QJSValue &values)
 {
     if (index < 0
             || index >= m_rowCount
@@ -324,10 +325,17 @@ void QDeclarativeGalleryQueryModel::set(int index, const QScriptValue &values)
         return;
     }
 
-    QScriptValueIterator it(values);
-    while (it.hasNext()) {
-        it.next();
-        m_resultSet->setMetaData(m_resultSet->propertyKey(it.name()), it.value().toVariant());
+    QVariant variant = values.toVariant();
+
+    if (variant.type() == QVariant::List) {
+        const QVariantList list = variant.toList();
+        for (int i = 0; i < list.size(); ++i)
+            m_resultSet->setMetaData(m_resultSet->propertyKey(QString::number(i)), list[i]);
+    } else if (variant.type() == QVariant::Map) {
+        const QVariantMap map = variant.toMap();
+        const QVariantMap::const_iterator end = map.end();
+        for (QVariantMap::const_iterator it = map.begin(); it != end; ++it)
+            m_resultSet->setMetaData(m_resultSet->propertyKey(it.key()), it.value());
     }
 }
 
