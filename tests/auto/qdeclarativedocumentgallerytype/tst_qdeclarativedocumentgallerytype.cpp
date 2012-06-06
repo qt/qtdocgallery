@@ -209,8 +209,8 @@ private:
     QString m_errorString;
     QHash<QString, QVariant> m_metaData;
     QStringList m_blacklist;
-    QWeakPointer<QGalleryTypeRequest> m_request;
-    QWeakPointer<QtGalleryTestResponse> m_response;
+    QPointer<QGalleryTypeRequest> m_request;
+    QPointer<QtGalleryTestResponse> m_response;
 };
 
 class tst_QDeclarativeDocumentGalleryType : public QObject

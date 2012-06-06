@@ -193,7 +193,7 @@ protected:
     bool event(QEvent *event);
 
     QGalleryQueryRequest m_request;
-    QWeakPointer<QDeclarativeGalleryFilterBase> m_filter;
+    QPointer<QDeclarativeGalleryFilterBase> m_filter;
     QGalleryResultSet *m_resultSet;
     QVector<QPair<int, QString> > m_propertyNames;
     Status m_status;
