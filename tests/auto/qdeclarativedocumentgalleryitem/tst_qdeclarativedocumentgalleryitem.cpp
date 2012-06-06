@@ -213,8 +213,8 @@ private:
     QString m_errorString;
     QHash<QString, QVariant> m_metaData;
     QStringList m_blacklist;
-    QWeakPointer<QGalleryItemRequest> m_request;
-    QWeakPointer<QtGalleryTestResponse> m_response;
+    QPointer<QGalleryItemRequest> m_request;
+    QPointer<QtGalleryTestResponse> m_response;
 };
 
 class tst_QDeclarativeDocumentGalleryItem : public QObject

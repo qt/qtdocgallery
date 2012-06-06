@@ -242,8 +242,8 @@ private:
     QGalleryAbstractRequest::State m_state;
     int m_error;
     QString m_errorString;
-    QWeakPointer<QGalleryQueryRequest> m_request;
-    QWeakPointer<QtTestResultSet> m_response;
+    QPointer<QGalleryQueryRequest> m_request;
+    QPointer<QtTestResultSet> m_response;
 };
 
 class tst_QDeclarativeDocumentGalleryModel : public QObject

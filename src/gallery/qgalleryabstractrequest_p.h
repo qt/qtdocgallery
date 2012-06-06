@@ -59,6 +59,7 @@
 #include <qgalleryabstractresponse.h>
 
 #include <QtCore/qsharedpointer.h>
+#include <QtCore/qpointer.h>
 
 QT_ADDON_GALLERY_BEGIN_NAMESPACE
 
@@ -88,7 +89,7 @@ public:
     void _q_progressChanged(int current, int maximum);
 
     QGalleryAbstractRequest *q_ptr;
-    QWeakPointer<QAbstractGallery> gallery;
+    QPointer<QAbstractGallery> gallery;
     QScopedPointer<QGalleryAbstractResponse> response;
     QGalleryAbstractRequest::RequestType type;
     QGalleryAbstractRequest::State state;
