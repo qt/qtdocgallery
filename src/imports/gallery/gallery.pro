@@ -1,14 +1,4 @@
-TARGET  = declarative_gallery
 TARGETPATH = QtAddOn/gallery
-
-include(qgalleryimport.pri)
-target.path = $$[QT_INSTALL_IMPORTS]/$$TARGETPATH
-DESTDIR = $$QT.gallery.imports/$$TARGETPATH
-INSTALLS += target
-
-qmldir.files += $$PWD/qmldir
-qmldir.path +=  $$[QT_INSTALL_IMPORTS]/$$TARGETPATH
-INSTALLS += qmldir
 
 QT += qml gallery
 
@@ -26,3 +16,5 @@ SOURCES += \
     qdeclarativegalleryitem.cpp \
     qdeclarativegalleryquerymodel.cpp \
     qdeclarativegallerytype.cpp
+
+load(qml_plugin)
