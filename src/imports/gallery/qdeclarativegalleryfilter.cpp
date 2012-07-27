@@ -115,7 +115,8 @@ QGalleryFilter QDeclarativeGalleryStringFilter::filter() const
 }
 
 /*!
-    \qmlclass GalleryEqualsFilter QDeclarativeGalleryEqualsFilter
+    \qmltype GalleryEqualsFilter
+    \instantiates QDeclarativeGalleryEqualsFilter
 
     \brief The GalleryEqualsFilter element provides a filter which tests
     if a meta-data property is equal to a value.
@@ -165,7 +166,8 @@ QGalleryFilter QDeclarativeGalleryEqualsFilter::filter() const
 }
 
 /*!
-    \qmlclass GalleryLessThanFilter QDeclarativeGalleryLessThanFilter
+    \qmltype GalleryLessThanFilter
+    \instantiates QDeclarativeGalleryLessThanFilter
 
     \brief The GalleryLessThanFilter element provides a filter which tests
     if a meta-data property is less than a value.
@@ -203,7 +205,8 @@ QGalleryFilter QDeclarativeGalleryEqualsFilter::filter() const
 
 
 /*!
-    \qmlclass GalleryLessThanEqualsFilter QDeclarativeGalleryLessThanEqualsFilter
+    \qmltype GalleryLessThanEqualsFilter
+    \instantiates QDeclarativeGalleryLessThanEqualsFilter
 
     \brief The GalleryLessThanEqualsFilter element provides a filter which tests
     if a meta-data property is less than or equal to a value.
@@ -241,7 +244,8 @@ QGalleryFilter QDeclarativeGalleryEqualsFilter::filter() const
 
 
 /*!
-    \qmlclass GalleryGreaterThanFilter QDeclarativeGalleryGreaterThanFilter
+    \qmltype GalleryGreaterThanFilter
+    \instantiates QDeclarativeGalleryGreaterThanFilter
 
     \brief The GalleryGreaterThanFilter element provides a filter which tests
     if a meta-data property is greater than a value.
@@ -278,7 +282,8 @@ QGalleryFilter QDeclarativeGalleryEqualsFilter::filter() const
 */
 
 /*!
-    \qmlclass GalleryGreaterThanEqualsFilter QDeclarativeGalleryGreaterThanEqualsFilter
+    \qmltype GalleryGreaterThanEqualsFilter
+    \instantiates QDeclarativeGalleryGreaterThanEqualsFilter
 
     \brief The GalleryGreaterThanEqualsFilter element provides a filter which
     tests if a meta-data property is greater than or equal to a value.
@@ -315,7 +320,8 @@ QGalleryFilter QDeclarativeGalleryEqualsFilter::filter() const
 */
 
 /*!
-    \qmlclass GalleryContainsFilter QDeclarativeGalleryContainsFilter
+    \qmltype GalleryContainsFilter
+    \instantiates QDeclarativeGalleryContainsFilter
 
     \brief The GalleryContainsFilter element provides a filter which tests if
     a meta-data property contains a string.
@@ -352,7 +358,8 @@ QGalleryFilter QDeclarativeGalleryEqualsFilter::filter() const
 */
 
 /*!
-    \qmlclass GalleryStartsWithFilter QDeclarativeGalleryStartsWithFilter
+    \qmltype GalleryStartsWithFilter
+    \instantiates QDeclarativeGalleryStartsWithFilter
 
     \brief The GalleryStartsWithFilter element provides a filter which tests if
     a meta-data property starts with a string.
@@ -389,7 +396,8 @@ QGalleryFilter QDeclarativeGalleryEqualsFilter::filter() const
 */
 
 /*!
-    \qmlclass GalleryEndsWithFilter QDeclarativeGalleryEndsWithFilter
+    \qmltype GalleryEndsWithFilter
+    \instantiates QDeclarativeGalleryEndsWithFilter
 
     \brief The GalleryEndsWithFilter element provides a filter which tests if a
     meta-data property ends with a string.
@@ -426,7 +434,8 @@ QGalleryFilter QDeclarativeGalleryEqualsFilter::filter() const
 */
 
 /*!
-    \qmlclass GalleryWildcardFilter QDeclarativeGalleryWildcardFilter
+    \qmltype GalleryWildcardFilter
+    \instantiates QDeclarativeGalleryWildcardFilter
 
     \brief The GalleryWildcardFilter element provides a filter which tests a
     meta-data property against a value using wildcard matching.
@@ -529,7 +538,8 @@ void QDeclarativeGalleryFilterGroup::clear(
 }
 
 /*!
-    \qmlclass GalleryFilterUnion GalleryFilterUnion
+    \qmltype GalleryFilterUnion
+    \instantiates GalleryFilterUnion
 
     \brief The GalleryFilterUnion elements provides a union of gallery filters.
 
@@ -570,7 +580,8 @@ QGalleryFilter QDeclarativeGalleryFilterUnion::filter() const
 }
 
 /*!
-    \qmlclass GalleryFilterIntersection GalleryFilterIntersection
+    \qmltype GalleryFilterIntersection
+    \instantiates GalleryFilterIntersection
 
     \brief The GalleryFilterIntersection elements provides a intersection of
     gallery filters.

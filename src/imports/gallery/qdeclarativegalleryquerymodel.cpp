@@ -501,7 +501,8 @@ void QDeclarativeGalleryQueryModel::_q_itemsChanged(int index, int count)
 }
 
 /*!
-    \qmlclass DocumentGalleryModel QDeclarativeDocumentGalleryModel
+    \qmltype DocumentGalleryModel
+    \instantiates QDeclarativeDocumentGalleryModel
 
     \inmodule QtAddOnGallery
 
