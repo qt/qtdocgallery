@@ -241,7 +241,8 @@ void QDeclarativeGalleryType::_q_metaDataChanged(const QList<int> &keys)
 }
 
 /*!
-    \qmlclass DocumentGalleryType QDeclarativeDocumentGalleryType
+    \qmltype DocumentGalleryType
+    \instantiates QDeclarativeDocumentGalleryType
 
     \inmodule QtAddOnGallery
     \ingroup qml-gallery
