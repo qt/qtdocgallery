@@ -1059,7 +1059,7 @@ void tst_QGalleryFilter::debugMessage_data()
 
     QTest::newRow("Inverse Populated QGallleryMetaDataFilter")
             << QGalleryFilter(!metaDataFilter)
-            << QByteArray("!"TST_QGALLERYMETADATAFILTER_DEBUG_TEXT);
+            << QByteArray("!" TST_QGALLERYMETADATAFILTER_DEBUG_TEXT);
 
     QGalleryUnionFilter unionFilter;
     unionFilter.append(metaDataFilter);
@@ -1086,7 +1086,7 @@ void tst_QGalleryFilter::debugMessage_data()
             << QByteArray("QGalleryUnionFilter("
                 TST_QGALLERYMETADATAFILTER_DEBUG_TEXT
                 " && "
-                "!"TST_QGALLERYMETADATAFILTER_DEBUG_TEXT
+                "!" TST_QGALLERYMETADATAFILTER_DEBUG_TEXT
                 ") ");
 
     intersectionFilter.append(!metaDataFilter);
@@ -1096,7 +1096,7 @@ void tst_QGalleryFilter::debugMessage_data()
             << QByteArray("QGalleryIntersectionFilter("
                 TST_QGALLERYMETADATAFILTER_DEBUG_TEXT
                 " || "
-                "!"TST_QGALLERYMETADATAFILTER_DEBUG_TEXT
+                "!" TST_QGALLERYMETADATAFILTER_DEBUG_TEXT
                 ") ");
 }
 
