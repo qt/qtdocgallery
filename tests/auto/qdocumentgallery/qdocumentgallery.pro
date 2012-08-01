@@ -7,3 +7,4 @@ linux-*: {
 
     contains(QT_CONFIG, jsondb): DEFINES += QT_SIMPLE_ENABLED
 }
+DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
