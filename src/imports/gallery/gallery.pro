@@ -1,6 +1,8 @@
-TARGETPATH = QtAddOn/gallery
+CXX_MODULE = docgallery
+TARGET     = docgalleryplugin
+TARGETPATH = QtDocGallery
 
-QT += qml gallery
+QT += qml docgallery
 
 HEADERS += \
     qdeclarativedocumentgallery.h \
