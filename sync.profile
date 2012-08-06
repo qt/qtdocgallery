@@ -1,5 +1,5 @@
 %modules = ( # path to module name map
-    "QtAddOnGallery" => "$basedir/src/gallery",
+    "QtDocGallery" => "$basedir/src/gallery",
 );
 %moduleheaders = ( # restrict the module headers to those found in relative path
 );

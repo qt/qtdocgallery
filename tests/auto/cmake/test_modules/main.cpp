@@ -41,9 +41,11 @@
 
 #include <QGalleryFilter>
 
+QT_USE_DOCGALLERY_NAMESPACE
+
 int main(int argc, char **argv)
 {
-    QtAddOn::Gallery::QGalleryFilter galleryFilter;
+    QGalleryFilter galleryFilter;
 
     return 0;
 }
