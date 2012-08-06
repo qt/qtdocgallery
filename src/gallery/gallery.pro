@@ -1,6 +1,7 @@
 load(qt_build_config)
 
-TARGET = QtAddOnGallery
+TARGET = QtDocGallery
+MODULE = docgallery
 QT = core
 
 load(qt_module_config)
