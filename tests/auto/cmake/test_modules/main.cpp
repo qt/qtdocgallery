@@ -43,7 +43,7 @@
 
 int main(int argc, char **argv)
 {
-    QtAddOn::Gallery::QGalleryFilter galleryFilter;
+    QT_NAMESPACE::QDocGallery::QGalleryFilter galleryFilter;
 
     return 0;
 }
