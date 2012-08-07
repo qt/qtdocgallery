@@ -3,7 +3,7 @@ load(qt_build_config)
 TARGET = QtAddOnGallery
 QT = core
 
-load(qt_module_config)
+load(qt_module)
 
 PUBLIC_HEADERS += \
     qgalleryglobal.h \
