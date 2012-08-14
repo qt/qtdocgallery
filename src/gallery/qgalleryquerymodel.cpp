@@ -47,7 +47,7 @@
 #include <QtCore/qstringlist.h>
 #include <QtCore/qpointer.h>
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 class QGalleryQueryModelPrivate
 {
@@ -280,7 +280,7 @@ void QGalleryQueryModelPrivate::_q_metaDataChanged(int index, int count, const Q
 
     \ingroup gallery
 
-    \inmodule QtAddOnGallery
+    \inmodule QtDocGallery
 
     \brief The QGalleryQueryModel class provides a model for the results of a
     gallery query.
@@ -980,4 +980,4 @@ Qt::ItemFlags QGalleryQueryModel::flags(const QModelIndex &index) const
 
 #include "moc_qgalleryquerymodel.cpp"
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE

@@ -39,24 +39,13 @@
 **
 ****************************************************************************/
 
-//
-//  W A R N I N G
-//  -------------
-//
-// This file is not part of the Qt API.  It exists purely as an
-// implementation detail.  This header file may change from version to
-// version without notice, or even be removed.
-//
-// We mean it.
-//
-
 #ifndef QGALLERYGLOBAL_H
 #define QGALLERYGLOBAL_H
 
 #include <QtCore/qglobal.h>
 
 #ifndef QT_STATIC
-#  if defined(QT_BUILD_ADDON_GALLERY_LIB)
+#  if defined(QT_BUILD_DOCGALLERY_LIB)
 #    define Q_GALLERY_EXPORT Q_DECL_EXPORT
 #  else
 #    define Q_GALLERY_EXPORT Q_DECL_IMPORT
@@ -76,11 +65,5 @@
 #define QT_USE_DOCGALLERY_NAMESPACE using namespace QDocGallery;
 #define QT_DOCGALLERY_PREPEND_NAMESPACE(name) ::QDocGallery::name
 #endif
-
-// compatibility with the older macros
-#define QT_ADDON_GALLERY_BEGIN_NAMESPACE QT_DOCGALLERY_BEGIN_NAMESPACE
-#define QT_ADDON_GALLERY_END_NAMESPACE QT_DOCGALLERY_END_NAMESPACE
-#define QT_ADDON_USE_GALLERY_NAMESPACE QT_USE_DOCGALLERY_NAMESPACE
-#define QT_ADDON_GELLERY_PREPEND_NAMESPACE(name) QT_DOCGALLERY_PREPEND_NAMESPACE(name)
 
 #endif // QGALLERYGLOBAL_H

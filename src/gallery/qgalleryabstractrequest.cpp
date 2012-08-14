@@ -43,7 +43,7 @@
 #include "qgalleryabstractrequest_p.h"
 #include <qabstractgallery.h>
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 void QGalleryAbstractRequestPrivate::_q_finished()
 {
@@ -123,7 +123,7 @@ void QGalleryAbstractRequestPrivate::_q_progressChanged(int current, int maximum
     \ingroup gallery
     \ingroup gallery-requests
 
-    \inmodule QtAddOnGallery
+    \inmodule QtDocGallery
 
     \brief The QGalleryAbstractRequest class provides a base class for gallery
     requests.
@@ -579,4 +579,4 @@ void QGalleryAbstractRequest::clear()
 
 #include "moc_qgalleryabstractrequest.cpp"
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE

@@ -46,7 +46,7 @@
 
 #include <QtCore/qstring.h>
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 struct Q_GALLERY_EXPORT QGalleryProperty
 {
@@ -97,9 +97,9 @@ struct Q_GALLERY_EXPORT QGalleryProperty
     const int m_length;
 };
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(QT_ADDON_GELLERY_PREPEND_NAMESPACE(QGalleryProperty::Attributes))
+Q_DECLARE_OPERATORS_FOR_FLAGS(QT_DOCGALLERY_PREPEND_NAMESPACE(QGalleryProperty::Attributes))
 
 #define Q_DEFINE_GALLERY_PROPERTY(scope, name) const QGalleryProperty scope::name = {#name, sizeof(#name) - 1};
 

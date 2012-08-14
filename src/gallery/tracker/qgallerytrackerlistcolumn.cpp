@@ -48,7 +48,7 @@
 #include <QtCore/qurl.h>
 #include <QtCore/qvariant.h>
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 QVariant QGalleryTrackerStringColumn::toVariant(const QString &string) const
 {
@@ -160,4 +160,4 @@ QGalleryTrackerCompositeColumn *QGalleryTrackerFileExtensionColumn::create(const
     return new QGalleryTrackerFileExtensionColumn(QGALLERYTRACKERFILEURLCOLUMN_DEFAULT_COL);
 }
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE

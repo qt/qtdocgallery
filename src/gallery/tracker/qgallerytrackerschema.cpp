@@ -57,7 +57,7 @@
 #include <QtCore/qxmlstream.h>
 #include <QtCore/qdebug.h>
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 namespace
 {
@@ -1549,4 +1549,4 @@ QString QGalleryTrackerSchema::serviceForType( const QString &galleryType )
     return QString();
 }
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE

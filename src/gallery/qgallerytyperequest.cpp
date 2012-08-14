@@ -45,7 +45,7 @@
 #include "qgallerynullresultset_p.h"
 #include "qgalleryresource.h"
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 class QGalleryTypeRequestPrivate : public QGalleryAbstractRequestPrivate
 {
@@ -107,7 +107,7 @@ public:
     \ingroup gallery
     \ingroup gallery-requests
 
-    \inmodule QtAddOnGallery
+    \inmodule QtDocGallery
 
     \brief The QGalleryTypeRequest class provides an interface for requesting
     the properties of a type from a gallery.
@@ -377,4 +377,4 @@ void QGalleryTypeRequest::setResponse(QGalleryAbstractResponse *response)
 
 #include "moc_qgallerytyperequest.cpp"
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE

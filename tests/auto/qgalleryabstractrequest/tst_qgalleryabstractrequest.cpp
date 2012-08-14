@@ -48,7 +48,7 @@
 
 #include <QtTest/QtTest>
 
-QT_ADDON_USE_GALLERY_NAMESPACE
+QT_USE_DOCGALLERY_NAMESPACE
 
 Q_DECLARE_METATYPE(QGalleryAbstractRequest::State)
 

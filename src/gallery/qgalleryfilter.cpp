@@ -45,7 +45,7 @@
 #include <QtCore/qstringlist.h>
 #include <QtCore/qurl.h>
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 class QGalleryFilterPrivate : public QSharedData
 {
@@ -220,7 +220,7 @@ public:
     \ingroup gallery
     \ingroup gallery-filters
 
-    \inmodule QtAddOnGallery
+    \inmodule QtDocGallery
 
     \brief The QGalleryIntersectionFilter class provides a filter which matches
     the intersection of two or more meta-data filters.
@@ -511,7 +511,7 @@ QGalleryIntersectionFilter operator &&(
     \ingroup gallery
     \ingroup gallery-filters
 
-    \inmodule QtAddOnGallery
+    \inmodule QtDocGallery
 
     \brief The QGalleryUnionFilter class provides a filter which matches the
     union of two or more meta-data filters.
@@ -794,7 +794,7 @@ QGalleryUnionFilter operator ||(
     \ingroup gallery
     \ingroup gallery-filters
 
-    \inmodule QtAddOnGallery
+    \inmodule QtDocGallery
 
     \brief The QGalleryMetaDataFilter class provides a filter which accepts
     items with meta-data properties matching a specific value.
@@ -988,7 +988,7 @@ QGalleryMetaDataFilter QGalleryMetaDataFilter::operator !() const
     \ingroup gallery
     \ingroup gallery-filters
 
-    \inmodule QtAddOnGallery
+    \inmodule QtDocGallery
 
     \brief The QGalleryFilter class provides filtering criteria for gallery
     requests.
@@ -1195,4 +1195,4 @@ bool operator !=(const QGalleryFilter &filter1, const QGalleryFilter &filter2)
     return filter1.d != filter2.d && !filter1.d->isEqual(*filter2.d);
 }
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE

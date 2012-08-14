@@ -42,7 +42,7 @@
 #include "qabstractgallery.h"
 #include "qabstractgallery_p.h"
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 /*!
     \class QAbstractGallery
@@ -50,7 +50,7 @@ QT_ADDON_GALLERY_BEGIN_NAMESPACE
     \ingroup gallery
     \ingroup gallery-galleries
 
-    \inmodule QtAddOnGallery
+    \inmodule QtDocGallery
 
     \brief The QAbstractGallery class provides a base class for gallery
     implementations.
@@ -124,4 +124,4 @@ QAbstractGallery::~QAbstractGallery()
 
 #include "moc_qabstractgallery.cpp"
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE

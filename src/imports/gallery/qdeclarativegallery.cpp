@@ -50,7 +50,7 @@
 #include "qdeclarativegalleryquerymodel.h"
 #include "qdeclarativegallerytype.h"
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 class QGalleryDeclarativeModule : public QQmlExtensionPlugin
 {
@@ -60,7 +60,7 @@ class QGalleryDeclarativeModule : public QQmlExtensionPlugin
 public:
     virtual void registerTypes(const char *uri)
     {
-        Q_ASSERT(QLatin1String(uri) == QLatin1String("QtAddOn.gallery"));
+        Q_ASSERT(QLatin1String(uri) == QLatin1String("QtDocGallery"));
 
         qRegisterMetaType<QDeclarativeDocumentGallery::ItemType>();
 
@@ -87,4 +87,4 @@ public:
 
 #include "qdeclarativegallery.moc"
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE

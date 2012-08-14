@@ -47,7 +47,7 @@
 #include <qgalleryresource.h>
 #include <QtCore/qurl.h>
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 class QGalleryFilter;
 class QGalleryResultSet;
@@ -161,6 +161,6 @@ private:
     Q_DECLARE_PRIVATE(QGalleryQueryRequest)
 };
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE
 
 #endif
