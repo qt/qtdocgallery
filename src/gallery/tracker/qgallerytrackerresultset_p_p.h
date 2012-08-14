@@ -70,7 +70,7 @@
 #include <QtCore/qwaitcondition.h>
 #include <QtDBus/qdbusargument.h>
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 class QGalleryTrackerResultSetThread : public QThread
 {
@@ -378,11 +378,11 @@ public:
     void _q_editFinished(QGalleryTrackerMetaDataEdit *edit);
 };
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE
 
-template <> inline void qSwap<QT_ADDON_GELLERY_PREPEND_NAMESPACE(QGalleryTrackerResultSetPrivate::Row)>(
-        QT_ADDON_GELLERY_PREPEND_NAMESPACE(QGalleryTrackerResultSetPrivate::Row) &row1,
-        QT_ADDON_GELLERY_PREPEND_NAMESPACE(QGalleryTrackerResultSetPrivate::Row) &row2)
+template <> inline void qSwap<QT_DOCGALLERY_PREPEND_NAMESPACE(QGalleryTrackerResultSetPrivate::Row)>(
+        QT_DOCGALLERY_PREPEND_NAMESPACE(QGalleryTrackerResultSetPrivate::Row) &row1,
+        QT_DOCGALLERY_PREPEND_NAMESPACE(QGalleryTrackerResultSetPrivate::Row) &row2)
 {
     typedef QVector<QVariant>::iterator iterator;
 
@@ -392,5 +392,5 @@ template <> inline void qSwap<QT_ADDON_GELLERY_PREPEND_NAMESPACE(QGalleryTracker
 
 #endif
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(QT_ADDON_GELLERY_PREPEND_NAMESPACE(QGalleryTrackerResultSetPrivate::Flags))
+Q_DECLARE_OPERATORS_FOR_FLAGS(QT_DOCGALLERY_PREPEND_NAMESPACE(QGalleryTrackerResultSetPrivate::Flags))
 

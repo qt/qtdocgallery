@@ -46,7 +46,7 @@
 
 #include <QtNetwork/QLocalSocket>
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 using namespace QtSimulatorPrivate;
 
@@ -119,4 +119,4 @@ DocGallerySimulatorData DocGalleryConnection::galleryData() const
 #include "moc_docgalleryconnection_simulator.cpp"
 }
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE

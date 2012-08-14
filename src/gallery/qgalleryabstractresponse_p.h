@@ -59,7 +59,7 @@ QT_BEGIN_NAMESPACE
 class QEventLoop;
 QT_END_NAMESPACE
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 class QGalleryAbstractResponsePrivate
 {
@@ -81,6 +81,6 @@ public:
     QString errorString;
 };
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE
 
 #endif

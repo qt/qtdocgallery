@@ -45,9 +45,9 @@
 
 #include <QtTest/QtTest>
 
-Q_DECLARE_METATYPE(QT_ADDON_GELLERY_PREPEND_NAMESPACE(QGalleryProperty::Attributes))
+Q_DECLARE_METATYPE(QT_DOCGALLERY_PREPEND_NAMESPACE(QGalleryProperty::Attributes))
 
-QT_ADDON_USE_GALLERY_NAMESPACE
+QT_USE_DOCGALLERY_NAMESPACE
 
 class tst_QDocumentGallery : public QObject
 {

@@ -62,7 +62,7 @@
 #include <QtCore/QFileInfo>
 #include <QtGui/QImage>
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 class QSimulatorGalleryResultSet  : public QGalleryResultSet
 {
@@ -107,6 +107,6 @@ private:
     int mCurrentIndex;
 };
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE
 
 #endif // QSIMULATORGALLERYRESULTSET_H

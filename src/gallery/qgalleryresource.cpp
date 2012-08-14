@@ -41,14 +41,14 @@
 
 #include "qgalleryresource.h"
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 /*!
     \class QGalleryResource
 
     \ingroup gallery
 
-    \inmodule QtAddOnGallery
+    \inmodule QtDocGallery
 
     \brief The QGalleryResource class provides a resource identifier for a
     gallery item.
@@ -167,4 +167,4 @@ QVariant QGalleryResource::attribute(int key) const
     return m_attributes.value(key);
 }
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE

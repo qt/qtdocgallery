@@ -57,7 +57,7 @@
 
 #include <QtCore/qcoreevent.h>
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 class QDeclarativeDocumentGallery : public QObject
 {
@@ -88,8 +88,8 @@ public:
     static QAbstractGallery *gallery(QObject *object);
 };
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE
 
-Q_DECLARE_METATYPE(QT_ADDON_GELLERY_PREPEND_NAMESPACE(QDeclarativeDocumentGallery::ItemType))
+Q_DECLARE_METATYPE(QT_DOCGALLERY_PREPEND_NAMESPACE(QDeclarativeDocumentGallery::ItemType))
 
 #endif

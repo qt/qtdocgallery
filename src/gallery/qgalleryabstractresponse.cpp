@@ -44,14 +44,14 @@
 #include <QtCore/qcoreapplication.h>
 #include <QtCore/qtimer.h>
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 /*!
     \class QGalleryAbstractResponse
 
     \ingroup gallery
 
-    \inmodule QtAddOnGallery
+    \inmodule QtDocGallery
 
     \brief The QGalleryAbstractResponse class provides a base class for
     responses to gallery requests.
@@ -330,4 +330,4 @@ void QGalleryAbstractResponse::error(int error, const QString &errorString)
 
 #include "moc_qgalleryabstractresponse.cpp"
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE

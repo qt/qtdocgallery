@@ -41,7 +41,7 @@
 
 #include "docgallerysimulatordata.h"
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 void qt_registerDocGalleryTypes()
 {
@@ -84,4 +84,4 @@ QDataStream &operator>>(QDataStream &in, DocGalleryImageItem &i)
     return in;
 }
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE

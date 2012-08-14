@@ -61,7 +61,7 @@
 #include <QtCore/qsharedpointer.h>
 #include <QtCore/qpointer.h>
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 class QGalleryAbstractRequestPrivate
 {
@@ -100,6 +100,6 @@ public:
     QString errorString;
 };
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE
 
 #endif

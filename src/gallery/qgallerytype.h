@@ -46,7 +46,7 @@
 
 #include <QtCore/qstring.h>
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 struct Q_GALLERY_EXPORT QGalleryType
 {
@@ -60,6 +60,6 @@ struct Q_GALLERY_EXPORT QGalleryType
 
 #define Q_DEFINE_GALLERY_TYPE(scope, name) const QGalleryType scope::name = {#name, sizeof(#name) - 1};
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE
 
 #endif

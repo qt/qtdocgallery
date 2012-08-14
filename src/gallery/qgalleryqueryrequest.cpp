@@ -45,7 +45,7 @@
 #include "qgallerynullresultset_p.h"
 #include "qgalleryresource.h"
 
-QT_ADDON_GALLERY_BEGIN_NAMESPACE
+QT_DOCGALLERY_BEGIN_NAMESPACE
 
 class QGalleryQueryRequestPrivate : public QGalleryAbstractRequestPrivate
 {
@@ -82,7 +82,7 @@ public:
     \ingroup gallery
     \ingroup gallery-requests
 
-    \inmodule QtAddOnGallery
+    \inmodule QtDocGallery
 
     \brief The QGalleryQueryRequest class provides a request for a set of
     items from a gallery.
@@ -691,4 +691,4 @@ void QGalleryQueryRequest::setResponse(QGalleryAbstractResponse *response)
 
 #include "moc_qgalleryqueryrequest.cpp"
 
-QT_ADDON_GALLERY_END_NAMESPACE
+QT_DOCGALLERY_END_NAMESPACE
