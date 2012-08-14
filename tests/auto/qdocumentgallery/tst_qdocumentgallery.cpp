@@ -41,7 +41,7 @@
 
 //TESTED_COMPONENT=src/gallery
 
-#include <qdocumentgallery.h>
+#include <QtDocGallery/qdocumentgallery.h>
 
 #include <QtTest/QtTest>
 
@@ -65,7 +65,7 @@ private:
 
 void tst_QDocumentGallery::isRequestSupported()
 {
-#if (defined(Q_OS_LINUX) && (defined(QT_TRACKER_ENABLED) || defined(QT_SIMPLE_ENABLED)))
+#if (defined(Q_OS_LINUX) && defined(QT_TRACKER_ENABLED))
     const bool platformSupported = true;
 #else
     const bool platformSupported = false;
@@ -73,12 +73,7 @@ void tst_QDocumentGallery::isRequestSupported()
 
     QCOMPARE(gallery.isRequestSupported(QGalleryAbstractRequest::QueryRequest), platformSupported);
     QCOMPARE(gallery.isRequestSupported(QGalleryAbstractRequest::ItemRequest), platformSupported);
-
-#if defined(Q_OS_LINUX) && defined(QT_SIMPLE_ENABLED)
-    QCOMPARE(gallery.isRequestSupported(QGalleryAbstractRequest::TypeRequest), false);
-#else
     QCOMPARE(gallery.isRequestSupported(QGalleryAbstractRequest::TypeRequest), platformSupported);
-#endif
     QCOMPARE(gallery.isRequestSupported(QGalleryAbstractRequest::RequestType(1000)), false);
 }
 
@@ -133,15 +128,6 @@ void tst_QDocumentGallery::itemTypeProperties_data()
             << QDocumentGallery::trackNumber
             << QDocumentGallery::performer
             << QDocumentGallery::composer
-#elif defined(QT_SIMPLE_ENABLED)
-            << QDocumentGallery::url
-            << QDocumentGallery::title
-            << QDocumentGallery::artist
-            << QDocumentGallery::albumTitle
-            << QDocumentGallery::albumArtist
-            << QDocumentGallery::trackNumber
-            << QDocumentGallery::genre
-            << QLatin1String("albumArt")
 #endif
 #endif
     );
@@ -155,11 +141,6 @@ void tst_QDocumentGallery::itemTypeProperties_data()
             << QDocumentGallery::duration
             << QDocumentGallery::title
             << QDocumentGallery::trackCount
-#elif defined(QT_SIMPLE_ENABLED)
-            << QLatin1String("albumArt")
-            << QDocumentGallery::title
-            << QDocumentGallery::artist
-            << QDocumentGallery::albumArtist
 #endif
 #endif
     );
@@ -259,9 +240,7 @@ void tst_QDocumentGallery::propertyAttributes()
     QFETCH(QString, itemType);
     QFETCH(QString, propertyName);
     QFETCH(QGalleryProperty::Attributes, propertyAttributes);
-#if !defined(QT_SIMPLE_ENABLED)
     QCOMPARE(int(gallery.propertyAttributes(propertyName, itemType)), int(propertyAttributes));
-#endif
 }
 
 #include "tst_qdocumentgallery.moc"
