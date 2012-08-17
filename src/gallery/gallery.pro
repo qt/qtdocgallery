@@ -46,9 +46,7 @@ OTHER_FILES = \
     qgalleryproperty.qdoc \
     qgallerytype.qdoc
 
-simulator: {
-    include (simulator/simulator.pri)
-} else: linux-* {
+linux-* {
     contains(QT_CONFIG, dbus): contains(tracker_enabled, yes): {
         include (tracker/tracker.pri)
     } else: {
