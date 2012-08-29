@@ -1,0 +1,3 @@
+.gitignore      export-ignore
+.tag            export-subst
+.gitattributes  export-ignore
