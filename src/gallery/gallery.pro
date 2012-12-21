@@ -45,7 +45,7 @@ OTHER_FILES = \
     qgallerytype.qdoc
 
 linux-* {
-    contains(QT_CONFIG, dbus): contains(tracker_enabled, yes): {
+    qtHaveModule(dbus):contains(tracker_enabled, yes) {
         include (tracker/tracker.pri)
     } else: {
         DEFINES += QT_DOCUMENT_GALLERY_NULL
