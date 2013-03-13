@@ -48,7 +48,7 @@
 #include <QtCore/qstringlist.h>
 
 QT_BEGIN_HEADER
-QT_DOCGALLERY_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE_DOCGALLERY
 
 class QAbstractGallery;
 class QGalleryAbstractResponse;
@@ -143,7 +143,7 @@ private:
     Q_PRIVATE_SLOT(d_func(), void _q_progressChanged(int, int))
 };
 
-QT_DOCGALLERY_END_NAMESPACE
+QT_END_NAMESPACE_DOCGALLERY
 QT_END_HEADER
 
 #endif

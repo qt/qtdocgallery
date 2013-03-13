@@ -55,13 +55,13 @@
 #endif
 
 #if defined(QT_NAMESPACE)
-#define QT_DOCGALLERY_BEGIN_NAMESPACE namespace QT_NAMESPACE { namespace QDocGallery {
-#define QT_DOCGALLERY_END_NAMESPACE } }
+#define QT_BEGIN_NAMESPACE_DOCGALLERY namespace QT_NAMESPACE { namespace QDocGallery {
+#define QT_END_NAMESPACE_DOCGALLERY } }
 #define QT_USE_DOCGALLERY_NAMESPACE using namespace QT_NAMESPACE::QDocGallery;
 #define QT_DOCGALLERY_PREPEND_NAMESPACE(name) ::QT_NAMESPACE::QDocGallery::name
 #else
-#define QT_DOCGALLERY_BEGIN_NAMESPACE namespace QDocGallery {
-#define QT_DOCGALLERY_END_NAMESPACE }
+#define QT_BEGIN_NAMESPACE_DOCGALLERY namespace QDocGallery {
+#define QT_END_NAMESPACE_DOCGALLERY }
 #define QT_USE_DOCGALLERY_NAMESPACE using namespace QDocGallery;
 #define QT_DOCGALLERY_PREPEND_NAMESPACE(name) ::QDocGallery::name
 #endif

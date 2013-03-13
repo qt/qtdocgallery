@@ -47,7 +47,7 @@
 #include <QtCore/qurl.h>
 #include <QtCore/qvariant.h>
 
-QT_DOCGALLERY_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE_DOCGALLERY
 
 class Q_GALLERY_EXPORT QGalleryResource
 {
@@ -73,6 +73,6 @@ private:
     QMap<int, QVariant> m_attributes;
 };
 
-QT_DOCGALLERY_END_NAMESPACE
+QT_END_NAMESPACE_DOCGALLERY
 
 #endif

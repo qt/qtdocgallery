@@ -46,7 +46,7 @@
 #include <qgalleryproperty.h>
 #include <qgallerytype.h>
 
-QT_DOCGALLERY_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE_DOCGALLERY
 
 class QDocumentGalleryPrivate;
 
@@ -175,6 +175,6 @@ private:
     Q_DECLARE_PRIVATE(QDocumentGallery)
 };
 
-QT_DOCGALLERY_END_NAMESPACE
+QT_END_NAMESPACE_DOCGALLERY
 
 #endif

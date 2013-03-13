@@ -43,7 +43,7 @@
 #include "qgalleryabstractrequest_p.h"
 #include <qabstractgallery.h>
 
-QT_DOCGALLERY_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE_DOCGALLERY
 
 void QGalleryAbstractRequestPrivate::_q_finished()
 {
@@ -579,4 +579,4 @@ void QGalleryAbstractRequest::clear()
 
 #include "moc_qgalleryabstractrequest.cpp"
 
-QT_DOCGALLERY_END_NAMESPACE
+QT_END_NAMESPACE_DOCGALLERY

@@ -66,7 +66,7 @@ struct QGalleryTrackerGraphUpdate
     int object;
 };
 
-QT_DOCGALLERY_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE_DOCGALLERY
 
 class QGalleryDBusInterface : public QDBusAbstractInterface, public QSharedData
 {
@@ -112,6 +112,6 @@ public:
     virtual QGalleryDBusInterfacePointer statisticsInterface() = 0;
 };
 
-QT_DOCGALLERY_END_NAMESPACE
+QT_END_NAMESPACE_DOCGALLERY
 
 #endif

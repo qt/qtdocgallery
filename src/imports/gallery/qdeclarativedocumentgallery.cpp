@@ -47,7 +47,7 @@
 #include <QtQml/qqmlcontext.h>
 #include <QtQml/qqmlengine.h>
 
-QT_DOCGALLERY_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE_DOCGALLERY
 
 Q_GLOBAL_STATIC(QDocumentGallery, qt_declarativeDocumentGalleryInstance)
 
@@ -85,4 +85,4 @@ QAbstractGallery *QDeclarativeDocumentGallery::gallery(QObject *object)
 
 #include "moc_qdeclarativedocumentgallery.cpp"
 
-QT_DOCGALLERY_END_NAMESPACE
+QT_END_NAMESPACE_DOCGALLERY

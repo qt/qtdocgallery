@@ -41,7 +41,7 @@
 
 #include "qgalleryresource.h"
 
-QT_DOCGALLERY_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE_DOCGALLERY
 
 /*!
     \class QGalleryResource
@@ -167,4 +167,4 @@ QVariant QGalleryResource::attribute(int key) const
     return m_attributes.value(key);
 }
 
-QT_DOCGALLERY_END_NAMESPACE
+QT_END_NAMESPACE_DOCGALLERY
