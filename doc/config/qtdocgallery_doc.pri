@@ -8,9 +8,8 @@ ONLINE_CONF = $$PWD/qtdocgallery.qdocconf
 DITA_CONF = $$PWD/qtdocgallery-dita.qdocconf
 QCH_CONF = #nothing yet
 
-$$unixstyle {
-} else {
-    QDOC = $$replace(QDOC, "qdoc", "qdoc3.exe")
+equals(QMAKE_DIR_SEP, \\) {
+    QDOC = $$replace(QDOC, "qdoc", "qdoc.exe")
     ONLINE_CONF = $$replace(ONLINE_CONF, "/", "\\")
     DITA_DOCS = $$replace(ONLINE_CONF, "/", "\\")
 }
