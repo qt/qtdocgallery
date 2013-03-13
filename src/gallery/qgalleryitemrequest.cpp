@@ -45,7 +45,7 @@
 #include "qgallerynullresultset_p.h"
 #include "qgalleryresource.h"
 
-QT_DOCGALLERY_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE_DOCGALLERY
 
 class QGalleryItemRequestPrivate : public QGalleryAbstractRequestPrivate
 {
@@ -430,4 +430,4 @@ void QGalleryItemRequest::setResponse(QGalleryAbstractResponse *response)
 
 #include "moc_qgalleryitemrequest.cpp"
 
-QT_DOCGALLERY_END_NAMESPACE
+QT_END_NAMESPACE_DOCGALLERY

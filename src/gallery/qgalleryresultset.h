@@ -50,7 +50,7 @@
 #include <QtCore/qurl.h>
 #include <QtCore/qvariant.h>
 
-QT_DOCGALLERY_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE_DOCGALLERY
 
 class QGalleryResource;
 
@@ -100,6 +100,6 @@ protected:
     QGalleryResultSet(QGalleryResultSetPrivate &dd, QObject *parent);
 };
 
-QT_DOCGALLERY_END_NAMESPACE
+QT_END_NAMESPACE_DOCGALLERY
 
 #endif

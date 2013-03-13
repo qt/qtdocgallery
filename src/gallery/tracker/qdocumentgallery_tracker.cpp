@@ -79,7 +79,7 @@ Q_DECLARE_METATYPE(QVector<QStringList>)
 Q_DECLARE_METATYPE(QGalleryTrackerGraphUpdate)
 Q_DECLARE_METATYPE(QVector<QGalleryTrackerGraphUpdate>)
 
-QT_DOCGALLERY_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE_DOCGALLERY
 
 class QDocumentGalleryPrivate : public QAbstractGalleryPrivate, public QGalleryDBusInterfaceFactory
 {
@@ -368,4 +368,4 @@ QGalleryAbstractResponse *QDocumentGallery::createResponse(QGalleryAbstractReque
     }
 }
 
-QT_DOCGALLERY_END_NAMESPACE
+QT_END_NAMESPACE_DOCGALLERY

@@ -70,7 +70,7 @@
 #include <QtCore/qwaitcondition.h>
 #include <QtDBus/qdbusargument.h>
 
-QT_DOCGALLERY_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE_DOCGALLERY
 
 class QGalleryTrackerResultSetThread : public QThread
 {
@@ -378,7 +378,7 @@ public:
     void _q_editFinished(QGalleryTrackerMetaDataEdit *edit);
 };
 
-QT_DOCGALLERY_END_NAMESPACE
+QT_END_NAMESPACE_DOCGALLERY
 
 template <> inline void qSwap<QT_DOCGALLERY_PREPEND_NAMESPACE(QGalleryTrackerResultSetPrivate::Row)>(
         QT_DOCGALLERY_PREPEND_NAMESPACE(QGalleryTrackerResultSetPrivate::Row) &row1,

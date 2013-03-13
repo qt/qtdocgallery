@@ -43,7 +43,7 @@
 
 #include <QtDBus/qdbuspendingcall.h>
 
-QT_DOCGALLERY_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE_DOCGALLERY
 
 QGalleryTrackerMetaDataEdit::QGalleryTrackerMetaDataEdit(
         const QGalleryDBusInterfacePointer &metaDataInterface,
@@ -126,4 +126,4 @@ void QGalleryTrackerMetaDataEdit::itemsRemoved(int index, int count)
         m_index = -1;
 }
 
-QT_DOCGALLERY_END_NAMESPACE
+QT_END_NAMESPACE_DOCGALLERY

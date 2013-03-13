@@ -56,7 +56,7 @@
 #include <qgalleryfilter.h>
 #include <QtQml/qqml.h>
 
-QT_DOCGALLERY_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE_DOCGALLERY
 
 class QGalleryFilter;
 
@@ -309,7 +309,7 @@ public:
     QGalleryFilter filter() const;
 };
 
-QT_DOCGALLERY_END_NAMESPACE
+QT_END_NAMESPACE_DOCGALLERY
 
 QML_DECLARE_TYPE(QT_DOCGALLERY_PREPEND_NAMESPACE(QDeclarativeGalleryFilterBase))
 QML_DECLARE_TYPE(QT_DOCGALLERY_PREPEND_NAMESPACE(QDeclarativeGalleryEqualsFilter))

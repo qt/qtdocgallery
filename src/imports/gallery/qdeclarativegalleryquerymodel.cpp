@@ -49,7 +49,7 @@
 #include <QtQml/qjsengine.h>
 #include <QtCore/qcoreapplication.h>
 
-QT_DOCGALLERY_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE_DOCGALLERY
 
 QDeclarativeGalleryQueryModel::QDeclarativeGalleryQueryModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -762,4 +762,4 @@ QVariant QDeclarativeDocumentGalleryModel::itemType(const QString &type) const
 
 #include "moc_qdeclarativegalleryquerymodel.cpp"
 
-QT_DOCGALLERY_END_NAMESPACE
+QT_END_NAMESPACE_DOCGALLERY

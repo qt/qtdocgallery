@@ -45,7 +45,7 @@
 #include <QtCore/qstringlist.h>
 #include <QtCore/qurl.h>
 
-QT_DOCGALLERY_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE_DOCGALLERY
 
 class QGalleryFilterPrivate : public QSharedData
 {
@@ -1195,4 +1195,4 @@ bool operator !=(const QGalleryFilter &filter1, const QGalleryFilter &filter2)
     return filter1.d != filter2.d && !filter1.d->isEqual(*filter2.d);
 }
 
-QT_DOCGALLERY_END_NAMESPACE
+QT_END_NAMESPACE_DOCGALLERY

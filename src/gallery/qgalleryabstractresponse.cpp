@@ -44,7 +44,7 @@
 #include <QtCore/qcoreapplication.h>
 #include <QtCore/qtimer.h>
 
-QT_DOCGALLERY_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE_DOCGALLERY
 
 /*!
     \class QGalleryAbstractResponse
@@ -330,4 +330,4 @@ void QGalleryAbstractResponse::error(int error, const QString &errorString)
 
 #include "moc_qgalleryabstractresponse.cpp"
 
-QT_DOCGALLERY_END_NAMESPACE
+QT_END_NAMESPACE_DOCGALLERY

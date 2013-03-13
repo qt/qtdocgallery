@@ -48,7 +48,7 @@
 #include <QtQml/qqmlinfo.h>
 #include <QtQml/qqmlpropertymap.h>
 
-QT_DOCGALLERY_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE_DOCGALLERY
 
 QDeclarativeGalleryType::QDeclarativeGalleryType(QObject *parent)
     : QObject(parent)
@@ -386,4 +386,4 @@ void QDeclarativeDocumentGalleryType::setItemType(QDeclarativeDocumentGallery::I
 
 #include "moc_qdeclarativegallerytype.cpp"
 
-QT_DOCGALLERY_END_NAMESPACE
+QT_END_NAMESPACE_DOCGALLERY

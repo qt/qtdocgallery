@@ -55,7 +55,7 @@
 
 #include "qgalleryresultset.h"
 
-QT_DOCGALLERY_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE_DOCGALLERY
 
 class QGalleryNullResultSet : public QGalleryResultSet
 {
@@ -79,6 +79,6 @@ public:
     bool fetch(int) { return false; }
 };
 
-QT_DOCGALLERY_END_NAMESPACE
+QT_END_NAMESPACE_DOCGALLERY
 
 #endif

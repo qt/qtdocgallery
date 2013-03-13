@@ -44,7 +44,7 @@
 #include "qgallerytrackerschema_p.h"
 #include <QtCore/qdebug.h>
 
-QT_DOCGALLERY_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE_DOCGALLERY
 
 QGalleryTrackerChangeNotifier::QGalleryTrackerChangeNotifier(
         const QString &service,
@@ -79,4 +79,4 @@ void QGalleryTrackerChangeNotifier::graphUpdated(
     }
 }
 
-QT_DOCGALLERY_END_NAMESPACE
+QT_END_NAMESPACE_DOCGALLERY
