@@ -256,7 +256,7 @@ class QDeclarativeGalleryFilterGroup
 {
     Q_OBJECT
     Q_INTERFACES(QQmlParserStatus)
-    Q_PROPERTY(QQmlListProperty<QDeclarativeGalleryFilterBase> filters READ filters)
+    Q_PROPERTY(QQmlListProperty<QDocGallery::QDeclarativeGalleryFilterBase> filters READ filters)
     Q_CLASSINFO("DefaultProperty", "filters")
 public:
     explicit QDeclarativeGalleryFilterGroup(QObject *parent = 0)

@@ -160,7 +160,7 @@ private Q_SLOTS:
 class QDeclarativeDocumentGalleryItem : public QDeclarativeGalleryItem
 {
     Q_OBJECT
-    Q_PROPERTY(QDeclarativeDocumentGallery::ItemType itemType READ itemType NOTIFY itemTypeChanged)
+    Q_PROPERTY(QDocGallery::QDeclarativeDocumentGallery::ItemType itemType READ itemType NOTIFY itemTypeChanged)
 public:
     explicit QDeclarativeDocumentGalleryItem(QObject *parent = 0);
     ~QDeclarativeDocumentGalleryItem();

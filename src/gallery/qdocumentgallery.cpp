@@ -971,8 +971,8 @@ QGalleryAbstractResponse *QDocumentGallery::createResponse(QGalleryAbstractReque
     return 0;
 }
 
-#include "moc_qdocumentgallery.cpp"
-
 #endif // QT_DOCUMENT_GALLERY_NULL
+
+#include "moc_qdocumentgallery.cpp"
 
 QT_END_NAMESPACE_DOCGALLERY

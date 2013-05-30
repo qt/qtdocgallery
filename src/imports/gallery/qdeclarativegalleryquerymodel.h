@@ -83,7 +83,7 @@ class QDeclarativeGalleryQueryModel : public QAbstractListModel, public QQmlPars
     Q_PROPERTY(int offset READ offset WRITE setOffset NOTIFY offsetChanged)
     Q_PROPERTY(int limit READ limit WRITE setLimit NOTIFY limitChanged)
     Q_PROPERTY(int count READ count NOTIFY countChanged)
-    Q_PROPERTY(QDeclarativeGalleryFilterBase* filter READ filter WRITE setFilter NOTIFY filterChanged)
+    Q_PROPERTY(QDocGallery::QDeclarativeGalleryFilterBase* filter READ filter WRITE setFilter NOTIFY filterChanged)
 public:
     enum Status
     {
@@ -212,7 +212,7 @@ private Q_SLOTS:
 class QDeclarativeDocumentGalleryModel : public QDeclarativeGalleryQueryModel
 {
     Q_OBJECT
-    Q_PROPERTY(QDeclarativeDocumentGallery::ItemType rootType READ rootType WRITE setRootType NOTIFY rootTypeChanged)
+    Q_PROPERTY(QDocGallery::QDeclarativeDocumentGallery::ItemType rootType READ rootType WRITE setRootType NOTIFY rootTypeChanged)
 public:
     explicit QDeclarativeDocumentGalleryModel(QObject *parent = 0);
     ~QDeclarativeDocumentGalleryModel();

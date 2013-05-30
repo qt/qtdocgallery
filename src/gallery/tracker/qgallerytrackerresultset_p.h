@@ -58,9 +58,10 @@
 #include "qgallerydbusinterface_p.h"
 #include "qgallerytrackerlistcolumn_p.h"
 
+class QDBusPendingCallWatcher;
+
 QT_BEGIN_NAMESPACE_DOCGALLERY
 
-class QDBusPendingCallWatcher;
 class QGalleryDBusInterfaceFactory;
 class QGalleryTrackerImageColumn;
 class QGalleryTrackerSchema;
