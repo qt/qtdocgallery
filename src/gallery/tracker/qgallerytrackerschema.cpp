@@ -706,8 +706,7 @@ static const QGalleryItemProperty qt_galleryOrientationPropertyList[] = {
 #define QT_GALLERY_NFO_FILEDATAOBJECT_COMPOSITE_PROPERTIES \
     QT_GALLERY_COMPOSITE_PROPERTY_NO_DEPENDENCIES("fileExtension", String, QGalleryTrackerFileExtensionColumn::create, qt_writeFileExtensionCondition), \
     QT_GALLERY_COMPOSITE_PROPERTY_NO_DEPENDENCIES("filePath"     , String, QGalleryTrackerFilePathColumn::create     , qt_writeFilePathCondition), \
-    QT_GALLERY_COMPOSITE_PROPERTY_NO_DEPENDENCIES("path"         , String, QGalleryTrackerPathColumn::create         , qt_writePathCondition), \
-    QT_GALLERY_COMPOSITE_PROPERTY("orientation", Int, qt_galleryOrientationPropertyList, QGalleryTrackerOrientationColumn::create, qt_writeOrientationCondition)
+    QT_GALLERY_COMPOSITE_PROPERTY_NO_DEPENDENCIES("path"         , String, QGalleryTrackerPathColumn::create         , qt_writePathCondition)
 
 //nfo:Media : nfo:FileDataObject
 //  nfo:equipment, nfo:genre, nfo:averageBitrate, nfo:bitrateType, nfo:encodedBy, nfo:codec,
@@ -731,6 +730,8 @@ static const QGalleryItemProperty qt_galleryOrientationPropertyList[] = {
     QT_GALLERY_ITEM_PROPERTY("height", "nfo:height(?x)", Int, CanRead | CanSort | CanFilter | IsResource), \
     QT_GALLERY_ITEM_PROPERTY("width" , "nfo:width(?x)" , Int, CanRead | CanSort | CanFilter | IsResource)
 
+#define QT_GALLERY_NFO_VISUAL_COMPOSITE_PROPERTIES \
+    QT_GALLERY_COMPOSITE_PROPERTY("orientation", Int, qt_galleryOrientationPropertyList, QGalleryTrackerOrientationColumn::create, qt_writeOrientationCondition)
 ///////
 // File
 ///////
@@ -741,7 +742,9 @@ static const QGalleryItemProperty qt_galleryOrientationPropertyList[] = {
 
 static const QGalleryItemProperty qt_galleryFilePropertyList[] =
 {
-    QT_GALLERY_NFO_FILEDATAOBJECT_PROPERTIES
+    QT_GALLERY_NFO_FILEDATAOBJECT_PROPERTIES,
+    QT_GALLERY_NFO_MEDIA_PROPERTIES,
+    QT_GALLERY_NFO_VISUAL_PROPERTIES
 };
 
 #define QT_GALLERY_FILE_COMPOSITE_PROPERTIES \
@@ -749,7 +752,8 @@ static const QGalleryItemProperty qt_galleryFilePropertyList[] =
 
     static const QGalleryCompositeProperty qt_galleryFileCompositePropertyList[] =
 {
-    QT_GALLERY_NFO_FILEDATAOBJECT_COMPOSITE_PROPERTIES
+    QT_GALLERY_NFO_FILEDATAOBJECT_COMPOSITE_PROPERTIES,
+    QT_GALLERY_NFO_VISUAL_COMPOSITE_PROPERTIES
 };
 
 ////////
@@ -833,6 +837,7 @@ static const QGalleryItemProperty qt_galleryImagePropertyList[] =
 static const QGalleryCompositeProperty qt_galleryImageCompositePropertyList[] =
 {
     QT_GALLERY_NFO_FILEDATAOBJECT_COMPOSITE_PROPERTIES,
+    QT_GALLERY_NFO_VISUAL_COMPOSITE_PROPERTIES
 };
 
 ////////
@@ -861,7 +866,8 @@ static const QGalleryItemProperty qt_galleryVideoPropertyList[] =
 
 static const QGalleryCompositeProperty qt_galleryVideoCompositePropertyList[] =
 {
-    QT_GALLERY_NFO_FILEDATAOBJECT_COMPOSITE_PROPERTIES
+    QT_GALLERY_NFO_FILEDATAOBJECT_COMPOSITE_PROPERTIES,
+    QT_GALLERY_NFO_VISUAL_COMPOSITE_PROPERTIES
 };
 
 ///////////
