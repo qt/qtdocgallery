@@ -698,10 +698,16 @@ static bool qt_writeOrientationCondition(
     QT_GALLERY_ITEM_PROPERTY("lastAccessed" , "nfo:fileLastAccessed(?x)" , DateTime, CanRead | CanSort | CanFilter), \
     QT_GALLERY_ITEM_PROPERTY("lastModified" , "nfo:fileLastModified(?x)" , DateTime, CanRead | CanSort | CanFilter)
 
+
+static const QGalleryItemProperty qt_galleryOrientationPropertyList[] = {
+    QT_GALLERY_ITEM_PROPERTY("_orientation", "nfo:orientation(?x)", String, CanRead | CanFilter)
+};
+
 #define QT_GALLERY_NFO_FILEDATAOBJECT_COMPOSITE_PROPERTIES \
     QT_GALLERY_COMPOSITE_PROPERTY_NO_DEPENDENCIES("fileExtension", String, QGalleryTrackerFileExtensionColumn::create, qt_writeFileExtensionCondition), \
     QT_GALLERY_COMPOSITE_PROPERTY_NO_DEPENDENCIES("filePath"     , String, QGalleryTrackerFilePathColumn::create     , qt_writeFilePathCondition), \
-    QT_GALLERY_COMPOSITE_PROPERTY_NO_DEPENDENCIES("path"         , String, QGalleryTrackerPathColumn::create         , qt_writePathCondition)
+    QT_GALLERY_COMPOSITE_PROPERTY_NO_DEPENDENCIES("path"         , String, QGalleryTrackerPathColumn::create         , qt_writePathCondition), \
+    QT_GALLERY_COMPOSITE_PROPERTY("orientation", Int, qt_galleryOrientationPropertyList, QGalleryTrackerOrientationColumn::create, qt_writeOrientationCondition)
 
 //nfo:Media : nfo:FileDataObject
 //  nfo:equipment, nfo:genre, nfo:averageBitrate, nfo:bitrateType, nfo:encodedBy, nfo:codec,
@@ -822,17 +828,11 @@ static const QGalleryItemProperty qt_galleryImagePropertyList[] =
     QT_GALLERY_ITEM_PROPERTY("focalLength"       , "nmm:focalLength(?x)"                , Double  , CanRead | CanWrite | CanSort | CanFilter),
     QT_GALLERY_ITEM_PROPERTY("meteringMode"      , "nmm:meteringMode(?x)"               , String  , CanRead | CanWrite | CanSort | CanFilter),
     QT_GALLERY_ITEM_PROPERTY("whiteBalance"      , "nmm:whiteBalance(?x)"               , String  , CanRead | CanWrite | CanSort | CanFilter),
-    QT_GALLERY_ITEM_PROPERTY("_orientation",     "nfo:orientation(?x)"                  , String, CanRead)
-};
-
-static const QGalleryItemProperty qt_galleryOrientationPropertyList[] = {
-    QT_GALLERY_ITEM_PROPERTY("_orientation", "nfo:orientation(?x)", String, CanRead | CanFilter)
 };
 
 static const QGalleryCompositeProperty qt_galleryImageCompositePropertyList[] =
 {
     QT_GALLERY_NFO_FILEDATAOBJECT_COMPOSITE_PROPERTIES,
-    QT_GALLERY_COMPOSITE_PROPERTY("orientation", Int, qt_galleryOrientationPropertyList, QGalleryTrackerOrientationColumn::create, qt_writeOrientationCondition)
 };
 
 ////////
