@@ -1000,7 +1000,7 @@ static const QGalleryItemType qt_galleryItemTypeList[] =
     QT_GALLERY_ITEM_TYPE(Document  , nfo, Document         , document  , Document),
     QT_GALLERY_ITEM_TYPE(Audio     , nfo, Audio            , audio     , Audio),
     QT_GALLERY_ITEM_TYPE(Image     , nmm, Photo            , image     , Image),
-    QT_GALLERY_ITEM_TYPE(Video     , nfo, Video            , video     , Video),
+    QT_GALLERY_ITEM_TYPE(Video     , nmm, Video            , video     , Video),
     QT_GALLERY_ITEM_TYPE(Playlist  , nmm, Playlist         , playlist  , Playlist),
     QT_GALLERY_ITEM_TYPE(Text      , nfo, PlainTextDocument, text      , Text),
     QT_GALLERY_ITEM_TYPE_NO_COMPOSITE_FILTERED(Artist     , nmm, Artist, nmm:MusicPiece, nmm:performer  , artist     , Artist),
