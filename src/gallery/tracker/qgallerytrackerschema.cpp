@@ -633,6 +633,35 @@ static bool qt_writeFileExtensionCondition(
     }
 }
 
+
+static bool qt_writeOrientationCondition(
+        QDocumentGallery::Error *error,
+        QString *query,
+        const QGalleryCompositeProperty &,
+        const QGalleryMetaDataFilter &filter)
+{
+    if (filter.comparator() != QGalleryFilter::Equals || filter.value().type() != QVariant::Int) {
+        *error = QDocumentGallery::FilterError;
+        return false;
+    } else switch (filter.value().toInt()) {
+    case 0:
+        *query += QLatin1String("nfo:orientation(?x) = 'http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#orientation-top'");
+        return true;
+    case 90:
+        *query += QLatin1String("nfo:orientation(?x) = 'http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#orientation-left'");
+        return true;
+    case 180:
+        *query += QLatin1String("nfo:orientation(?x) = 'http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#orientation-bottom'");
+        return true;
+    case 270:
+        *query += QLatin1String("nfo:orientation(?x) = 'http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#orientation-right'");
+        return true;
+    default:
+        *error = QDocumentGallery::FilterError;
+        return false;
+    }
+}
+
 //nie:DataObject
 //  nie:url nie:isPartOf, nie:created, nie:lastRefreshed, nie:interpretedAs, nie:dataSource,
 //  nie:byteSize
@@ -792,13 +821,18 @@ static const QGalleryItemProperty qt_galleryImagePropertyList[] =
     QT_GALLERY_ITEM_PROPERTY("flashEnabled"      , "nmm:flash(?x)"                      , String  , CanRead | CanWrite | CanSort | CanFilter),
     QT_GALLERY_ITEM_PROPERTY("focalLength"       , "nmm:focalLength(?x)"                , Double  , CanRead | CanWrite | CanSort | CanFilter),
     QT_GALLERY_ITEM_PROPERTY("meteringMode"      , "nmm:meteringMode(?x)"               , String  , CanRead | CanWrite | CanSort | CanFilter),
-    QT_GALLERY_ITEM_PROPERTY("orientation"       , "nfo:orientation(?x)"                , Int     , CanRead | CanWrite | CanSort | CanFilter),
-    QT_GALLERY_ITEM_PROPERTY("whiteBalance"      , "nmm:whiteBalance(?x)"               , String  , CanRead | CanWrite | CanSort | CanFilter)
+    QT_GALLERY_ITEM_PROPERTY("whiteBalance"      , "nmm:whiteBalance(?x)"               , String  , CanRead | CanWrite | CanSort | CanFilter),
+    QT_GALLERY_ITEM_PROPERTY("_orientation",     "nfo:orientation(?x)"                  , String, CanRead)
+};
+
+static const QGalleryItemProperty qt_galleryOrientationPropertyList[] = {
+    QT_GALLERY_ITEM_PROPERTY("_orientation", "nfo:orientation(?x)", String, CanRead | CanFilter)
 };
 
 static const QGalleryCompositeProperty qt_galleryImageCompositePropertyList[] =
 {
-    QT_GALLERY_NFO_FILEDATAOBJECT_COMPOSITE_PROPERTIES
+    QT_GALLERY_NFO_FILEDATAOBJECT_COMPOSITE_PROPERTIES,
+    QT_GALLERY_COMPOSITE_PROPERTY("orientation", Int, qt_galleryOrientationPropertyList, QGalleryTrackerOrientationColumn::create, qt_writeOrientationCondition)
 };
 
 ////////
@@ -1454,9 +1488,9 @@ void QGalleryTrackerSchema::populateItemArguments(
                 int fieldIndex = arguments->fieldNames.indexOf(field);
 
                 if (fieldIndex >= 0) {
-                    columns.append(fieldIndex + 2);
+                    columns.append(fieldIndex + 3);
                 } else {
-                    columns.append(arguments->fieldNames.count() + 2);
+                    columns.append(arguments->fieldNames.count() + 3);
 
                     arguments->fieldNames.append(field);
                     extendedValueTypes.append(dependencies[i].type);

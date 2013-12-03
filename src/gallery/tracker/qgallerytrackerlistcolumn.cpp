@@ -160,4 +160,24 @@ QGalleryTrackerCompositeColumn *QGalleryTrackerFileExtensionColumn::create(const
     return new QGalleryTrackerFileExtensionColumn(QGALLERYTRACKERFILEURLCOLUMN_DEFAULT_COL);
 }
 
+QVariant QGalleryTrackerOrientationColumn::value(QVector<QVariant>::const_iterator row) const
+{
+    QString orientation = (row + m_column)->toString();
+    if (orientation == QLatin1String("http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#orientation-top"))
+        return 0;
+    else if (orientation == QLatin1String("http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#orientation-left"))
+        return 90;
+    else if (orientation == QLatin1String("http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#orientation-bottom"))
+        return 180;
+    else if (orientation == QLatin1String("http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#orientation-right"))
+        return 270;
+    else
+        return 0;
+}
+
+QGalleryTrackerCompositeColumn *QGalleryTrackerOrientationColumn::create(const QVector<int> &columns)
+{
+    return new QGalleryTrackerOrientationColumn(columns.first());
+}
+
 QT_END_NAMESPACE_DOCGALLERY

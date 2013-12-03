@@ -198,6 +198,22 @@ private:
     const int m_column;
 };
 
+
+class QGalleryTrackerOrientationColumn : public QGalleryTrackerCompositeColumn
+{
+public:
+    QGalleryTrackerOrientationColumn(int column)
+        : m_column(column) {}
+
+    QVariant value(QVector<QVariant>::const_iterator row) const;
+
+    static QGalleryTrackerCompositeColumn *create(const QVector<int> &);
+
+private:
+    const int m_column;
+};
+
+
 QT_END_NAMESPACE_DOCGALLERY
 
 #endif
