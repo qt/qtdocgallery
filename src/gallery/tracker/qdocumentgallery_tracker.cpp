@@ -95,6 +95,7 @@ private:
     QGalleryTrackerChangeNotifier *getChangeNotifier( const QString &type );
     QGalleryTrackerChangeNotifier *createChangeNotifier(
             QScopedPointer<QGalleryTrackerChangeNotifier> &notifier, const QString &serviceId);
+    QGalleryTrackerChangeNotifier *fileChangeNotifier();
     QGalleryTrackerChangeNotifier *audioChangeNotifier();
     QGalleryTrackerChangeNotifier *artistChangeNotifier();
     QGalleryTrackerChangeNotifier *documentChangeNotifier();
@@ -111,6 +112,7 @@ private:
 
     QGalleryDBusInterfacePointer metaDataService;
     QGalleryDBusInterfacePointer statisticsService;
+    QScopedPointer<QGalleryTrackerChangeNotifier> fileNotifier;
     QScopedPointer<QGalleryTrackerChangeNotifier> audioNotifier;
     QScopedPointer<QGalleryTrackerChangeNotifier> artistNotifier;
     QScopedPointer<QGalleryTrackerChangeNotifier> documentNotifier;
@@ -149,6 +151,12 @@ QGalleryTrackerChangeNotifier *QDocumentGalleryPrivate::createChangeNotifier(
     if (!notifier)
         notifier.reset(new QGalleryTrackerChangeNotifier(serviceId, metaDataInterface()));
     return notifier.data();
+}
+
+QGalleryTrackerChangeNotifier *QDocumentGalleryPrivate::fileChangeNotifier()
+{
+    return createChangeNotifier(
+            fileNotifier, QGalleryTrackerSchema::serviceForType(QDocumentGallery::File));
 }
 
 QGalleryTrackerChangeNotifier *QDocumentGalleryPrivate::audioChangeNotifier()
@@ -222,7 +230,9 @@ QGalleryTrackerChangeNotifier *QDocumentGalleryPrivate::getChangeNotifier( const
 {
     QGalleryTrackerChangeNotifier * notifier = 0;
 
-    if (itemType == QDocumentGallery::Audio.name())
+    if (itemType == QDocumentGallery::File.name()) {
+        notifier = fileChangeNotifier();
+    } else if (itemType == QDocumentGallery::Audio.name())
         notifier = audioChangeNotifier();
     else if (itemType == QDocumentGallery::Artist.name())
         notifier = artistChangeNotifier();
