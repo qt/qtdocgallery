@@ -56,10 +56,11 @@ class QGalleryTrackerEditableResultSetPrivate : public QGalleryTrackerResultSetP
     Q_DECLARE_PUBLIC(QGalleryTrackerEditableResultSet)
 public:
     QGalleryTrackerEditableResultSetPrivate(
+            TrackerSparqlConnection *connection,
             QGalleryTrackerResultSetArguments *arguments,
             const QGalleryDBusInterfacePointer &metaDataInterface,
             bool autoUpdate)
-        : QGalleryTrackerResultSetPrivate(arguments, autoUpdate)
+        : QGalleryTrackerResultSetPrivate(connection, arguments, autoUpdate)
         , metaDataInterface(metaDataInterface)
         , fieldNames(arguments->fieldNames)
     {
@@ -70,12 +71,14 @@ public:
 };
 
 QGalleryTrackerEditableResultSet::QGalleryTrackerEditableResultSet(
+        TrackerSparqlConnection *connection,
         QGalleryTrackerResultSetArguments *arguments,
         const QGalleryDBusInterfacePointer &metaDataInterface,
         bool autoUpdate,
         QObject *parent)
     : QGalleryTrackerResultSet(
-            *new QGalleryTrackerEditableResultSetPrivate(arguments, metaDataInterface, autoUpdate),
+            *new QGalleryTrackerEditableResultSetPrivate(
+                connection, arguments, metaDataInterface, autoUpdate),
             parent)
 {
 }

@@ -39,6 +39,8 @@
 **
 ****************************************************************************/
 
+#include <tracker-sparql.h>
+
 #include "qdocumentgallery.h"
 
 #include "qabstractgallery_p.h"
@@ -48,8 +50,8 @@
 #include "qgallerytyperequest.h"
 
 #include "qgallerytrackerchangenotifier_p.h"
-#include "qgallerytrackereditableresultset_p.h"
 #include "qgallerytrackerschema_p.h"
+#include "qgallerytrackereditableresultset_p.h"
 #include "qgallerytrackertyperesultset_p.h"
 #include "qgallerydbusinterface_p.h"
 
@@ -84,11 +86,15 @@ QT_BEGIN_NAMESPACE_DOCGALLERY
 class QDocumentGalleryPrivate : public QAbstractGalleryPrivate, public QGalleryDBusInterfaceFactory
 {
 public:
+    QDocumentGalleryPrivate()
+        : connection(0)
+    {
+    }
+
     QGalleryAbstractResponse *createItemResponse(QGalleryItemRequest *request);
     QGalleryAbstractResponse *createTypeResponse(QGalleryTypeRequest *request);
     QGalleryAbstractResponse *createFilterResponse(QGalleryQueryRequest *request);
 
-private:
     QGalleryDBusInterfacePointer metaDataInterface();
     QGalleryDBusInterfacePointer statisticsInterface();
 
@@ -110,6 +116,7 @@ private:
             bool autoUpdate,
             QGalleryTrackerChangeNotifier* notifier);
 
+    TrackerSparqlConnection *connection;
     QGalleryDBusInterfacePointer metaDataService;
     QGalleryDBusInterfacePointer statisticsService;
     QScopedPointer<QGalleryTrackerChangeNotifier> fileNotifier;
@@ -282,8 +289,11 @@ QGalleryAbstractResponse *QDocumentGalleryPrivate::createItemListResponse(
         bool autoUpdate,
         QGalleryTrackerChangeNotifier* notifier)
 {
+    if (!connection)
+        return new QGalleryAbstractResponse(QDocumentGallery::ConnectionError);
+
     QGalleryTrackerResultSet *response = new QGalleryTrackerEditableResultSet(
-            arguments, metaDataInterface(), autoUpdate);
+            connection, arguments, metaDataInterface(), autoUpdate);
 
     if (autoUpdate) {
         if (notifier) {
@@ -330,13 +340,20 @@ QGalleryAbstractResponse *QDocumentGalleryPrivate::createFilterResponse(
 QDocumentGallery::QDocumentGallery(QObject *parent)
     : QAbstractGallery(*new QDocumentGalleryPrivate, parent)
 {
+    Q_D(QDocumentGallery);
+
     qDBusRegisterMetaType<QVector<QStringList> >();
     qDBusRegisterMetaType<QGalleryTrackerGraphUpdate>();
     qDBusRegisterMetaType<QVector<QGalleryTrackerGraphUpdate> >();
+
+    d->connection = tracker_sparql_connection_get(0, 0);
 }
 
 QDocumentGallery::~QDocumentGallery()
 {
+    Q_D(QDocumentGallery);
+    if (d->connection)
+        g_object_unref(d->connection);
 }
 
 bool QDocumentGallery::isRequestSupported(QGalleryAbstractRequest::RequestType type) const

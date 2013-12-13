@@ -66,6 +66,7 @@ class QGalleryTrackerEditableResultSet : public QGalleryTrackerResultSet
     Q_OBJECT
 public:
     QGalleryTrackerEditableResultSet(
+            TrackerSparqlConnection *connection,
             QGalleryTrackerResultSetArguments *arguments,
             const QGalleryDBusInterfacePointer &metaDataInterface,
             bool autoUpdate,

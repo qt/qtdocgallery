@@ -60,6 +60,8 @@
 
 class QDBusPendingCallWatcher;
 
+typedef struct _TrackerSparqlConnection TrackerSparqlConnection;
+
 QT_BEGIN_NAMESPACE_DOCGALLERY
 
 class QGalleryDBusInterfaceFactory;
@@ -120,7 +122,10 @@ class QGalleryTrackerResultSet : public QGalleryResultSet
     Q_OBJECT
 public:
     QGalleryTrackerResultSet(
-            QGalleryTrackerResultSetArguments *arguments, bool autoUpdate, QObject *parent = 0);
+            TrackerSparqlConnection *connection,
+            QGalleryTrackerResultSetArguments *arguments,
+            bool autoUpdate,
+            QObject *parent = 0);
     ~QGalleryTrackerResultSet();
 
     QStringList propertyNames() const;
@@ -160,7 +165,6 @@ protected:
 
 private:
     Q_DECLARE_PRIVATE(QGalleryTrackerResultSet)
-    Q_PRIVATE_SLOT(d_func(), void _q_queryFinished(QDBusPendingCallWatcher *))
     Q_PRIVATE_SLOT(d_func(), void _q_parseFinished())
 };
 

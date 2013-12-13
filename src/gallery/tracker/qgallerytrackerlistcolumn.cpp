@@ -39,6 +39,8 @@
 **
 ****************************************************************************/
 
+#include <tracker-sparql.h>
+
 #include "qgallerytrackerlistcolumn_p.h"
 
 #include "qgallerytrackerschema_p.h"
@@ -48,21 +50,22 @@
 #include <QtCore/qurl.h>
 #include <QtCore/qvariant.h>
 
+
 QT_BEGIN_NAMESPACE_DOCGALLERY
 
-QVariant QGalleryTrackerStringColumn::toVariant(const QString &string) const
+QVariant QGalleryTrackerStringColumn::toVariant(TrackerSparqlCursor *cursor, int index) const
 {
-    return QVariant(string);
+    return QString::fromUtf8(tracker_sparql_cursor_get_string(cursor, index, 0));
 }
 
-QVariant QGalleryTrackerStringListColumn::toVariant(const QString &string) const
+QVariant QGalleryTrackerStringListColumn::toVariant(TrackerSparqlCursor *cursor, int index) const
 {
-    return string.split(m_separatorChar, QString::SkipEmptyParts);
+    return QString::fromUtf8(tracker_sparql_cursor_get_string(cursor, index, 0)).split(m_separatorChar, QString::SkipEmptyParts);
 }
 
-QVariant QGalleryTrackerUrlColumn::toVariant(const QString &string) const
+QVariant QGalleryTrackerUrlColumn::toVariant(TrackerSparqlCursor *cursor, int index) const
 {
-    return QUrl::fromEncoded(string.toUtf8(), QUrl::StrictMode);
+    return QUrl::fromEncoded(tracker_sparql_cursor_get_string(cursor, index, 0), QUrl::StrictMode);
 }
 
 QString QGalleryTrackerStringListColumn::toString(const QVariant &variant) const
@@ -72,27 +75,20 @@ QString QGalleryTrackerStringListColumn::toString(const QVariant &variant) const
         : variant.toString();
 }
 
-QVariant QGalleryTrackerIntegerColumn::toVariant(const QString &string) const
+QVariant QGalleryTrackerIntegerColumn::toVariant(TrackerSparqlCursor *cursor, int index) const
 {
-    bool ok;
-
-    int number = string.toInt(&ok);
-
-    return ok ? QVariant(number) : QVariant();
+    return int(tracker_sparql_cursor_get_integer(cursor, index));
 }
 
-QVariant QGalleryTrackerDoubleColumn::toVariant(const QString &string) const
+QVariant QGalleryTrackerDoubleColumn::toVariant(TrackerSparqlCursor *cursor, int index) const
 {
-    bool ok;
-
-    double number = string.toDouble(&ok);
-
-    return ok ? QVariant(number) : QVariant();
+    return tracker_sparql_cursor_get_double(cursor, index);
 }
 
-QVariant QGalleryTrackerDateTimeColumn::toVariant(const QString &string) const
+QVariant QGalleryTrackerDateTimeColumn::toVariant(TrackerSparqlCursor *cursor, int index) const
 {
-    QDateTime dateTime = QDateTime::fromString(string, Qt::ISODate);
+    QDateTime dateTime = QDateTime::fromString(QString::fromUtf8(
+                tracker_sparql_cursor_get_string(cursor, index, 0)), Qt::ISODate);
 
     return dateTime.isValid() ? QVariant(dateTime) : QVariant();
 }

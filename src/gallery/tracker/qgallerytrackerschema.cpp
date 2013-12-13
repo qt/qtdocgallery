@@ -39,6 +39,8 @@
 **
 ****************************************************************************/
 
+#include <tracker-sparql.h>
+
 #include "qgallerytrackerschema_p.h"
 
 #include "qgalleryabstractrequest.h"
@@ -56,6 +58,8 @@
 #include <QtCore/qurl.h>
 #include <QtCore/qxmlstream.h>
 #include <QtCore/qdebug.h>
+
+#include <tracker-sparql.h>
 
 QT_BEGIN_NAMESPACE_DOCGALLERY
 
@@ -1048,7 +1052,7 @@ class QGalleryTrackerServiceIndexColumn : public QGalleryTrackerValueColumn
 public:
     QGalleryTrackerServiceIndexColumn() {}
 
-    QVariant toVariant(const QString &string) const;
+    QVariant toVariant(TrackerSparqlCursor *cursor, int index) const;
 };
 
 QVariant QGalleryTrackerServicePrefixColumn::value(QVector<QVariant>::const_iterator row) const
@@ -1073,11 +1077,12 @@ QVariant QGalleryTrackerServiceTypeColumn::value(QVector<QVariant>::const_iterat
             : QVariant(QLatin1String("File"));
 }
 
-QVariant QGalleryTrackerServiceIndexColumn::toVariant(const QString &string) const
+QVariant QGalleryTrackerServiceIndexColumn::toVariant(TrackerSparqlCursor *cursor, int index) const
 {
     QGalleryItemTypeList itemTypes(qt_galleryItemTypeList);
 
-    return itemTypes.indexOfRdfTypes(string.split(QLatin1Char(',')));
+    return itemTypes.indexOfRdfTypes(QString::fromUtf8(
+                tracker_sparql_cursor_get_string(cursor, index, 0)).split(QLatin1Char(',')));
 }
 
 QGalleryTrackerSchema::QGalleryTrackerSchema(const QString &itemType)

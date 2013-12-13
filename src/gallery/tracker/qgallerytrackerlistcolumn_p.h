@@ -59,6 +59,7 @@
 #include <QtCore/qvariant.h>
 #include <QtCore/qvector.h>
 
+typedef struct _TrackerSparqlCursor TrackerSparqlCursor;
 
 QT_BEGIN_NAMESPACE_DOCGALLERY
 
@@ -67,7 +68,7 @@ class QGalleryTrackerValueColumn
 public:
     virtual ~QGalleryTrackerValueColumn() {}
 
-    virtual QVariant toVariant(const QString &string) const = 0;
+    virtual QVariant toVariant(TrackerSparqlCursor *cursor, int index) const = 0;
     virtual QString toString(const QVariant &variant) const { return variant.toString(); }
 };
 
@@ -82,13 +83,13 @@ public:
 class QGalleryTrackerStringColumn : public QGalleryTrackerValueColumn
 {
 public:
-    QVariant toVariant(const QString &string) const;
+    QVariant toVariant(TrackerSparqlCursor *cursor, int index) const;
 };
 
 class QGalleryTrackerUrlColumn : public QGalleryTrackerValueColumn
 {
 public:
-    QVariant toVariant(const QString &string) const;
+    QVariant toVariant(TrackerSparqlCursor *cursor, int index) const;
 };
 
 class QGalleryTrackerStringListColumn : public QGalleryTrackerValueColumn
@@ -96,7 +97,7 @@ class QGalleryTrackerStringListColumn : public QGalleryTrackerValueColumn
 public:
     QGalleryTrackerStringListColumn()
         : m_separatorChar(QLatin1Char('|')), m_separatorString(QLatin1String("|")) {}
-    QVariant toVariant(const QString &string) const;
+    QVariant toVariant(TrackerSparqlCursor *cursor, int index) const;
     QString toString(const QVariant &variant) const;
 
 private:
@@ -107,19 +108,19 @@ private:
 class QGalleryTrackerIntegerColumn : public QGalleryTrackerValueColumn
 {
 public:
-    QVariant toVariant(const QString &string) const;
+    QVariant toVariant(TrackerSparqlCursor *cursor, int index) const;
 };
 
 class QGalleryTrackerDoubleColumn : public QGalleryTrackerValueColumn
 {
 public:
-    QVariant toVariant(const QString &string) const;
+    QVariant toVariant(TrackerSparqlCursor *cursor, int index) const;
 };
 
 class QGalleryTrackerDateTimeColumn : public QGalleryTrackerValueColumn
 {
 public:
-    QVariant toVariant(const QString &string) const;
+    QVariant toVariant(TrackerSparqlCursor *cursor, int index) const;
     QString toString(const QVariant &variant) const;
 };
 

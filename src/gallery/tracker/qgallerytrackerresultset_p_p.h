@@ -68,7 +68,6 @@
 #include <QtCore/qrunnable.h>
 #include <QtCore/qthread.h>
 #include <QtCore/qwaitcondition.h>
-#include <QtDBus/qdbusargument.h>
 
 QT_BEGIN_NAMESPACE_DOCGALLERY
 
@@ -261,8 +260,12 @@ public:
 
     Q_DECLARE_FLAGS(Flags, Flag)
 
-    QGalleryTrackerResultSetPrivate(QGalleryTrackerResultSetArguments *arguments, bool autoUpdate)
-        : m_service( arguments->service )
+    QGalleryTrackerResultSetPrivate(
+            TrackerSparqlConnection *connection,
+            QGalleryTrackerResultSetArguments *arguments,
+            bool autoUpdate)
+        : connection(connection)
+        , m_service( arguments->service )
         , idColumn(arguments->idColumn.take())
         , urlColumn(arguments->urlColumn.take())
         , typeColumn(arguments->typeColumn.take())
@@ -277,7 +280,7 @@ public:
         , currentIndex(-1)
         , rowCount(0)
         , progressMaximum(0)
-        , queryInterface(arguments->queryInterface)
+        , queryError(QDocumentGallery::NoError)
         , sparql(arguments->sparql)
         , propertyNames(arguments->propertyNames)
         , propertyAttributes(arguments->propertyAttributes)
@@ -300,6 +303,8 @@ public:
         qDeleteAll(compositeColumns);
     }
 
+    TrackerSparqlConnection *connection;
+
     QString m_service;
 
     Flags flags;
@@ -318,7 +323,8 @@ public:
     int currentIndex;
     int rowCount;
     int progressMaximum;
-    const QGalleryDBusInterfacePointer queryInterface;
+    int queryError;
+    QString queryErrorString;
     const QString sparql;
     const QStringList propertyNames;
     const QList<int> propertyKeys;
@@ -331,8 +337,6 @@ public:
     Cache rCache;   // Remove cache.
     Cache iCache;   // Insert cache.
 
-    QScopedPointer<QDBusPendingCallWatcher> queryWatcher;
-    QDBusArgument queryReply;
     QGalleryTrackerResultSetThread parserThread;
     QList<QGalleryTrackerMetaDataEdit *> edits;
     QBasicTimer updateTimer;
@@ -354,7 +358,6 @@ public:
 
     void query();
 
-    void queryFinished(const QDBusPendingCall &call);
     void run();
 
     void synchronize();
