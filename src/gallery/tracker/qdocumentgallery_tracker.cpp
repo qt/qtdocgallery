@@ -346,6 +346,7 @@ QDocumentGallery::QDocumentGallery(QObject *parent)
     qDBusRegisterMetaType<QGalleryTrackerGraphUpdate>();
     qDBusRegisterMetaType<QVector<QGalleryTrackerGraphUpdate> >();
 
+    g_type_init();
     d->connection = tracker_sparql_connection_get(0, 0);
 }
 
