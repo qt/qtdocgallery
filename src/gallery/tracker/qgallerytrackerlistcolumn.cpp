@@ -46,26 +46,93 @@
 #include "qgallerytrackerschema_p.h"
 
 #include <QtCore/qcryptographichash.h>
+#include <QtCore/qdebug.h>
 #include <QtCore/qdatetime.h>
 #include <QtCore/qurl.h>
 #include <QtCore/qvariant.h>
 
 
+
+QDebug operator << (QDebug debug, TrackerSparqlValueType type)
+{
+    switch (type) {
+    case TRACKER_SPARQL_VALUE_TYPE_UNBOUND:
+        return debug << "TRACKER_SPARQL_VALUE_TYPE_UNBOUND";
+    case TRACKER_SPARQL_VALUE_TYPE_URI:
+        return debug << "TRACKER_SPARQL_VALUE_TYPE_URI";
+    case TRACKER_SPARQL_VALUE_TYPE_STRING:
+        return debug << "TRACKER_SPARQL_VALUE_TYPE_STRING";
+    case TRACKER_SPARQL_VALUE_TYPE_INTEGER:
+        return debug << "TRACKER_SPARQL_VALUE_TYPE_INTEGER";
+    case TRACKER_SPARQL_VALUE_TYPE_DOUBLE:
+        return debug << "TRACKER_SPARQL_VALUE_TYPE_DOUBLE";
+    case TRACKER_SPARQL_VALUE_TYPE_DATETIME:
+        return debug << "TRACKER_SPARQL_VALUE_TYPE_DATETIME";
+    case TRACKER_SPARQL_VALUE_TYPE_BLANK_NODE:
+        return debug << "TRACKER_SPARQL_VALUE_TYPE_BLANK_NODE";
+    case TRACKER_SPARQL_VALUE_TYPE_BOOLEAN:
+        return debug << "TRACKER_SPARQL_VALUE_TYPE_BOOLEAN";
+    default:
+        return debug << "Unknown";
+    }
+}
+
 QT_BEGIN_NAMESPACE_DOCGALLERY
 
 QVariant QGalleryTrackerStringColumn::toVariant(TrackerSparqlCursor *cursor, int index) const
 {
-    return QString::fromUtf8(tracker_sparql_cursor_get_string(cursor, index, 0));
+    switch (TrackerSparqlValueType type = tracker_sparql_cursor_get_value_type(cursor, index)) {
+    case TRACKER_SPARQL_VALUE_TYPE_URI:
+    case TRACKER_SPARQL_VALUE_TYPE_STRING:
+        return QString::fromUtf8(tracker_sparql_cursor_get_string(cursor, index, 0));
+    case TRACKER_SPARQL_VALUE_TYPE_UNBOUND:
+    case TRACKER_SPARQL_VALUE_TYPE_BLANK_NODE:
+        break;
+    default:
+        if (!m_warned) {
+            m_warned = true;
+            qWarning() << "QGalleryTracker: Expected string type at index" << index << "got" << type;
+        }
+        break;
+    }
+    return QVariant();
 }
 
 QVariant QGalleryTrackerStringListColumn::toVariant(TrackerSparqlCursor *cursor, int index) const
 {
-    return QString::fromUtf8(tracker_sparql_cursor_get_string(cursor, index, 0)).split(m_separatorChar, QString::SkipEmptyParts);
+    switch (TrackerSparqlValueType type = tracker_sparql_cursor_get_value_type(cursor, index)) {
+    case TRACKER_SPARQL_VALUE_TYPE_STRING:
+        return QString::fromUtf8(tracker_sparql_cursor_get_string(cursor, index, 0)).split(m_separatorChar, QString::SkipEmptyParts);
+    case TRACKER_SPARQL_VALUE_TYPE_UNBOUND:
+    case TRACKER_SPARQL_VALUE_TYPE_BLANK_NODE:
+        break;
+    default:
+        if (!m_warned) {
+            m_warned = true;
+            qWarning() << "QGalleryTracker: Expected string list type at index" << index << "got" << type;
+        }
+        break;
+    }
+    return QVariant();
 }
 
 QVariant QGalleryTrackerUrlColumn::toVariant(TrackerSparqlCursor *cursor, int index) const
 {
-    return QUrl::fromEncoded(tracker_sparql_cursor_get_string(cursor, index, 0), QUrl::StrictMode);
+    switch (TrackerSparqlValueType type = tracker_sparql_cursor_get_value_type(cursor, index)) {
+    case TRACKER_SPARQL_VALUE_TYPE_STRING:
+        return QUrl::fromEncoded(tracker_sparql_cursor_get_string(cursor, index, 0), QUrl::StrictMode);
+    case TRACKER_SPARQL_VALUE_TYPE_UNBOUND:
+    case TRACKER_SPARQL_VALUE_TYPE_BLANK_NODE:
+        break;
+    default:
+        if (!m_warned) {
+            m_warned = true;
+            qWarning() << "QGalleryTracker: Expected url type at index" << index << "got" << type;
+        }
+        break;
+    }
+    return QVariant();
+
 }
 
 QString QGalleryTrackerStringListColumn::toString(const QVariant &variant) const
@@ -77,20 +144,62 @@ QString QGalleryTrackerStringListColumn::toString(const QVariant &variant) const
 
 QVariant QGalleryTrackerIntegerColumn::toVariant(TrackerSparqlCursor *cursor, int index) const
 {
-    return int(tracker_sparql_cursor_get_integer(cursor, index));
+    switch (TrackerSparqlValueType type = tracker_sparql_cursor_get_value_type(cursor, index)) {
+    case TRACKER_SPARQL_VALUE_TYPE_INTEGER:
+        return int(tracker_sparql_cursor_get_integer(cursor, index));
+    case TRACKER_SPARQL_VALUE_TYPE_DOUBLE:
+        return int(tracker_sparql_cursor_get_double(cursor, index));
+    case TRACKER_SPARQL_VALUE_TYPE_UNBOUND:
+    case TRACKER_SPARQL_VALUE_TYPE_BLANK_NODE:
+        break;
+    default:
+        if (!m_warned) {
+            m_warned = true;
+            qWarning() << "QGalleryTracker: Expected integer type at index" << index << "got" << type;
+        }
+        break;
+    }
+    return QVariant();
+
 }
 
 QVariant QGalleryTrackerDoubleColumn::toVariant(TrackerSparqlCursor *cursor, int index) const
 {
-    return tracker_sparql_cursor_get_double(cursor, index);
+    switch (TrackerSparqlValueType type = tracker_sparql_cursor_get_value_type(cursor, index)) {
+    case TRACKER_SPARQL_VALUE_TYPE_INTEGER:
+        return double(tracker_sparql_cursor_get_integer(cursor, index));
+    case TRACKER_SPARQL_VALUE_TYPE_DOUBLE:
+        return tracker_sparql_cursor_get_double(cursor, index);
+    case TRACKER_SPARQL_VALUE_TYPE_UNBOUND:
+    case TRACKER_SPARQL_VALUE_TYPE_BLANK_NODE:
+        break;
+    default:
+        if (!m_warned) {
+            m_warned = true;
+            qWarning() << "QGalleryTracker: Expected double type at index" << index << "got" << type;
+        }
+        break;
+    }
+    return QVariant();
 }
 
 QVariant QGalleryTrackerDateTimeColumn::toVariant(TrackerSparqlCursor *cursor, int index) const
 {
-    QDateTime dateTime = QDateTime::fromString(QString::fromUtf8(
-                tracker_sparql_cursor_get_string(cursor, index, 0)), Qt::ISODate);
-
-    return dateTime.isValid() ? QVariant(dateTime) : QVariant();
+    switch (TrackerSparqlValueType type = tracker_sparql_cursor_get_value_type(cursor, index)) {
+    case TRACKER_SPARQL_VALUE_TYPE_DATETIME:
+        return QDateTime::fromString(
+                    QString::fromUtf8(tracker_sparql_cursor_get_string(cursor, index, 0)), Qt::ISODate);
+    case TRACKER_SPARQL_VALUE_TYPE_UNBOUND:
+    case TRACKER_SPARQL_VALUE_TYPE_BLANK_NODE:
+        break;
+    default:
+        if (!m_warned) {
+            m_warned = true;
+            qWarning() << "QGalleryTracker: Expected double type at index" << index << "got" << type;
+        }
+        break;
+    }
+    return QVariant();
 }
 
 QString QGalleryTrackerDateTimeColumn::toString(const QVariant &variant) const

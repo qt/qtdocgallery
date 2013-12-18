@@ -66,10 +66,14 @@ QT_BEGIN_NAMESPACE_DOCGALLERY
 class QGalleryTrackerValueColumn
 {
 public:
+    QGalleryTrackerValueColumn() : m_warned(false) {}
     virtual ~QGalleryTrackerValueColumn() {}
 
     virtual QVariant toVariant(TrackerSparqlCursor *cursor, int index) const = 0;
     virtual QString toString(const QVariant &variant) const { return variant.toString(); }
+
+protected:
+    mutable bool m_warned;
 };
 
 class QGalleryTrackerCompositeColumn
