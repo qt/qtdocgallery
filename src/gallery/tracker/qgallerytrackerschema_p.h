@@ -71,7 +71,7 @@ class QGalleryTrackerValueColumn;
 struct QGalleryTrackerResultSetArguments;
 struct QGalleryTrackerTypeResultSetArguments;
 
-class QGalleryTrackerSchema
+class Q_GALLERY_EXPORT QGalleryTrackerSchema
 {
 public:
     QGalleryTrackerSchema(const QString &itemType);
@@ -115,6 +115,7 @@ private:
 
     QDocumentGallery::Error buildFilterQuery(
             QString *query,
+            QString *join,
             QGalleryQueryRequest::Scope scope,
             const QString &scopeItemId,
             const QGalleryFilter &filter) const;
@@ -123,6 +124,7 @@ private:
             QGalleryTrackerResultSetArguments *arguments,
             QGalleryDBusInterfaceFactory *dbus,
             const QString &query,
+            const QString &join,
             const QStringList &propertyNames,
             const QStringList &sortPropertyNames,
             int offset,

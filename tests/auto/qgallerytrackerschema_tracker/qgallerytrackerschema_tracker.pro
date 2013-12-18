@@ -1,6 +1,6 @@
 include(../auto.pri)
 
-QT += gallery-private
+QT += docgallery docgallery-private
 
 SOURCES += tst_qgallerytrackerschema.cpp
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
