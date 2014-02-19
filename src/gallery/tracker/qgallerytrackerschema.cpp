@@ -283,7 +283,7 @@ namespace
     QLatin1String(#RdfPrefix":"#RdfType), \
     QLatin1String("?x"), \
     QLatin1String("/"#RdfPrefix"#"#RdfType), \
-    QLatin1String("?x a "#RdfPrefix":"#RdfType), \
+    QLatin1String("?x a "#RdfPrefix":"#RdfType" . ?x tracker:available true"), \
     0, \
     QGalleryTypePrefix(#Prefix"::"), \
     QGalleryItemPropertyList(qt_gallery##PropertyGroup##PropertyList), \
@@ -328,7 +328,7 @@ namespace
     QLatin1String(#RdfPrefix":"#RdfType), \
     QLatin1String(#Identity), \
     QLatin1String("/"#RdfPrefix"#"#RdfType), \
-    QLatin1String("?x a "#RdfPrefix":"#RdfType), \
+    QLatin1String("?x a "#RdfPrefix":"#RdfType " . ?x tracker:available true"), \
     #Identity"!=''", \
     QGalleryTypePrefix(#Prefix"::"), \
     QGalleryItemPropertyList(qt_gallery##PropertyGroup##PropertyList), \
@@ -1037,9 +1037,9 @@ static const QGalleryItemType qt_galleryItemTypeList[] =
     QT_GALLERY_ITEM_TYPE(Video     , nmm, Video            , video     , Video),
     QT_GALLERY_ITEM_TYPE(Playlist  , nmm, Playlist         , playlist  , Playlist),
     QT_GALLERY_ITEM_TYPE(Text      , nfo, PlainTextDocument, text      , Text),
-    QT_GALLERY_ITEM_TYPE_NO_COMPOSITE_FILTERED(Artist     , nmm, Artist, " . ?track a nmm:MusicPiece . ?track nmm:performer ?x"  , artist     , Artist),
-    QT_GALLERY_ITEM_TYPE_NO_COMPOSITE_FILTERED(AlbumArtist, nmm, Artist, " . ?album a nmm:MusicAlbum . ?album nmm:albumArtist ?x", albumArtist, AlbumArtist),
-    QT_GALLERY_ITEM_TYPE_NO_COMPOSITE(Album     , nmm, MusicAlbum, album     , Album),
+    QT_GALLERY_ITEM_TYPE_NO_COMPOSITE_FILTERED(Artist     , nmm, Artist    , " . ?track a nmm:MusicPiece . ?track nmm:performer ?x . ?track tracker:available true"  , artist     , Artist),
+    QT_GALLERY_ITEM_TYPE_NO_COMPOSITE_FILTERED(AlbumArtist, nmm, Artist    , " . ?album a nmm:MusicAlbum . ?album nmm:albumArtist ?x . ?track a nmm:MusicPiece . ?track nmm:musicAlbum ?album . ?track tracker:available true", albumArtist, AlbumArtist),
+    QT_GALLERY_ITEM_TYPE_NO_COMPOSITE_FILTERED(Album      , nmm, MusicAlbum, " . ?track a nmm:MusicPiece . ?track nmm:musicAlbum ?x . ?track tracker:available true", album     , Album),
     QT_GALLERY_ITEM_TYPE_NO_COMPOSITE(PhotoAlbum, nmm, ImageList , photoAlbum, PhotoAlbum),
     QT_GALLERY_AGGREGATE_TYPE_NO_COMPOSITE(AudioGenre, nmm, MusicPiece, nfo:genre(?x), audioGenre, AudioGenre),
 };
@@ -1271,7 +1271,7 @@ QDocumentGallery::Error QGalleryTrackerSchema::buildFilterQuery(
         if (index != -1) {
             if (itemTypes[index].itemType == QDocumentGallery::Artist) {
                 if (qt_galleryItemTypeList[m_itemIndex].itemType == QDocumentGallery::Album) {
-                    *join   = QLatin1String(" . ?track nmm:musicAlbum ?x . ?track nmm:performer <")
+                    *join   = QLatin1String(" . ?track nmm:performer <")
                             + itemTypes[index].prefix.strip(rootItemId).toString()
                             + QLatin1String(">");
                 } else if (qt_galleryItemTypeList[m_itemIndex].itemType == QDocumentGallery::Audio) {
@@ -1337,7 +1337,7 @@ QDocumentGallery::Error QGalleryTrackerSchema::buildFilterQuery(
                             + itemTypes[index].prefix.strip(rootItemId).toString()
                             + QLatin1String("'");
                 } else if (qt_galleryItemTypeList[m_itemIndex].itemType == QDocumentGallery::Album) {
-                    *join   = QLatin1String(" . ?track nmm:musicAlbum ?x . ?track nfo:genre '")
+                    *join   = QLatin1String(" . ?track nfo:genre '")
                             + itemTypes[index].prefix.strip(rootItemId).toString()
                             + QLatin1String("'");
                 } else if (qt_galleryItemTypeList[m_itemIndex].itemType == QDocumentGallery::Artist) {
@@ -1345,7 +1345,7 @@ QDocumentGallery::Error QGalleryTrackerSchema::buildFilterQuery(
                             + itemTypes[index].prefix.strip(rootItemId).toString()
                             + QLatin1String("'");
                 } else if (qt_galleryItemTypeList[m_itemIndex].itemType == QDocumentGallery::AlbumArtist) {
-                    *join   = QLatin1String(" . ?track nmm:musicAlbum ?album . ?track nfo:genre '")
+                    *join   = QLatin1String(" . ?track nfo:genre '")
                             + itemTypes[index].prefix.strip(rootItemId).toString()
                             + QLatin1String("'");
                 } else {

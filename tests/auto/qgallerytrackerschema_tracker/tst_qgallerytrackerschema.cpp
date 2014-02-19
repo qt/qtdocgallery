@@ -413,8 +413,13 @@ void tst_QGalleryTrackerSchema::prepareValidTypeResponse_data()
             << "File"
             << 0xFF
             << m_metaDataInterface
-            << "Get"
-            << QVariantList();
+            << "SparqlQuery"
+            << (QVariantList() << QLatin1String(
+                    "SELECT COUNT(DISTINCT ?x) "
+                    "WHERE {"
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true"
+                    "}"));
 
     QTest::newRow("Artist")
             << QString::fromLatin1("Artist")
@@ -426,15 +431,23 @@ void tst_QGalleryTrackerSchema::prepareValidTypeResponse_data()
                     "WHERE {"
                         "?x a nmm:Artist . "
                         "?track a nmm:MusicPiece . "
-                        "?track nmm:performer ?x"
+                        "?track nmm:performer ?x . "
+                        "?track tracker:available true"
                     "}"));
 
     QTest::newRow("Album")
             << QString::fromLatin1("Album")
             << 0x0200
             << m_metaDataInterface
-            << "Get"
-            << QVariantList();
+            << "SparqlQuery"
+            << (QVariantList() << QLatin1String(
+                    "SELECT COUNT(DISTINCT ?x) "
+                    "WHERE {"
+                        "?x a nmm:MusicAlbum . "
+                        "?track a nmm:MusicPiece . "
+                        "?track nmm:musicAlbum ?x . "
+                        "?track tracker:available true"
+                    "}"));
 
     QTest::newRow("AudioGenre")
             << "AudioGenre"
@@ -444,7 +457,8 @@ void tst_QGalleryTrackerSchema::prepareValidTypeResponse_data()
             << (QVariantList() << QLatin1String(
                     "SELECT COUNT(DISTINCT nfo:genre(?x)) "
                     "WHERE {"
-                        "?x a nmm:MusicPiece "
+                        "?x a nmm:MusicPiece . "
+                        "?x tracker:available true "
                         "FILTER(nfo:genre(?x)!='')"
                     "}"));
 }
@@ -522,7 +536,8 @@ void tst_QGalleryTrackerSchema::prepareValidItemResponse_data()
             << m_metaDataInterface
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                 "WHERE {"
-                    "?x a nfo:FileDataObject "
+                    "?x a nfo:FileDataObject . "
+                    "?x tracker:available true "
                     "FILTER(?x=<uuid:ff172362-d959-99e0-a792-0ddafdd2c559>)"
                 "} "
                 "GROUP BY ?x";
@@ -544,7 +559,10 @@ void tst_QGalleryTrackerSchema::prepareValidItemResponse_data()
             << m_metaDataInterface
             <<  "SELECT ?x "
                 "WHERE {"
-                    "?x a nmm:MusicAlbum "
+                    "?x a nmm:MusicAlbum . "
+                    "?track a nmm:MusicPiece . "
+                    "?track nmm:musicAlbum ?x . "
+                    "?track tracker:available true "
                     "FILTER(?x=<album:Greatest Hits>)"
                 "} "
                 "GROUP BY ?x";
@@ -629,7 +647,7 @@ void tst_QGalleryTrackerSchema::queryResponseRootType_data()
     QTest::newRow("File: Files")
             << "File"
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x"
             << 0xFF
             << 1
@@ -644,7 +662,7 @@ void tst_QGalleryTrackerSchema::queryResponseRootType_data()
     QTest::newRow("File: Images")
             << "File"
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x"
             << 0xFF
             << 1
@@ -659,7 +677,7 @@ void tst_QGalleryTrackerSchema::queryResponseRootType_data()
     QTest::newRow("Text: Text")
             << "Text"
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
-                "WHERE {?x a nfo:PlainTextDocument} "
+                "WHERE {?x a nfo:PlainTextDocument . ?x tracker:available true} "
                 "GROUP BY ?x"
             << 0x80
             << 1
@@ -677,7 +695,8 @@ void tst_QGalleryTrackerSchema::queryResponseRootType_data()
                 "WHERE {"
                     "?x a nmm:Artist . "
                     "?track a nmm:MusicPiece . "
-                    "?track nmm:performer ?x"
+                    "?track nmm:performer ?x . "
+                    "?track tracker:available true"
                 "} "
                 "GROUP BY ?x"
             << 0x0100
@@ -696,7 +715,10 @@ void tst_QGalleryTrackerSchema::queryResponseRootType_data()
                 "WHERE {"
                     "?x a nmm:Artist . "
                     "?album a nmm:MusicAlbum . "
-                    "?album nmm:albumArtist ?x"
+                    "?album nmm:albumArtist ?x . "
+                    "?track a nmm:MusicPiece . "
+                    "?track nmm:musicAlbum ?album . "
+                    "?track tracker:available true"
                 "} "
                 "GROUP BY ?x"
             << 0x0100
@@ -712,7 +734,12 @@ void tst_QGalleryTrackerSchema::queryResponseRootType_data()
     QTest::newRow("Album")
             << "Album"
             <<  "SELECT ?x "
-                "WHERE {?x a nmm:MusicAlbum} "
+                "WHERE {"
+                    "?x a nmm:MusicAlbum . "
+                    "?track a nmm:MusicPiece . "
+                    "?track nmm:musicAlbum ?x . "
+                    "?track tracker:available true"
+                "} "
                 "GROUP BY ?x"
             << 0x0200
             << 1
@@ -791,7 +818,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 5 // tableWidth
             << 5 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) nie:mimeType(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x"
             << (QStringList() // fieldNames
                     << QLatin1String("nfo:fileName")
@@ -812,7 +839,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 4 // tableWidth
             << 4 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nie:mimeType(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x"
             << (QStringList() // fieldNames
                     << QLatin1String("nie:mimeType"))
@@ -833,7 +860,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 5 // tableWidth
             << 5 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) nie:mimeType(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY ASC(nfo:fileName(?x)) ASC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -857,7 +884,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 5 // tableWidth
             << 5 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) nie:mimeType(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY ASC(nfo:fileName(?x)) DESC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -881,7 +908,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 5 // tableWidth
             << 5 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) nie:mimeType(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY DESC(nfo:fileName(?x)) ASC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -905,7 +932,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 5 // tableWidth
             << 5 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) nie:mimeType(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY DESC(nfo:fileName(?x)) DESC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -928,7 +955,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 4 // tableWidth
             << 4 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY ASC(nfo:fileName(?x)) ASC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -948,7 +975,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 4 // tableWidth
             << 4 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY ASC(nfo:fileName(?x)) DESC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -968,7 +995,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 4 // tableWidth
             << 4 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY DESC(nfo:fileName(?x)) ASC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -988,7 +1015,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 4 // tableWidth
             << 4 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY DESC(nfo:fileName(?x)) DESC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -1010,7 +1037,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 5 // tableWidth
             << 5 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) nie:mimeType(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY ASC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -1034,7 +1061,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 5 // tableWidth
             << 5 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) nie:mimeType(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY ASC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -1058,7 +1085,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 5 // tableWidth
             << 5 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) nie:mimeType(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY DESC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -1082,7 +1109,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 5 // tableWidth
             << 5 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) nie:mimeType(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY DESC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -1106,7 +1133,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 5 // tableWidth
             << 5 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) nie:mimeType(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY ASC(nie:url(?x)) ASC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -1130,7 +1157,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 5 // tableWidth
             << 5 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) nie:mimeType(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY DESC(nie:url(?x)) ASC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -1154,7 +1181,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 5 // tableWidth
             << 5 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) nie:mimeType(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY ASC(nie:url(?x)) DESC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -1178,7 +1205,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 5 // tableWidth
             << 5 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) nie:mimeType(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY DESC(nie:url(?x)) DESC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -1202,7 +1229,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 5 // tableWidth
             << 5 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) nie:mimeType(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY ASC(nie:keyword(?x)) ASC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -1226,7 +1253,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 5 // tableWidth
             << 5 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) nie:mimeType(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY DESC(nie:keyword(?x)) ASC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -1250,7 +1277,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 5 // tableWidth
             << 5 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) nie:mimeType(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY ASC(nie:keyword(?x)) DESC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -1274,7 +1301,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 5 // tableWidth
             << 5 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nfo:fileName(?x) nie:mimeType(?x) "
-                "WHERE {?x a nfo:FileDataObject} "
+                "WHERE {?x a nfo:FileDataObject . ?x tracker:available true} "
                 "GROUP BY ?x "
                 "ORDER BY DESC(nie:keyword(?x)) DESC(nie:mimeType(?x))"
             << (QStringList() // fieldNames
@@ -1299,7 +1326,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 6 // tableWidth
             << 6 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nie:title(?x) nmm:albumTitle(?album) nmm:artistName(?albumArtist) "
-                "WHERE {?x a nmm:MusicPiece . ?x nmm:musicAlbum ?album . ?album nmm:albumArtist ?albumArtist} "
+                "WHERE {?x a nmm:MusicPiece . ?x tracker:available true . ?x nmm:musicAlbum ?album . ?album nmm:albumArtist ?albumArtist} "
                 "GROUP BY ?x "
                 "ORDER BY ASC(nmm:albumTitle(?album)) ASC(nmm:trackNumber(?x))"
             << (QStringList() // fieldNames
@@ -1370,7 +1397,8 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             << QGalleryQueryRequest::AllDescendants
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                 "WHERE {"
-                    "?x a nfo:FileDataObject "
+                    "?x a nfo:FileDataObject . "
+                    "?x tracker:available true "
                     "FILTER(tracker:uri-is-descendant(nie:url(<uuid:ff172362-d959-99e0-a792-0ddafdd2c559>), nie:url(?x)))"
                 "} "
                 "GROUP BY ?x";
@@ -1382,6 +1410,7 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                 "WHERE {"
                     "?x a nfo:FileDataObject . "
+                    "?x tracker:available true . "
                     "?x nfo:belongsToContainer <uuid:ff172362-d959-99e0-a792-0ddafdd2c559>"
                 "} "
                 "GROUP BY ?x";
@@ -1393,6 +1422,7 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                 "WHERE {"
                     "?x a nmm:MusicPiece . "
+                    "?x tracker:available true . "
                     "?x nmm:musicAlbum <musicAlbum:Greatest%20Hits>"
                 "} "
                 "GROUP BY ?x";
@@ -1404,6 +1434,7 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                 "WHERE {"
                     "?x a nmm:MusicPiece . "
+                    "?x tracker:available true . "
                     "?x nmm:musicAlbum <musicAlbum:Greatest%20Hits>"
                 "} "
                 "GROUP BY ?x";
@@ -1415,6 +1446,7 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                 "WHERE {"
                     "?x a nmm:MusicPiece . "
+                    "?x tracker:available true . "
                     "?album a nmm:MusicAlbum . "
                     "?x nmm:musicAlbum ?album . "
                     "?album nmm:albumArtist <artist:Self%20Titled>"
@@ -1428,6 +1460,7 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                 "WHERE {"
                     "?x a nmm:MusicPiece . "
+                    "?x tracker:available true . "
                     "?album a nmm:MusicAlbum . "
                     "?x nmm:musicAlbum ?album . "
                     "?album nmm:albumArtist <artist:Self%20Titled>"
@@ -1441,6 +1474,9 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             <<  "SELECT ?x "
                 "WHERE {"
                     "?x a nmm:MusicAlbum . "
+                    "?track a nmm:MusicPiece . "
+                    "?track nmm:musicAlbum ?x . "
+                    "?track tracker:available true . "
                     "?x nmm:albumArtist <artist:Self%20Titled>"
                 "} "
                 "GROUP BY ?x";
@@ -1452,6 +1488,9 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             <<  "SELECT ?x "
                 "WHERE {"
                     "?x a nmm:MusicAlbum . "
+                    "?track a nmm:MusicPiece . "
+                    "?track nmm:musicAlbum ?x . "
+                    "?track tracker:available true . "
                     "?x nmm:albumArtist <artist:Self%20Titled>"
                 "} "
                 "GROUP BY ?x";
@@ -1463,6 +1502,7 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                 "WHERE {"
                     "?x a nmm:MusicPiece . "
+                    "?x tracker:available true . "
                     "?x nmm:performer <artist:Self%20Titled>"
                 "} "
                 "GROUP BY ?x";
@@ -1474,6 +1514,7 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                 "WHERE {"
                     "?x a nmm:MusicPiece . "
+                    "?x tracker:available true . "
                     "?x nmm:performer <artist:Self%20Titled>"
                 "} "
                 "GROUP BY ?x";
@@ -1485,7 +1526,9 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             <<  "SELECT ?x "
                 "WHERE {"
                     "?x a nmm:MusicAlbum . "
+                    "?track a nmm:MusicPiece . "
                     "?track nmm:musicAlbum ?x . "
+                    "?track tracker:available true . "
                     "?track nmm:performer <artist:Self%20Titled>"
                 "} "
                 "GROUP BY ?x";
@@ -1497,7 +1540,9 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             <<  "SELECT ?x "
                 "WHERE {"
                     "?x a nmm:MusicAlbum . "
+                    "?track a nmm:MusicPiece . "
                     "?track nmm:musicAlbum ?x . "
+                    "?track tracker:available true . "
                     "?track nmm:performer <artist:Self%20Titled>"
                 "} "
                 "GROUP BY ?x";
@@ -1509,6 +1554,7 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                 "WHERE {"
                     "?x a nmm:MusicPiece . "
+                    "?x tracker:available true . "
                     "?x nfo:genre 'Rock'"
                 "} "
                 "GROUP BY ?x";
@@ -1520,6 +1566,7 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                 "WHERE {"
                     "?x a nmm:MusicPiece . "
+                    "?x tracker:available true . "
                     "?x nfo:genre 'Rock'"
                 "} "
                 "GROUP BY ?x";
@@ -1531,7 +1578,9 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             <<  "SELECT ?x "
                 "WHERE {"
                     "?x a nmm:MusicAlbum . "
+                    "?track a nmm:MusicPiece . "
                     "?track nmm:musicAlbum ?x . "
+                    "?track tracker:available true . "
                     "?track nfo:genre 'Rock'"
                 "} "
                 "GROUP BY ?x";
@@ -1543,7 +1592,9 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             <<  "SELECT ?x "
                 "WHERE {"
                     "?x a nmm:MusicAlbum . "
+                    "?track a nmm:MusicPiece . "
                     "?track nmm:musicAlbum ?x . "
+                    "?track tracker:available true . "
                     "?track nfo:genre 'Rock'"
                 "} "
                 "GROUP BY ?x";
@@ -1557,6 +1608,7 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
                     "?x a nmm:Artist . "
                     "?track a nmm:MusicPiece . "
                     "?track nmm:performer ?x . "
+                    "?track tracker:available true . "
                     "?track nfo:genre 'Rock'"
                 "} "
                 "GROUP BY ?x";
@@ -1570,6 +1622,7 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
                     "?x a nmm:Artist . "
                     "?track a nmm:MusicPiece . "
                     "?track nmm:performer ?x . "
+                    "?track tracker:available true . "
                     "?track nfo:genre 'Rock'"
                 "} "
                 "GROUP BY ?x";
@@ -1583,7 +1636,9 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
                     "?x a nmm:Artist . "
                     "?album a nmm:MusicAlbum . "
                     "?album nmm:albumArtist ?x . "
+                    "?track a nmm:MusicPiece . "
                     "?track nmm:musicAlbum ?album . "
+                    "?track tracker:available true . "
                     "?track nfo:genre 'Rock'"
                 "} "
                 "GROUP BY ?x";
@@ -1597,7 +1652,9 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
                     "?x a nmm:Artist . "
                     "?album a nmm:MusicAlbum . "
                     "?album nmm:albumArtist ?x . "
+                    "?track a nmm:MusicPiece . "
                     "?track nmm:musicAlbum ?album . "
+                    "?track tracker:available true . "
                     "?track nfo:genre 'Rock'"
                 "} "
                 "GROUP BY ?x";
@@ -1609,6 +1666,7 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                 "WHERE {"
                     "?x a nmm:Photo . "
+                    "?x tracker:available true . "
                     "<photoAlbum:Camping> nfo:hasMediaFileListEntry ?entry . "
                     "?entry nfo:entryUrl ?entryUrl . "
                     "?x nie:url ?entryUrl"
@@ -1622,6 +1680,7 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                 "WHERE {"
                     "?x a nmm:Photo . "
+                    "?x tracker:available true . "
                     "<photoAlbum:Camping> nfo:hasMediaFileListEntry ?entry . "
                     "?entry nfo:entryUrl ?entryUrl . "
                     "?x nie:url ?entryUrl"
@@ -1635,6 +1694,7 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                 "WHERE {"
                     "?x a nmm:MusicPiece . "
+                    "?x tracker:available true . "
                     "<playlist:mix> nfo:hasMediaFileListEntry ?entry . "
                     "?entry nfo:entryUrl ?entryUrl . "
                     "?x nie:url ?entryUrl"
@@ -1648,6 +1708,7 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                 "WHERE {"
                     "?x a nmm:MusicPiece . "
+                    "?x tracker:available true . "
                     "<playlist:mix> nfo:hasMediaFileListEntry ?entry . "
                     "?entry nfo:entryUrl ?entryUrl . "
                     "?x nie:url ?entryUrl"
@@ -1660,7 +1721,8 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             << QGalleryQueryRequest::AllDescendants
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                 "WHERE {"
-                    "?x a nmm:Photo"
+                    "?x a nmm:Photo . "
+                    "?x tracker:available true"
                 "} "
                 "GROUP BY ?x";
 
@@ -1670,7 +1732,10 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             << QGalleryQueryRequest::AllDescendants
             <<  "SELECT ?x "
                 "WHERE {"
-                    "?x a nmm:MusicAlbum"
+                    "?x a nmm:MusicAlbum . "
+                    "?track a nmm:MusicPiece . "
+                    "?track nmm:musicAlbum ?x . "
+                    "?track tracker:available true"
                 "} "
                 "GROUP BY ?x";
 
@@ -1680,7 +1745,10 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem_data()
             << QGalleryQueryRequest::DirectDescendants
             <<  "SELECT ?x "
                 "WHERE {"
-                    "?x a nmm:MusicAlbum"
+                    "?x a nmm:MusicAlbum . "
+                    "?track a nmm:MusicPiece . "
+                    "?track nmm:musicAlbum ?x . "
+                    "?track tracker:available true"
                 "} "
                 "GROUP BY ?x";
 }
@@ -1731,7 +1799,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER((nie:url(?x)='file:///path/to/file.ext'))"
                     "} "
                     "GROUP BY ?x";
@@ -1746,7 +1815,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER((nie:url(?x)='file:///'))"
                     "} "
                     "GROUP BY ?x";
@@ -1761,7 +1831,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER((nie:url(?x)='http://example.com'))"
                     "} "
                     "GROUP BY ?x";
@@ -1776,7 +1847,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER((nie:url(?x)='http://example.com/index.html'))"
                     "} "
                     "GROUP BY ?x";
@@ -1791,7 +1863,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER((nie:url(?x)='file:///path/to/K%C3%A4rp%C3%A4ssieni.jpg'))"
                     "} "
                     "GROUP BY ?x";
@@ -1805,7 +1878,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER((nie:url(?x)='file:///path/to/file.ext'))"
                     "} "
                     "GROUP BY ?x";
@@ -1820,7 +1894,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER((nie:url(?x)='file:///path/to/K%C3%A4rp%C3%A4ssieni.jpg'))"
                     "} "
                     "GROUP BY ?x";
@@ -1834,7 +1909,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER((nie:url(?x)>'file:///path/to/file.ext'))"
                     "} "
                     "GROUP BY ?x";
@@ -1848,7 +1924,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER((nie:url(?x)>='file:///path/to/file.ext'))"
                     "} "
                     "GROUP BY ?x";
@@ -1862,7 +1939,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER((nie:url(?x)<'file:///path/to/file.ext'))"
                     "} "
                     "GROUP BY ?x";
@@ -1876,7 +1954,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER((nie:url(?x)<='file:///path/to/file.ext'))"
                     "} "
                     "GROUP BY ?x";
@@ -1890,7 +1969,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER(fn:starts-with(nie:url(nfo:belongsToContainer(?x)),'file:///path/'))"
                     "} "
                     "GROUP BY ?x";
@@ -1904,7 +1984,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER(fn:ends-with(nie:url(nfo:belongsToContainer(?x)),'/to'))"
                     "} "
                     "GROUP BY ?x";
@@ -1918,7 +1999,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER(fn:contains(nie:url(nfo:belongsToContainer(?x)),'path'))"
                     "} "
                     "GROUP BY ?x";
@@ -1932,7 +2014,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER(fn:contains(nie:url(nfo:belongsToContainer(?x)),'file:///*/to'))"
                     "} "
                     "GROUP BY ?x";
@@ -1946,7 +2029,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER(fn:ends-with(nfo:fileName(?x),'.ext'))"
                     "} "
                     "GROUP BY ?x";
@@ -1960,7 +2044,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER((nfo:fileName(?x)='file.ext'))"
                     "} "
                     "GROUP BY ?x";
@@ -1974,7 +2059,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER(fn:starts-with(nfo:fileName(?x),'file.'))"
                     "} "
                     "GROUP BY ?x";
@@ -1988,7 +2074,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER(fn:ends-with(nfo:fileName(?x),'.ext'))"
                     "} "
                     "GROUP BY ?x";
@@ -2002,7 +2089,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER(fn:contains(nfo:fileName(?x),'ext'))"
                     "} "
                     "GROUP BY ?x";
@@ -2016,7 +2104,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER(fn:contains(nfo:fileName(?x),'file*ext'))"
                     "} "
                     "GROUP BY ?x";
@@ -2031,7 +2120,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER(REGEX(nfo:fileName(?x),'(file|document).ext'))"
                     "} "
                     "GROUP BY ?x";
@@ -2046,7 +2136,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER(REGEX(nfo:fileName(?x),'(file|document).ext'))"
                     "} "
                     "GROUP BY ?x";
@@ -2061,7 +2152,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nfo:FileDataObject "
+                        "?x a nfo:FileDataObject . "
+                        "?x tracker:available true "
                         "FILTER((nie:description(?x)='http://example.com/index.html'))"
                     "} "
                     "GROUP BY ?x";
@@ -2075,7 +2167,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nmm:Photo "
+                        "?x a nmm:Photo . "
+                        "?x tracker:available true "
                         "FILTER((nfo:width(?x)>'1024'))"
                     "} "
                     "GROUP BY ?x";
@@ -2089,7 +2182,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nmm:Video "
+                        "?x a nmm:Video . "
+                        "?x tracker:available true "
                         "FILTER((nfo:width(?x)>='1024'))"
                     "} "
                     "GROUP BY ?x";
@@ -2103,7 +2197,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nmm:Photo "
+                        "?x a nmm:Photo . "
+                        "?x tracker:available true "
                         "FILTER((nfo:height(?x)<'1024'))"
                     "} "
                     "GROUP BY ?x";
@@ -2117,7 +2212,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nmm:Video "
+                        "?x a nmm:Video . "
+                        "?x tracker:available true "
                         "FILTER((nfo:height(?x)<='1024'))"
                     "} "
                     "GROUP BY ?x";
@@ -2131,7 +2227,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nmm:Photo "
+                        "?x a nmm:Photo . "
+                        "?x tracker:available true "
                         "FILTER((nmm:focalLength(?x)<='1.9'))"
                     "} "
                     "GROUP BY ?x";
@@ -2145,7 +2242,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nmm:Photo "
+                        "?x a nmm:Photo . "
+                        "?x tracker:available true "
                         "FILTER((nmm:focalLength(?x)<'0.25'))"
                     "} "
                     "GROUP BY ?x";
@@ -2160,7 +2258,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nmm:Photo "
+                        "?x a nmm:Photo . "
+                        "?x tracker:available true "
                         "FILTER((nfo:fileLastModified(?x)>'2008-06-01T12:05:08'))"
                     "} "
                     "GROUP BY ?x";
@@ -2175,7 +2274,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << filter
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nmm:Photo "
+                        "?x a nmm:Photo . "
+                        "?x tracker:available true "
                         "FILTER(!(nfo:fileLastModified(?x)>'2008-06-01T12:05:08'))"
                     "} "
                     "GROUP BY ?x";
@@ -2192,7 +2292,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << QGalleryFilter(filter)
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nmm:Photo "
+                        "?x a nmm:Photo . "
+                        "?x tracker:available true "
                         "FILTER(((nfo:width(?x)>'1024')&&(nfo:height(?x)>'768')))"
                     "} "
                     "GROUP BY ?x";
@@ -2207,7 +2308,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << QGalleryFilter(filter)
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nmm:Photo "
+                        "?x a nmm:Photo . "
+                        "?x tracker:available true "
                         "FILTER(((nfo:width(?x)>'1024')))"
                     "} "
                     "GROUP BY ?x";
@@ -2223,7 +2325,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << QGalleryFilter(filter)
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nmm:Photo "
+                        "?x a nmm:Photo . "
+                        "?x tracker:available true "
                         "FILTER(((nfo:width(?x)<'1920')||(nfo:height(?x)<'1024')))"
                     "} "
                     "GROUP BY ?x";
@@ -2238,7 +2341,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << QGalleryFilter(filter)
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nmm:Photo "
+                        "?x a nmm:Photo . "
+                        "?x tracker:available true "
                         "FILTER(((nfo:width(?x)<'1920')))"
                     "} "
                     "GROUP BY ?x";
@@ -2252,7 +2356,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << QGalleryFilter(filter)
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nmm:Photo"
+                        "?x a nmm:Photo . "
+                        "?x tracker:available true"
                     "} "
                     "GROUP BY ?x";
     } {
@@ -2265,7 +2370,8 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << QGalleryFilter(filter)
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
-                        "?x a nmm:Photo"
+                        "?x a nmm:Photo . "
+                        "?x tracker:available true"
                     "} "
                     "GROUP BY ?x";
     } {
@@ -2279,6 +2385,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
                         "?x a nfo:FileDataObject . "
+                        "?x tracker:available true . "
                         "?x nfo:belongsToContainer <uuid:ff172362-d959-99e0-a792-0ddafdd2c559> "
                         "FILTER((nfo:fileName(?x)='file.ext'))"
                     "} "
@@ -2293,7 +2400,10 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << QGalleryFilter(filter)
                 <<  "SELECT ?x "
                     "WHERE {"
-                        "?x a nmm:MusicAlbum "
+                        "?x a nmm:MusicAlbum . "
+                        "?track a nmm:MusicPiece . "
+                        "?track nmm:musicAlbum ?x . "
+                        "?track tracker:available true "
                         "FILTER((nmm:albumTitle(?x)='Greatest Hits'))"
                     "} "
                     "GROUP BY ?x";
@@ -2307,7 +2417,10 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 << QGalleryFilter(filter)
                 <<  "SELECT ?x "
                     "WHERE {"
-                        "?x a nmm:MusicAlbum "
+                        "?x a nmm:MusicAlbum . "
+                        "?track a nmm:MusicPiece . "
+                        "?track nmm:musicAlbum ?x . "
+                        "?track tracker:available true "
                         "FILTER((nmm:albumTitle(?x)='Greatest Hits'))"
                     "} "
                     "GROUP BY ?x";
@@ -2322,6 +2435,9 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 <<  "SELECT ?x "
                     "WHERE {"
                         "?x a nmm:MusicAlbum . "
+                        "?track a nmm:MusicPiece . "
+                        "?track nmm:musicAlbum ?x . "
+                        "?track tracker:available true . "
                         "?x nmm:albumArtist <artist:Self%20Titled> "
                         "FILTER((nmm:albumTitle(?x)='Greatest Hits'))"
                     "} "
@@ -2337,6 +2453,9 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 <<  "SELECT ?x "
                     "WHERE {"
                         "?x a nmm:MusicAlbum . "
+                        "?track a nmm:MusicPiece . "
+                        "?track nmm:musicAlbum ?x . "
+                        "?track tracker:available true . "
                         "?x nmm:albumArtist <artist:Self%20Titled> "
                         "FILTER((nmm:albumTitle(?x)='Greatest Hits'))"
                     "} "
@@ -2352,6 +2471,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
                         "?x a nmm:MusicPiece . "
+                        "?x tracker:available true . "
                         "?album a nmm:MusicAlbum . "
                         "?x nmm:musicAlbum ?album . "
                         "?album nmm:albumArtist <artist:Self%20Titled> "
@@ -2369,6 +2489,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
                         "?x a nmm:MusicPiece . "
+                        "?x tracker:available true . "
                         "?x nmm:musicAlbum ?album . "
                         "?album nmm:albumArtist ?albumArtist "
                         "FILTER((nmm:artistName(?albumArtist)='Self Titled'))"
