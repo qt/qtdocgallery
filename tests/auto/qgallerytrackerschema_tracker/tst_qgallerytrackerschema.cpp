@@ -1326,7 +1326,7 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << 6 // tableWidth
             << 6 // compositeOffset
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) nie:title(?x) nmm:albumTitle(?album) nmm:artistName(?albumArtist) "
-                "WHERE {?x a nmm:MusicPiece . ?x tracker:available true . ?x nmm:musicAlbum ?album . ?album nmm:albumArtist ?albumArtist} "
+                "WHERE {?x a nmm:MusicPiece . ?x tracker:available true OPTIONAL {?x nmm:musicAlbum ?album . ?album nmm:albumArtist ?albumArtist}} "
                 "GROUP BY ?x "
                 "ORDER BY ASC(nmm:albumTitle(?album)) ASC(nmm:trackNumber(?x))"
             << (QStringList() // fieldNames
@@ -2489,9 +2489,11 @@ void tst_QGalleryTrackerSchema::queryResponseFilter_data()
                 <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                     "WHERE {"
                         "?x a nmm:MusicPiece . "
-                        "?x tracker:available true . "
-                        "?x nmm:musicAlbum ?album . "
-                        "?album nmm:albumArtist ?albumArtist "
+                        "?x tracker:available true "
+                        "OPTIONAL {"
+                            "?x nmm:musicAlbum ?album . "
+                            "?album nmm:albumArtist ?albumArtist"
+                        "} "
                         "FILTER((nmm:artistName(?albumArtist)='Self Titled'))"
                     "} "
                     "GROUP BY ?x";

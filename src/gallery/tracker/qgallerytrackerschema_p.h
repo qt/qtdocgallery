@@ -116,6 +116,7 @@ private:
     QDocumentGallery::Error buildFilterQuery(
             QString *query,
             QString *join,
+            QString *optionalJoin,
             QGalleryQueryRequest::Scope scope,
             const QString &scopeItemId,
             const QGalleryFilter &filter) const;
@@ -125,6 +126,7 @@ private:
             QGalleryDBusInterfaceFactory *dbus,
             const QString &query,
             const QString &join,
+            const QString &optionalJoin,
             const QStringList &propertyNames,
             const QStringList &sortPropertyNames,
             int offset,

@@ -338,7 +338,7 @@ namespace
 }
 
 
-static void qt_appendJoin(QString *currentJoin, const QString &join)
+static void qt_appendJoin(QString *currentJoin, const QString &typeJoin, const QString &join)
 {
     int end = 0;
     int begin;
@@ -347,7 +347,7 @@ static void qt_appendJoin(QString *currentJoin, const QString &join)
         end = join.indexOf(QLatin1String(" ."), begin + 2);
 
         const QString substring = join.mid(begin, end != -1 ? end - begin : -1);
-        if (!currentJoin->contains(substring))
+        if (!typeJoin.contains(substring) && !currentJoin->contains(substring))
             *currentJoin += substring;
     } while (end != -1);
 }
@@ -356,6 +356,7 @@ static bool qt_writeCondition(
         QDocumentGallery::Error *error,
         QString *query,
         QString *join,
+        const QString &typeJoin,
         const QGalleryFilter &filter,
         const QGalleryItemPropertyList &properties,
         const QGalleryCompositePropertyList &composites);
@@ -364,6 +365,7 @@ static bool qt_writeConditionHelper(
         QDocumentGallery::Error *error,
         QString *query,
         QString *join,
+        const QString &typeJoin,
         const QList<QGalleryFilter> &filters,
         const QGalleryItemPropertyList &properties,
         const QGalleryCompositePropertyList &composites,
@@ -377,7 +379,7 @@ static bool qt_writeConditionHelper(
         for (QList<QGalleryFilter>::const_iterator it = filters.begin(), end = filters.end();
                 it != end;
                 ++it) {
-            if (!qt_writeCondition(error, query, join, *it, properties, composites))
+            if (!qt_writeCondition(error, query, join, typeJoin, *it, properties, composites))
                 return false;
             if ( --count > 0 )
                 *query += op;
@@ -391,22 +393,24 @@ static bool qt_writeCondition(
         QDocumentGallery::Error *error,
         QString *query,
         QString *join,
+        const QString &typeJoin,
         const QGalleryIntersectionFilter &filter,
         const QGalleryItemPropertyList &properties,
         const QGalleryCompositePropertyList &composites)
 {
-    return qt_writeConditionHelper(error, query, join, filter.filters(), properties, composites, QLatin1String("&&"));
+    return qt_writeConditionHelper(error, query, join, typeJoin, filter.filters(), properties, composites, QLatin1String("&&"));
 }
 
 static bool qt_writeCondition(
         QDocumentGallery::Error *error,
         QString *query,
         QString *join,
+        const QString &typeJoin,
         const QGalleryUnionFilter &filter,
         const QGalleryItemPropertyList &properties,
         const QGalleryCompositePropertyList &composites)
 {
-    return qt_writeConditionHelper(error, query, join, filter.filters(), properties, composites, QLatin1String("||"));
+    return qt_writeConditionHelper(error, query, join, typeJoin, filter.filters(), properties, composites, QLatin1String("||"));
 }
 
 static bool qt_write_comparison(
@@ -487,6 +491,7 @@ static bool qt_writeCondition(
         QDocumentGallery::Error *error,
         QString *query,
         QString *join,
+        const QString &typeJoin,
         const QGalleryMetaDataFilter &filter,
         const QGalleryItemPropertyList &properties,
         const QGalleryCompositePropertyList &composites)
@@ -503,7 +508,7 @@ static bool qt_writeCondition(
         const QGalleryItemProperty &property = properties[index];
 
         if (property.join != QLatin1String(""))
-            qt_appendJoin(join, property.join);
+            qt_appendJoin(join, typeJoin, property.join);
 
         switch (filter.comparator()) {
         case QGalleryFilter::Equals:
@@ -549,6 +554,7 @@ static bool qt_writeCondition(
         QDocumentGallery::Error *error,
         QString *query,
         QString *join,
+        const QString &typeJoin,
         const QGalleryFilter &filter,
         const QGalleryItemPropertyList &properties,
         const QGalleryCompositePropertyList &composites)
@@ -556,11 +562,11 @@ static bool qt_writeCondition(
     switch (filter.type()) {
     case QGalleryFilter::Intersection:
         return qt_writeCondition(
-                error, query, join, filter.toIntersectionFilter(), properties, composites);
+                error, query, join, typeJoin, filter.toIntersectionFilter(), properties, composites);
     case QGalleryFilter::Union:
-        return qt_writeCondition(error, query, join, filter.toUnionFilter(), properties, composites);
+        return qt_writeCondition(error, query, join, typeJoin, filter.toUnionFilter(), properties, composites);
     case QGalleryFilter::MetaData:
-        return qt_writeCondition(error, query, join, filter.toMetaDataFilter(), properties, composites);
+        return qt_writeCondition(error, query, join, typeJoin, filter.toMetaDataFilter(), properties, composites);
     default:
         Q_ASSERT(filter.type() != QGalleryFilter::Invalid);
         *error = QDocumentGallery::FilterError;
@@ -962,7 +968,7 @@ static const QGalleryItemProperty qt_galleryAlbumPropertyList[] =
     QT_GALLERY_ITEM_PROPERTY("trackCount" , "nmm:albumTrackCount(?x)", Int   , CanRead | CanSort | CanFilter),
     QT_GALLERY_LINKED_PROPERTY("artist"     , "nmm:artistName(?albumArtist)", " . ?x nmm:albumArtist ?albumArtist", String, CanRead | CanFilter | CanSort),
     QT_GALLERY_LINKED_PROPERTY("albumArtist", "nmm:artistName(?albumArtist)", " . ?x nmm:albumArtist ?albumArtist", String, CanRead | CanFilter | CanSort),
-    QT_GALLERY_LINKED_PROPERTY("duration"   , "SUM(nfo:duration(?track))"    , " . ?track nmm:musicAlbum ?x"       , Int   , CanRead | CanSort | CanFilter),
+    QT_GALLERY_LINKED_PROPERTY("duration"   , "SUM(nfo:duration(?track))"   , " . ?track nmm:musicAlbum ?x"       , Int   , CanRead | CanSort | CanFilter),
 };
 
 /////////
@@ -1175,7 +1181,7 @@ QDocumentGallery::Error QGalleryTrackerSchema::prepareItemResponse(
                 = QLatin1String(" FILTER(?x=<")
                 + qt_galleryItemTypeList[m_itemIndex].prefix.strip(itemId).toString()
                 + QLatin1String(">)");
-        populateItemArguments(arguments, dbus, query, QString(), propertyNames, QStringList(), 0, 0);
+        populateItemArguments(arguments, dbus, query, QString(), QString(), propertyNames, QStringList(), 0, 0);
 
         return QDocumentGallery::NoError;
     }
@@ -1199,14 +1205,15 @@ QDocumentGallery::Error QGalleryTrackerSchema::prepareQueryResponse(
     } else {
         QString query;
         QString join;
+        QString optionalJoin;
 
-        QDocumentGallery::Error error = buildFilterQuery(&query, &join, scope, rootItemId, filter);
+        QDocumentGallery::Error error = buildFilterQuery(&query, &join, &optionalJoin, scope, rootItemId, filter);
 
         if (error != QDocumentGallery::NoError) {
             return error;
         } else {
             populateItemArguments(
-                    arguments, dbus, query, join, propertyNames, sortPropertyNames, offset, limit);
+                    arguments, dbus, query, join, optionalJoin, propertyNames, sortPropertyNames, offset, limit);
 
             return QDocumentGallery::NoError;
         }
@@ -1256,6 +1263,7 @@ QDocumentGallery::Error QGalleryTrackerSchema::prepareTypeResponse(
 QDocumentGallery::Error QGalleryTrackerSchema::buildFilterQuery(
         QString *query,
         QString *join,
+        QString *optionalJoin,
         QGalleryQueryRequest::Scope scope,
         const QString &rootItemId,
         const QGalleryFilter &filter) const
@@ -1376,7 +1384,8 @@ QDocumentGallery::Error QGalleryTrackerSchema::buildFilterQuery(
         qt_writeCondition(
                 &result,
                 &filterStatement,
-                join,
+                optionalJoin,
+                *join,
                 filter,
                 itemTypes[m_itemIndex].itemProperties,
                 itemTypes[m_itemIndex].compositeProperties);
@@ -1424,7 +1433,7 @@ static QVector<QGalleryTrackerValueColumn *> qt_createValueColumns(
 }
 
 static QString qt_writeSorting(
-        QString *join, const QStringList &propertyNames, const QGalleryItemPropertyList &properties)
+        QString *optionalJoin, const QString &join, const QStringList &propertyNames, const QGalleryItemPropertyList &properties)
 {
     QString sortExpression;
 
@@ -1442,7 +1451,7 @@ static QString qt_writeSorting(
                         + QLatin1String(")");
 
                 if (property.join != QLatin1String(""))
-                    qt_appendJoin(join, property.join);
+                    qt_appendJoin(optionalJoin, join, property.join);
             }
         } else {
             const int propertyIndex = it->startsWith(QLatin1Char('+'))
@@ -1458,7 +1467,7 @@ static QString qt_writeSorting(
 
 
                 if (property.join != QLatin1String(""))
-                    qt_appendJoin(join, property.join);
+                    qt_appendJoin(optionalJoin, join, property.join);
             }
         }
     }
@@ -1473,12 +1482,13 @@ void QGalleryTrackerSchema::populateItemArguments(
         QGalleryDBusInterfaceFactory *dbus,
         const QString &query,
         const QString &join,
+        const QString &optionalJoin,
         const QStringList &propertyNames,
         const QStringList &sortPropertyNames,
         int offset,
         int limit) const
 {
-    QString completeJoin = join;
+    QString completeJoin = optionalJoin;
     QStringList fieldNames;
     QStringList valueNames;
     QStringList aliasNames;
@@ -1519,7 +1529,7 @@ void QGalleryTrackerSchema::populateItemArguments(
                 valueTypes.append(itemProperties[propertyIndex].type);
 
                 if (itemProperties[propertyIndex].join != QLatin1String(""))
-                    qt_appendJoin(&completeJoin, itemProperties[propertyIndex].join);
+                    qt_appendJoin(&completeJoin, join, itemProperties[propertyIndex].join);
             }
         }
     }
@@ -1592,7 +1602,10 @@ void QGalleryTrackerSchema::populateItemArguments(
                 << qt_createValueColumns(valueTypes + extendedValueTypes);
     }
 
-    const QString sortFragment = qt_writeSorting(&completeJoin, sortPropertyNames, itemProperties);
+    const QString sortFragment = qt_writeSorting(&completeJoin, join, sortPropertyNames, itemProperties);
+
+    if (!completeJoin.isEmpty())
+        completeJoin = QStringLiteral(" OPTIONAL {") + completeJoin.mid(3) + QStringLiteral("}");
 
     arguments->service = qt_galleryItemTypeList[m_itemIndex].service;
     arguments->updateMask = qt_galleryItemTypeList[m_itemIndex].updateMask;
@@ -1605,6 +1618,7 @@ void QGalleryTrackerSchema::populateItemArguments(
             + fieldNames.join(QLatin1String(" "))
             + QLatin1String(" WHERE {")
             + qt_galleryItemTypeList[m_itemIndex].typeFragment
+            + join
             + completeJoin
             + query
             + QLatin1String("}")
