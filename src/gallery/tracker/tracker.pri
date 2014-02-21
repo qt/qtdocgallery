@@ -13,8 +13,7 @@ PRIVATE_HEADERS += \
         $$PWD/qgallerytrackermetadataedit_p.h \
         $$PWD/qgallerytrackerresultset_p.h \
         $$PWD/qgallerytrackerresultset_p_p.h \
-        $$PWD/qgallerytrackerschema_p.h \
-        $$PWD/qgallerytrackertyperesultset_p.h
+        $$PWD/qgallerytrackerschema_p.h
 
 SOURCES += \
         $$PWD/qgallerydbusinterface.cpp \
@@ -24,5 +23,4 @@ SOURCES += \
         $$PWD/qgallerytrackerlistcolumn.cpp \
         $$PWD/qgallerytrackermetadataedit.cpp \
         $$PWD/qgallerytrackerresultset.cpp \
-        $$PWD/qgallerytrackerschema.cpp \
-        $$PWD/qgallerytrackertyperesultset.cpp
+        $$PWD/qgallerytrackerschema.cpp

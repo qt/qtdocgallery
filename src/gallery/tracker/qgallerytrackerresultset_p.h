@@ -104,7 +104,6 @@ struct QGalleryTrackerResultSetArguments
     int tableWidth;
     int valueOffset;
     int compositeOffset;
-    QGalleryDBusInterfacePointer queryInterface;
     QString sparql;
     QStringList propertyNames;
     QStringList fieldNames;

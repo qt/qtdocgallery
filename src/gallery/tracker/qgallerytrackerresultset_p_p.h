@@ -192,9 +192,9 @@ public:
         const Row &operator *() const {  return row = Row(begin, begin + width); }
 
         bool isEqual(const row_iterator &other, int count) const {
-            return qEqual(begin, begin + count, other.begin); }
+            return std::equal(begin, begin + count, other.begin); }
         bool isEqual(const row_iterator &other, int index, int count) {
-            return qEqual(begin + index, begin + count, other.begin + index); }
+            return std::equal(begin + index, begin + count, other.begin + index); }
 
         const QVariant &operator[] (int column) const { return *(begin + column); }
 
@@ -227,9 +227,9 @@ public:
         const_row_iterator &operator +=(int span) { begin += span * width; return *this; }
 
         bool isEqual(const const_row_iterator &other, int count) const {
-            return qEqual(begin, begin + count, other.begin); }
+            return std::equal(begin, begin + count, other.begin); }
         bool isEqual(const const_row_iterator &other, int index, int count) {
-            return qEqual(begin + index, begin + count, other.begin + index); }
+            return std::equal(begin + index, begin + count, other.begin + index); }
 
         QVector<QVariant>::const_iterator begin;
         int width;

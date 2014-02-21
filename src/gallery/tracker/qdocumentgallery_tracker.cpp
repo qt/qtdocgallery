@@ -52,7 +52,6 @@
 #include "qgallerytrackerchangenotifier_p.h"
 #include "qgallerytrackerschema_p.h"
 #include "qgallerytrackereditableresultset_p.h"
-#include "qgallerytrackertyperesultset_p.h"
 #include "qgallerydbusinterface_p.h"
 
 #include <QtCore/qmetaobject.h>
@@ -83,7 +82,7 @@ Q_DECLARE_METATYPE(QVector<QGalleryTrackerGraphUpdate>)
 
 QT_BEGIN_NAMESPACE_DOCGALLERY
 
-class QDocumentGalleryPrivate : public QAbstractGalleryPrivate, public QGalleryDBusInterfaceFactory
+class QDocumentGalleryPrivate : public QAbstractGalleryPrivate
 {
 public:
     QDocumentGalleryPrivate()
@@ -118,7 +117,6 @@ public:
 
     TrackerSparqlConnection *connection;
     QGalleryDBusInterfacePointer metaDataService;
-    QGalleryDBusInterfacePointer statisticsService;
     QScopedPointer<QGalleryTrackerChangeNotifier> fileNotifier;
     QScopedPointer<QGalleryTrackerChangeNotifier> audioNotifier;
     QScopedPointer<QGalleryTrackerChangeNotifier> artistNotifier;
@@ -139,17 +137,6 @@ QGalleryDBusInterfacePointer QDocumentGalleryPrivate::metaDataInterface()
                 "org.freedesktop.Tracker1.Resources");
     }
     return metaDataService;
-}
-
-QGalleryDBusInterfacePointer QDocumentGalleryPrivate::statisticsInterface()
-{
-    if (!statisticsService) {
-        statisticsService = new QGalleryDBusInterface(
-                QLatin1String("org.freedesktop.Tracker1"),
-                QLatin1String("/org/freedesktop/Tracker1/Statistics"),
-                "org.freedesktop.Tracker1.Statistics");
-    }
-    return statisticsService;
 }
 
 QGalleryTrackerChangeNotifier *QDocumentGalleryPrivate::createChangeNotifier(
@@ -221,7 +208,7 @@ QGalleryAbstractResponse *QDocumentGalleryPrivate::createItemResponse(QGalleryIt
     QGalleryTrackerResultSetArguments arguments;
 
     int error = schema.prepareItemResponse(
-            &arguments, this, request->itemId().toString(), request->propertyNames());
+            &arguments, request->itemId().toString(), request->propertyNames());
 
     if (error != QDocumentGallery::NoError) {
         return new QGalleryAbstractResponse(error);
@@ -263,21 +250,19 @@ QGalleryAbstractResponse *QDocumentGalleryPrivate::createTypeResponse(QGalleryTy
 {
     QGalleryTrackerSchema schema(request->itemType());
 
-    QGalleryTrackerTypeResultSetArguments arguments;
+    QGalleryTrackerResultSetArguments arguments;
 
-    int error = schema.prepareTypeResponse(&arguments, this);
+    int error = schema.prepareTypeResponse(&arguments);
 
     if (error != QDocumentGallery::NoError) {
         return new QGalleryAbstractResponse(error);
     } else {
-        QGalleryTrackerTypeResultSet *response = new QGalleryTrackerTypeResultSet(arguments);
+        QGalleryTrackerResultSet *response = new QGalleryTrackerResultSet(connection, &arguments, request->autoUpdate());
 
         if (request->autoUpdate()) {
-            QGalleryTrackerChangeNotifier * notifier = getChangeNotifier( request->itemType() );
-            if ( notifier )
-                QObject::connect(
-                        notifier, SIGNAL(itemsChanged(int)),
-                        response, SLOT(refresh(int)));
+            QGalleryTrackerChangeNotifier *notifier = getChangeNotifier(request->itemType());
+            if (notifier)
+                QObject::connect(notifier, SIGNAL(itemsChanged(int)), response, SLOT(refresh(int)));
         }
 
         return response;
@@ -318,7 +303,6 @@ QGalleryAbstractResponse *QDocumentGalleryPrivate::createFilterResponse(
 
     int error = schema.prepareQueryResponse(
             &arguments,
-            this,
             request->scope(),
             request->rootItem().toString(),
             request->filter(),
@@ -353,6 +337,7 @@ QDocumentGallery::QDocumentGallery(QObject *parent)
 QDocumentGallery::~QDocumentGallery()
 {
     Q_D(QDocumentGallery);
+
     if (d->connection)
         g_object_unref(d->connection);
 }

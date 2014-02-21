@@ -69,7 +69,6 @@ class QGalleryTrackerImageColumn;
 class QGalleryTrackerValueColumn;
 
 struct QGalleryTrackerResultSetArguments;
-struct QGalleryTrackerTypeResultSetArguments;
 
 class Q_GALLERY_EXPORT QGalleryTrackerSchema
 {
@@ -91,13 +90,11 @@ public:
 
     QDocumentGallery::Error prepareItemResponse(
             QGalleryTrackerResultSetArguments *arguments,
-            QGalleryDBusInterfaceFactory *dbus,
             const QString &itemId,
             const QStringList &propertyNames) const;
 
     QDocumentGallery::Error prepareQueryResponse(
             QGalleryTrackerResultSetArguments *arguments,
-            QGalleryDBusInterfaceFactory *dbus,
             QGalleryQueryRequest::Scope scope,
             const QString &rootItem,
             const QGalleryFilter &filter,
@@ -107,8 +104,7 @@ public:
             int limit) const;
 
     QDocumentGallery::Error prepareTypeResponse(
-            QGalleryTrackerTypeResultSetArguments *arguments,
-            QGalleryDBusInterfaceFactory *dbus) const;
+            QGalleryTrackerResultSetArguments *arguments) const;
 
 private:
     QGalleryTrackerSchema(int itemIndex) : m_itemIndex(itemIndex) {}
@@ -123,7 +119,6 @@ private:
 
     void populateItemArguments(
             QGalleryTrackerResultSetArguments *arguments,
-            QGalleryDBusInterfaceFactory *dbus,
             const QString &query,
             const QString &join,
             const QString &optionalJoin,

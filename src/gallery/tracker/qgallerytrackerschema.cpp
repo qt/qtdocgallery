@@ -44,10 +44,8 @@
 #include "qgallerytrackerschema_p.h"
 
 #include "qgalleryabstractrequest.h"
-#include "qgallerydbusinterface_p.h"
 #include "qgallerytrackerresultset_p.h"
 #include "qgallerytrackerlistcolumn_p.h"
-#include "qgallerytrackertyperesultset_p.h"
 
 #include <QtCore/qdatetime.h>
 #include <QtCore/qdir.h>
@@ -1172,7 +1170,6 @@ QGalleryProperty::Attributes QGalleryTrackerSchema::propertyAttributes(
 
 QDocumentGallery::Error QGalleryTrackerSchema::prepareItemResponse(
         QGalleryTrackerResultSetArguments *arguments,
-        QGalleryDBusInterfaceFactory *dbus,
         const QString &itemId,
         const QStringList &propertyNames) const
 {
@@ -1181,7 +1178,7 @@ QDocumentGallery::Error QGalleryTrackerSchema::prepareItemResponse(
                 = QLatin1String(" FILTER(?x=<")
                 + qt_galleryItemTypeList[m_itemIndex].prefix.strip(itemId).toString()
                 + QLatin1String(">)");
-        populateItemArguments(arguments, dbus, query, QString(), QString(), propertyNames, QStringList(), 0, 0);
+        populateItemArguments(arguments, query, QString(), QString(), propertyNames, QStringList(), 0, 0);
 
         return QDocumentGallery::NoError;
     }
@@ -1191,7 +1188,6 @@ QDocumentGallery::Error QGalleryTrackerSchema::prepareItemResponse(
 
 QDocumentGallery::Error QGalleryTrackerSchema::prepareQueryResponse(
         QGalleryTrackerResultSetArguments *arguments,
-        QGalleryDBusInterfaceFactory *dbus,
         QGalleryQueryRequest::Scope scope,
         const QString &rootItemId,
         const QGalleryFilter &filter,
@@ -1213,7 +1209,7 @@ QDocumentGallery::Error QGalleryTrackerSchema::prepareQueryResponse(
             return error;
         } else {
             populateItemArguments(
-                    arguments, dbus, query, join, optionalJoin, propertyNames, sortPropertyNames, offset, limit);
+                    arguments, query, join, optionalJoin, propertyNames, sortPropertyNames, offset, limit);
 
             return QDocumentGallery::NoError;
         }
@@ -1221,43 +1217,48 @@ QDocumentGallery::Error QGalleryTrackerSchema::prepareQueryResponse(
 }
 
 QDocumentGallery::Error QGalleryTrackerSchema::prepareTypeResponse(
-        QGalleryTrackerTypeResultSetArguments *arguments, QGalleryDBusInterfaceFactory *dbus) const
+        QGalleryTrackerResultSetArguments *arguments) const
 {
-    if (m_itemIndex >= 0) {
-        arguments->service = qt_galleryItemTypeList[m_itemIndex].service;
-        arguments->accumulative = false;
-        arguments->updateMask = qt_galleryItemTypeList[m_itemIndex].updateMask;
-
-        if (qt_galleryItemTypeList[m_itemIndex].filterFragment) {
-            arguments->queryInterface = dbus->metaDataInterface();
-            arguments->queryMethod = QLatin1String("SparqlQuery");
-            arguments->queryArguments = QVariantList()
-                    << QString(QString::fromUtf8("SELECT COUNT(DISTINCT ")
-                    + qt_galleryItemTypeList[m_itemIndex].identity
-                    + QLatin1String(") WHERE {")
-                    + qt_galleryItemTypeList[m_itemIndex].typeFragment
-                    + QLatin1String(" FILTER(")
-                    + QLatin1String(qt_galleryItemTypeList[m_itemIndex].filterFragment)
-                    + QLatin1String(")}"));
-        } else if (QString(qt_galleryItemTypeList[m_itemIndex].typeFragment).contains(QLatin1Char('.'))) {
-            arguments->queryInterface = dbus->metaDataInterface();
-            arguments->queryMethod = QLatin1String("SparqlQuery");
-            arguments->queryArguments = QVariantList()
-                    << QString(QString::fromUtf8("SELECT COUNT(DISTINCT ")
-                    + qt_galleryItemTypeList[m_itemIndex].identity
-                    + QLatin1String(") WHERE {")
-                    + qt_galleryItemTypeList[m_itemIndex].typeFragment
-                    + QLatin1String("}"));
-        } else {
-            arguments->queryInterface = dbus->statisticsInterface();
-            arguments->queryMethod = QLatin1String("Get");
-            arguments->queryArguments = QVariantList();
-        }
-
-        return QDocumentGallery::NoError;
-    } else {
+    if (m_itemIndex < 0)
         return QDocumentGallery::ItemTypeError;
+
+    arguments->valueOffset = 1; // identity
+    arguments->idColumn.reset(new QGalleryTrackerStaticColumn(QVariant()));
+    arguments->urlColumn.reset(new QGalleryTrackerStaticColumn(QVariant()));
+    arguments->typeColumn.reset(
+            new QGalleryTrackerStaticColumn(qt_galleryItemTypeList[m_itemIndex].itemType));
+    arguments->valueColumns = QVector<QGalleryTrackerValueColumn *>()
+            << new QGalleryTrackerStringColumn
+            << new QGalleryTrackerIntegerColumn;
+
+    arguments->service = qt_galleryItemTypeList[m_itemIndex].service;
+    arguments->updateMask = qt_galleryItemTypeList[m_itemIndex].updateMask;
+    arguments->identityWidth = 1;
+    arguments->tableWidth =  2;
+    arguments->compositeOffset = 2;
+    arguments->propertyNames << QStringLiteral("count");
+    arguments->propertyAttributes << QGalleryProperty::CanRead;
+    arguments->propertyTypes << QVariant::Int;
+
+    if (qt_galleryItemTypeList[m_itemIndex].filterFragment) {
+        arguments->sparql
+                = QLatin1String("SELECT 'identity' COUNT(DISTINCT ")
+                + qt_galleryItemTypeList[m_itemIndex].identity
+                + QLatin1String(") WHERE {")
+                + qt_galleryItemTypeList[m_itemIndex].typeFragment
+                + QLatin1String(" FILTER(")
+                + QLatin1String(qt_galleryItemTypeList[m_itemIndex].filterFragment)
+                + QLatin1String(")}");
+    } else {
+        arguments->sparql
+                = QLatin1String("SELECT 'identity' COUNT(DISTINCT ")
+                + qt_galleryItemTypeList[m_itemIndex].identity
+                + QLatin1String(") WHERE {")
+                + qt_galleryItemTypeList[m_itemIndex].typeFragment
+                + QLatin1String("}");
     }
+
+    return QDocumentGallery::NoError;
 }
 
 QDocumentGallery::Error QGalleryTrackerSchema::buildFilterQuery(
@@ -1479,7 +1480,6 @@ static QString qt_writeSorting(
 
 void QGalleryTrackerSchema::populateItemArguments(
         QGalleryTrackerResultSetArguments *arguments,
-        QGalleryDBusInterfaceFactory *dbus,
         const QString &query,
         const QString &join,
         const QString &optionalJoin,
@@ -1612,7 +1612,6 @@ void QGalleryTrackerSchema::populateItemArguments(
     arguments->identityWidth = 1;
     arguments->tableWidth =  arguments->valueOffset + arguments->fieldNames.count();
     arguments->compositeOffset = arguments->valueOffset + valueNames.count();
-    arguments->queryInterface = dbus->metaDataInterface();
     arguments->sparql
             = QLatin1String("SELECT ")
             + fieldNames.join(QLatin1String(" "))

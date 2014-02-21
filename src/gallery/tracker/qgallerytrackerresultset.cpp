@@ -429,6 +429,8 @@ QGalleryTrackerResultSet::QGalleryTrackerResultSet(
 {
     Q_D(QGalleryTrackerResultSet);
 
+    g_object_ref(G_OBJECT(d->connection));
+
     connect(&d->parserThread, SIGNAL(finished()), this, SLOT(_q_parseFinished()));
 
     d_func()->query();

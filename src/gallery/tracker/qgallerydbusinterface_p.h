@@ -89,28 +89,6 @@ Q_SIGNALS:
 
 typedef QExplicitlySharedDataPointer<QGalleryDBusInterface> QGalleryDBusInterfacePointer;
 
-class QGalleryTrackerDaemonDBusInterface : public QGalleryDBusInterface
-{
-    Q_OBJECT
-public:
-    QGalleryTrackerDaemonDBusInterface(
-            const QString &service,
-            const QString &path,
-            const char *interface,
-            const QDBusConnection &connection = QDBusConnection::sessionBus(),
-            QObject *parent = 0)
-        : QGalleryDBusInterface(service, path, interface, connection, parent) {}
-
-};
-
-class QGalleryDBusInterfaceFactory
-{
-public:
-    virtual ~QGalleryDBusInterfaceFactory() {}
-
-    virtual QGalleryDBusInterfacePointer metaDataInterface() = 0;
-    virtual QGalleryDBusInterfacePointer statisticsInterface() = 0;
-};
 
 QT_END_NAMESPACE_DOCGALLERY
 

@@ -46,7 +46,6 @@
 #include <qdocumentgallery.h>
 #include <private/qgallerytrackerlistcolumn_p.h>
 #include <private/qgallerytrackerresultset_p.h>
-#include <private/qgallerytrackertyperesultset_p.h>
 
 #include <QtTest/QtTest>
 
@@ -71,7 +70,7 @@ QT_USE_DOCGALLERY_NAMESPACE
 #define QT_AGGREGATE_QUERY_SERVICE_POSITION 0
 #define QT_AGGREGATE_QUERY_STRING_POSITION 2
 
-class tst_QGalleryTrackerSchema : public QObject, public QGalleryDBusInterfaceFactory
+class tst_QGalleryTrackerSchema : public QObject
 {
     Q_OBJECT
 private Q_SLOTS:
@@ -115,21 +114,6 @@ private Q_SLOTS:
     void prepareInvalidQueryResponse();
     void serviceForType_data();
     void serviceForType();
-
-private:
-    QGalleryDBusInterfacePointer daemonInterface() { return m_daemonInterface; }
-    QGalleryDBusInterfacePointer metaDataInterface() { return m_metaDataInterface; }
-    QGalleryDBusInterfacePointer searchInterface() { return m_searchInterface; }
-    QGalleryDBusInterfacePointer fileInterface() { return m_fileInterface; }
-    QGalleryDBusInterfacePointer statisticsInterface() { return m_statisticsInterface; }
-    QGalleryDBusInterfacePointer resourcesClassInterface( const QString &) { return m_resourcesClassInterface; }
-
-    QGalleryDBusInterfacePointer m_daemonInterface;
-    QGalleryDBusInterfacePointer m_metaDataInterface;
-    QGalleryDBusInterfacePointer m_searchInterface;
-    QGalleryDBusInterfacePointer m_fileInterface;
-    QGalleryDBusInterfacePointer m_statisticsInterface;
-    QGalleryDBusInterfacePointer m_resourcesClassInterface;
 };
 
 void tst_QGalleryTrackerSchema::initTestCase()
@@ -405,82 +389,63 @@ void tst_QGalleryTrackerSchema::prepareValidTypeResponse_data()
 {
     QTest::addColumn<QString>("itemType");
     QTest::addColumn<int>("updateMask");
-    QTest::addColumn<QGalleryDBusInterfacePointer>("queryInterface");
-    QTest::addColumn<QString>("queryMethod");
-    QTest::addColumn<QVariantList>("queryArguments");
+    QTest::addColumn<QString>("sparql");
 
     QTest::newRow("File")
             << "File"
             << 0xFF
-            << m_metaDataInterface
-            << "SparqlQuery"
-            << (QVariantList() << QLatin1String(
-                    "SELECT COUNT(DISTINCT ?x) "
-                    "WHERE {"
-                        "?x a nfo:FileDataObject . "
-                        "?x tracker:available true"
-                    "}"));
+            <<  "SELECT 'identity' COUNT(DISTINCT ?x) "
+                "WHERE {"
+                    "?x a nfo:FileDataObject . "
+                    "?x tracker:available true"
+                "}";
 
     QTest::newRow("Artist")
             << QString::fromLatin1("Artist")
             << 0x0100
-            << m_metaDataInterface
-            << "SparqlQuery"
-            << (QVariantList() << QLatin1String(
-                    "SELECT COUNT(DISTINCT ?x) "
-                    "WHERE {"
-                        "?x a nmm:Artist . "
-                        "?track a nmm:MusicPiece . "
-                        "?track nmm:performer ?x . "
-                        "?track tracker:available true"
-                    "}"));
+            <<  "SELECT 'identity' COUNT(DISTINCT ?x) "
+                "WHERE {"
+                    "?x a nmm:Artist . "
+                    "?track a nmm:MusicPiece . "
+                    "?track nmm:performer ?x . "
+                    "?track tracker:available true"
+                "}";
 
     QTest::newRow("Album")
             << QString::fromLatin1("Album")
             << 0x0200
-            << m_metaDataInterface
-            << "SparqlQuery"
-            << (QVariantList() << QLatin1String(
-                    "SELECT COUNT(DISTINCT ?x) "
-                    "WHERE {"
-                        "?x a nmm:MusicAlbum . "
-                        "?track a nmm:MusicPiece . "
-                        "?track nmm:musicAlbum ?x . "
-                        "?track tracker:available true"
-                    "}"));
+            <<  "SELECT 'identity' COUNT(DISTINCT ?x) "
+                "WHERE {"
+                    "?x a nmm:MusicAlbum . "
+                    "?track a nmm:MusicPiece . "
+                    "?track nmm:musicAlbum ?x . "
+                    "?track tracker:available true"
+                "}";
 
     QTest::newRow("AudioGenre")
             << "AudioGenre"
             << 0x08
-            << m_metaDataInterface
-            << "SparqlQuery"
-            << (QVariantList() << QLatin1String(
-                    "SELECT COUNT(DISTINCT nfo:genre(?x)) "
-                    "WHERE {"
-                        "?x a nmm:MusicPiece . "
-                        "?x tracker:available true "
-                        "FILTER(nfo:genre(?x)!='')"
-                    "}"));
+            <<  "SELECT 'identity' COUNT(DISTINCT nfo:genre(?x)) "
+                "WHERE {"
+                    "?x a nmm:MusicPiece . "
+                    "?x tracker:available true "
+                    "FILTER(nfo:genre(?x)!='')"
+                "}";
 }
 
 void tst_QGalleryTrackerSchema::prepareValidTypeResponse()
 {
     QFETCH(QString, itemType);
     QFETCH(int, updateMask);
-    QFETCH(QGalleryDBusInterfacePointer, queryInterface);
-    QFETCH(QString, queryMethod);
-    QFETCH(QVariantList, queryArguments);
+    QFETCH(QString, sparql);
 
-    QGalleryTrackerTypeResultSetArguments arguments;
+    QGalleryTrackerResultSetArguments arguments;
 
     QGalleryTrackerSchema schema(itemType);
-    QCOMPARE(schema.prepareTypeResponse(&arguments, this), QDocumentGallery::NoError);
+    QCOMPARE(schema.prepareTypeResponse(&arguments), QDocumentGallery::NoError);
 
-    QCOMPARE(arguments.accumulative, false);
     QCOMPARE(arguments.updateMask, updateMask);
-    QCOMPARE(arguments.queryInterface, queryInterface);
-    QCOMPARE(arguments.queryMethod, queryMethod);
-    QCOMPARE(arguments.queryArguments, queryArguments);
+    QCOMPARE(arguments.sparql, sparql);
 }
 
 void tst_QGalleryTrackerSchema::prepareInvalidTypeResponse_data()
@@ -498,10 +463,10 @@ void tst_QGalleryTrackerSchema::prepareInvalidTypeResponse()
     QFETCH(QString, itemType);
     QFETCH(QDocumentGallery::Error, error);
 
-    QGalleryTrackerTypeResultSetArguments arguments;
+    QGalleryTrackerResultSetArguments arguments;
 
     QGalleryTrackerSchema schema(itemType);
-    QCOMPARE(schema.prepareTypeResponse(&arguments, this), error);
+    QCOMPARE(schema.prepareTypeResponse(&arguments), error);
 }
 
 void tst_QGalleryTrackerSchema::prepareValidItemResponse_data()
@@ -516,7 +481,7 @@ void tst_QGalleryTrackerSchema::prepareValidItemResponse_data()
     QTest::addColumn<int>("tableWidth");
     QTest::addColumn<int>("valueOffset");
     QTest::addColumn<int>("compositeOffset");
-    QTest::addColumn<QGalleryDBusInterfacePointer>("queryInterface");
+
     QTest::addColumn<QString>("sparql");
 
     QTest::newRow("file:://path/to/file.ext")
@@ -533,7 +498,6 @@ void tst_QGalleryTrackerSchema::prepareValidItemResponse_data()
             << 3
             << 3
             << 3
-            << m_metaDataInterface
             <<  "SELECT ?x nie:url(?x) rdf:type(?x) "
                 "WHERE {"
                     "?x a nfo:FileDataObject . "
@@ -556,7 +520,6 @@ void tst_QGalleryTrackerSchema::prepareValidItemResponse_data()
             << 1
             << 1
             << 1
-            << m_metaDataInterface
             <<  "SELECT ?x "
                 "WHERE {"
                     "?x a nmm:MusicAlbum . "
@@ -580,14 +543,13 @@ void tst_QGalleryTrackerSchema::prepareValidItemResponse()
     QFETCH(int, tableWidth);
     QFETCH(int, valueOffset);
     QFETCH(int, compositeOffset);
-    QFETCH(QGalleryDBusInterfacePointer, queryInterface);
     QFETCH(QString, sparql);
 
     QGalleryTrackerResultSetArguments arguments;
 
     QGalleryTrackerSchema schema = QGalleryTrackerSchema::fromItemId(itemId.toString());
     QCOMPARE(
-            schema.prepareItemResponse(&arguments, this, itemId.toString(), propertyNames),
+            schema.prepareItemResponse(&arguments, itemId.toString(), propertyNames),
             QDocumentGallery::NoError);
 
     QVERIFY(arguments.idColumn != 0);
@@ -605,7 +567,6 @@ void tst_QGalleryTrackerSchema::prepareValidItemResponse()
     QCOMPARE(arguments.valueOffset, valueOffset);
     QCOMPARE(arguments.compositeOffset, compositeOffset);
 
-    QCOMPARE(arguments.queryInterface, queryInterface);
     QCOMPARE(arguments.sparql, sparql);
 }
 
@@ -630,7 +591,7 @@ void tst_QGalleryTrackerSchema::prepareInvalidItemResponse()
     QGalleryTrackerResultSetArguments arguments;
 
     QGalleryTrackerSchema schema = QGalleryTrackerSchema::fromItemId(itemId);
-    QCOMPARE(schema.prepareItemResponse(&arguments, this, itemId, propertyNames), error);
+    QCOMPARE(schema.prepareItemResponse(&arguments, itemId, propertyNames), error);
 }
 
 void tst_QGalleryTrackerSchema::queryResponseRootType_data()
@@ -770,7 +731,6 @@ void tst_QGalleryTrackerSchema::queryResponseRootType()
     QCOMPARE(
             schema.prepareQueryResponse(
                     &arguments,
-                    this,
                     QGalleryQueryRequest::AllDescendants,
                     QString(),
                     QGalleryFilter(),
@@ -780,7 +740,6 @@ void tst_QGalleryTrackerSchema::queryResponseRootType()
                     0),
             QDocumentGallery::NoError);
 
-    QCOMPARE(arguments.queryInterface, m_metaDataInterface);
     QCOMPARE(arguments.sparql, sparql);
 
     QCOMPARE(arguments.updateMask, updateMask);
@@ -1361,7 +1320,6 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames()
     QCOMPARE(
             schema.prepareQueryResponse(
                     &arguments,
-                    this,
                     QGalleryQueryRequest::AllDescendants,
                     QString(),
                     QGalleryFilter(),
@@ -1767,7 +1725,6 @@ void tst_QGalleryTrackerSchema::queryResponseRootItem()
     QCOMPARE(
             schema.prepareQueryResponse(
                     &arguments,
-                    this,
                     scope,
                     rootItem,
                     QGalleryFilter(),
@@ -2515,7 +2472,6 @@ void tst_QGalleryTrackerSchema::queryResponseFilter()
     QCOMPARE(
             schema.prepareQueryResponse(
                     &arguments,
-                    this,
                     scope,
                     rootItem,
                     filter,
@@ -2559,7 +2515,6 @@ void tst_QGalleryTrackerSchema::queryResponseItemUrl()
     QCOMPARE(
             schema.prepareQueryResponse(
                     &arguments,
-                    this,
                     QGalleryQueryRequest::AllDescendants,
                     QString(),
                     QGalleryFilter(),
@@ -2694,7 +2649,6 @@ void tst_QGalleryTrackerSchema::queryResponseValueColumnToVariant()
     QCOMPARE(
             schema.prepareQueryResponse(
                     &arguments,
-                    this,
                     QGalleryQueryRequest::AllDescendants,
                     QString(),
                     QGalleryFilter(),
@@ -2823,7 +2777,6 @@ void tst_QGalleryTrackerSchema::queryResponseValueColumnToString()
     QCOMPARE(
             schema.prepareQueryResponse(
                     &arguments,
-                    this,
                     QGalleryQueryRequest::AllDescendants,
                     QString(),
                     QGalleryFilter(),
@@ -2905,7 +2858,6 @@ void tst_QGalleryTrackerSchema::queryResponseCompositeColumn()
     QCOMPARE(
             schema.prepareQueryResponse(
                     &arguments,
-                    this,
                     QGalleryQueryRequest::AllDescendants,
                     QString(),
                     QGalleryFilter(),
@@ -3139,7 +3091,7 @@ void tst_QGalleryTrackerSchema::prepareInvalidQueryResponse()
 
     QCOMPARE(
             schema.prepareQueryResponse(
-                    &arguments, this, scope, rootItem, filter, propertyNames, sortPropertyNames, 0, 0),
+                    &arguments, scope, rootItem, filter, propertyNames, sortPropertyNames, 0, 0),
             error);
 }
 
