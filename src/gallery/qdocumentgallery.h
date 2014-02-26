@@ -138,6 +138,10 @@ public:
     static const QGalleryProperty meteringMode;
     static const QGalleryProperty whiteBalance;
 
+    static const QGalleryProperty latitude;
+    static const QGalleryProperty longitude;
+    static const QGalleryProperty altitude;
+
     // Video
     static const QGalleryProperty frameRate;
     static const QGalleryProperty videoCodec;

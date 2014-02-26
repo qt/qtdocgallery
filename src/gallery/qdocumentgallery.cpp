@@ -255,6 +255,7 @@ Q_DEFINE_GALLERY_TYPE(QDocumentGallery, Audio)
     also provide:
 
     \list
+    \li \l altitude
     \li \l cameraManufacturer
     \li \l cameraModel
     \li \l dateTaken
@@ -264,6 +265,8 @@ Q_DEFINE_GALLERY_TYPE(QDocumentGallery, Audio)
     \li \l fNumber
     \li \l focalLength
     \li \l height
+    \li \l longitude
+    \li \l latitude
     \li \l meteringMode
     \li \l orientation
     \li \l width
@@ -845,6 +848,30 @@ Q_DEFINE_GALLERY_PROPERTY(QDocumentGallery, meteringMode)
 */
 
 Q_DEFINE_GALLERY_PROPERTY(QDocumentGallery, whiteBalance)
+
+/*!
+    \variable QDocumentGallery::latitude
+
+    This property contains the latitude of the location where the photo was captured.
+*/
+
+Q_DEFINE_GALLERY_PROPERTY(QDocumentGallery, latitude)
+
+/*!
+    \variable QDocumentGallery::longitude
+
+    This property contains the longitude of the location where the photo was captured.
+*/
+
+Q_DEFINE_GALLERY_PROPERTY(QDocumentGallery, longitude)
+
+/*!
+    \variable QDocumentGallery::altitude
+
+    This property contains the altitude of the location where the photo was captured.
+*/
+
+Q_DEFINE_GALLERY_PROPERTY(QDocumentGallery, altitude)
 
 // Video
 

@@ -767,7 +767,10 @@ static const QGalleryItemProperty qt_galleryOrientationPropertyList[] = {
 
 #define QT_GALLERY_NFO_VISUAL_PROPERTIES \
     QT_GALLERY_ITEM_PROPERTY("height", "nfo:height(?x)", Int, CanRead | CanSort | CanFilter | IsResource), \
-    QT_GALLERY_ITEM_PROPERTY("width" , "nfo:width(?x)" , Int, CanRead | CanSort | CanFilter | IsResource)
+    QT_GALLERY_ITEM_PROPERTY("width" , "nfo:width(?x)" , Int, CanRead | CanSort | CanFilter | IsResource), \
+    QT_GALLERY_LINKED_PROPERTY("latitude" , "slo:latitude(?location)" , " . ?x slo:location ?location", Double, CanRead | CanFilter | CanSort), \
+    QT_GALLERY_LINKED_PROPERTY("longitude", "slo:longitude(?location)", " . ?x slo:location ?location", Double, CanRead | CanFilter | CanSort), \
+    QT_GALLERY_LINKED_PROPERTY("altitude" , "slo:altitude(?location)" , " . ?x slo:location ?location", Double, CanRead | CanFilter | CanSort)
 
 #define QT_GALLERY_NFO_VISUAL_COMPOSITE_PROPERTIES \
     QT_GALLERY_COMPOSITE_PROPERTY("orientation", Int, qt_galleryOrientationPropertyList, QGalleryTrackerOrientationColumn::create, qt_writeOrientationCondition)

@@ -282,6 +282,9 @@ void tst_QGalleryTrackerSchema::supportedPropertyNames_data()
              << QLatin1String("height")
              << QLatin1String("width")
              << QLatin1String("orientation")
+             << QLatin1String("latitude")
+             << QLatin1String("longitude")
+             << QLatin1String("altitude")
             );
 
     QTest::newRow("AudioGenre") << QString::fromLatin1("AudioGenre") << (QStringList()
@@ -1272,6 +1275,29 @@ void tst_QGalleryTrackerSchema::queryResponseFilePropertyNames_data()
             << QVector<int>() // aliasColumns
             << (QVector<int>() // resourceKeys
                     << 4);
+
+    QTest::newRow("Image: [latitude, longitude, altitude]")
+            << "Image" // rootType
+            << (QStringList() // propertyNames
+                    << QLatin1String("latitude")
+                    << QLatin1String("longitude")
+                    << QLatin1String("altitude"))
+            << QStringList() // sortPropertyNames
+            << 6 // tableWidth
+            << 6 // compositeOffset
+            <<  "SELECT ?x nie:url(?x) rdf:type(?x) slo:latitude(?location) slo:longitude(?location) slo:altitude(?location) "
+                "WHERE {?x a nmm:Photo . ?x tracker:available true OPTIONAL {?x slo:location ?location}} "
+                "GROUP BY ?x"
+            << (QStringList() // fieldNames
+                    << QString()
+                    << QString()
+                    << QString())
+            << (QStringList() // filteredPropertyNames
+                    << QLatin1String("latitude")
+                    << QLatin1String("longitude")
+                    << QLatin1String("altitude"))
+            << QVector<int>() // aliasColumns
+            << (QVector<int>()); // resourceKeys
 
     QTest::newRow("Audio: [title, albumTitle, albumArtist], [+albumTitle, +trackNumber]")
             << "Audio" // rootType
