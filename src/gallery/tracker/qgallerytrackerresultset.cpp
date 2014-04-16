@@ -142,7 +142,7 @@ void QGalleryTrackerResultSetPrivate::synchronize()
             } else {
                 break;
             }
-        } while (iBegin != rEnd && iBegin != iEnd);
+        } while (rBegin != rEnd && iBegin != iEnd);
 
         if (changed) {
             const_row_iterator rIt = rBegin;
