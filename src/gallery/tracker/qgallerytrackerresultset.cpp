@@ -305,7 +305,7 @@ void QGalleryTrackerResultSetPrivate::syncUpdate(
 {
     bool itemChanged = false;
 
-    if (currentIndex >= iCache.cutoff && currentIndex < iCache.cutoff + iCount) {
+    if (currentIndex >= iCache.cutoff && currentIndex < iIndex + iCount) {
         currentRow = iCache.values.constBegin() + (currentIndex * tableWidth);
 
         itemChanged = true;
@@ -327,7 +327,7 @@ void QGalleryTrackerResultSetPrivate::syncReplace(
     if (rCount > 0)
         removeItems(rIndex, iIndex, rCount);
 
-    if (currentIndex >= iCache.cutoff && currentIndex < iCache.cutoff + iCount) {
+    if (currentIndex >= iCache.cutoff && currentIndex < iIndex + iCount) {
         currentRow = iCache.values.constBegin() + (currentIndex * tableWidth);
 
         itemChanged = true;
