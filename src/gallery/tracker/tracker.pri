@@ -13,7 +13,8 @@ PRIVATE_HEADERS += \
         $$PWD/qgallerytrackermetadataedit_p.h \
         $$PWD/qgallerytrackerresultset_p.h \
         $$PWD/qgallerytrackerresultset_p_p.h \
-        $$PWD/qgallerytrackerschema_p.h
+        $$PWD/qgallerytrackerschema_p.h \
+        $$PWD/../../3rdparty/synchronization/synchronizelists.h
 
 SOURCES += \
         $$PWD/qgallerydbusinterface.cpp \

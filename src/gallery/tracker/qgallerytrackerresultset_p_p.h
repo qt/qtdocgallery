@@ -91,161 +91,19 @@ public:
         enum Type
         {
             Update,
-            Replace,
+            Insert,
+            Remove,
             Finish
         };
 
-        const Type type;
-        const int rIndex;
-        const int rCount;
-        const int iIndex;
-        const int iCount;
+        SyncEvent() : type(Finish), index(0), count(0), sourceIndex(0) {}
+        SyncEvent(Type type, int index, int count, int sourceIndex = 0)
+            : type(type), index(index), count(count), sourceIndex(sourceIndex) {}
 
-        static SyncEvent *updateEvent(int aIndex, int iIndex, int count) {
-            return new SyncEvent(Update, aIndex, count, iIndex, count); }
-
-        static SyncEvent *replaceEvent(int aIndex, int aCount, int iIndex, int iCount) {
-            return new SyncEvent(Replace, aIndex, aCount, iIndex, iCount); }
-
-        static SyncEvent *finishEvent(int aIndex, int iIndex) {
-            return new SyncEvent(Finish, aIndex, 0, iIndex, 0); }
-
-    private:
-        SyncEvent(Type type, int rIndex, int rCount, int iIndex, int iCount)
-            : type(type), rIndex(rIndex), rCount(rCount), iIndex(iIndex), iCount(iCount) {}
-
-    };
-
-    class SyncEventQueue
-    {
-    public:
-        SyncEventQueue() {}
-        ~SyncEventQueue() { qDeleteAll(m_queue); }
-
-        bool enqueue(SyncEvent *event)
-        {
-            QMutexLocker locker(&m_mutex);
-
-            m_queue.enqueue(event);
-            m_wait.wakeOne();
-
-            return m_queue.count() == 1;
-        }
-
-        SyncEvent *dequeue()
-        {
-            QMutexLocker locker(&m_mutex);
-
-            return !m_queue.isEmpty() ? m_queue.dequeue() : 0;
-        }
-
-        bool waitForEvent(int msecs)
-        {
-            QMutexLocker locker(&m_mutex);
-
-            if (!m_queue.isEmpty())
-                return true;
-
-            return m_wait.wait(&m_mutex, msecs);
-        }
-
-    private:
-        QQueue<SyncEvent *> m_queue;
-        QMutex m_mutex;
-        QWaitCondition m_wait;
-    };
-
-    struct Row
-    {
-        Row() {}
-        Row(QVector<QVariant>::iterator begin, QVector<QVariant>::iterator end)
-            : begin(begin), end(end) {}
-
-        QVector<QVariant>::iterator begin;
-        QVector<QVariant>::iterator end;
-    };
-
-    struct row_iterator
-    {
-        row_iterator() {}
-        row_iterator(QVector<QVariant>::iterator begin, int width) : begin(begin), width(width) {}
-
-        bool operator != (const row_iterator &other) const { return begin != other.begin; }
-        bool operator <(const row_iterator &other) const { return begin < other.begin; }
-
-        row_iterator &operator ++() { begin += width; return *this; }
-        row_iterator &operator --() { begin -= width; return *this; }
-
-        row_iterator operator ++(int) { row_iterator n(*this); begin += width; return n; }
-        row_iterator operator --(int) { row_iterator n(*this); begin -= width; return n; }
-
-        int operator -(const row_iterator &other) const { return (begin - other.begin) / width; }
-        int operator -(const QVector<QVariant>::const_iterator &iterator) const {
-            return (begin - iterator) / width; }
-
-        row_iterator operator +(int span) const {
-            return row_iterator(begin + (span * width), width); }
-
-        row_iterator &operator +=(int span) { begin += span * width; return *this; }
-
-        Row &operator *() {  return row = Row(begin, begin + width); }
-        const Row &operator *() const {  return row = Row(begin, begin + width); }
-
-        bool isEqual(const row_iterator &other, int count) const {
-            return std::equal(begin, begin + count, other.begin); }
-        bool isEqual(const row_iterator &other, int index, int count) {
-            return std::equal(begin + index, begin + count, other.begin + index); }
-
-        const QVariant &operator[] (int column) const { return *(begin + column); }
-
-        QVector<QVariant>::iterator begin;
-        int width;
-        mutable Row row;
-    };
-
-    struct const_row_iterator
-    {
-        const_row_iterator() {}
-        const_row_iterator(QVector<QVariant>::const_iterator begin, int width)
-            : begin(begin), width(width) {}
-
-        bool operator != (const const_row_iterator &other) const { return begin != other.begin; }
-        bool operator <(const const_row_iterator &other) const { return begin < other.begin; }
-
-        const_row_iterator &operator ++() { begin += width; return *this; }
-        const_row_iterator operator --(int) {
-            const_row_iterator n(*this); begin -= width; return n; }
-
-        int operator -(const const_row_iterator &other) const {
-            return (begin - other.begin) / width; }
-        int operator -(const QVector<QVariant>::const_iterator &iterator) const {
-            return (begin - iterator) / width; }
-
-        const_row_iterator operator +(int span) const {
-            return const_row_iterator(begin + (span * width), width); }
-
-        const_row_iterator &operator +=(int span) { begin += span * width; return *this; }
-
-        bool isEqual(const const_row_iterator &other, int count) const {
-            return std::equal(begin, begin + count, other.begin); }
-        bool isEqual(const const_row_iterator &other, int index, int count) {
-            return std::equal(begin + index, begin + count, other.begin + index); }
-
-        QVector<QVariant>::const_iterator begin;
-        int width;
-    };
-
-    struct Cache
-    {
-        Cache() : count(0), cutoff(0) {}
-
+        Type type;
+        int index;
         int count;
-        union
-        {
-            int offset;
-            int cutoff;
-        };
-        QVector<QVariant> values;
+        int sourceIndex;
     };
 
     enum Flag
@@ -276,10 +134,10 @@ public:
         , compositeOffset(arguments->compositeOffset)
         , aliasOffset(compositeOffset + arguments->compositeColumns.count())
         , columnCount(aliasOffset + arguments->aliasColumns.count())
-        , currentRow(0)
         , currentIndex(-1)
         , rowCount(0)
         , progressMaximum(0)
+        , syncDelta(0)
         , queryError(QDocumentGallery::NoError)
         , sparql(arguments->sparql)
         , propertyNames(arguments->propertyNames)
@@ -303,6 +161,9 @@ public:
         qDeleteAll(compositeColumns);
     }
 
+    QVector<QVariant>::const_iterator currentRow() const {
+        return values.constBegin() + (currentIndex * tableWidth); }
+
     TrackerSparqlConnection *connection;
 
     QString m_service;
@@ -319,10 +180,10 @@ public:
     const int compositeOffset;
     const int aliasOffset;
     const int columnCount;
-    QVector<QVariant>::const_iterator currentRow;
     int currentIndex;
     int rowCount;
     int progressMaximum;
+    int syncDelta;
     int queryError;
     QString queryErrorString;
     const QString sparql;
@@ -334,18 +195,14 @@ public:
     const QVector<QGalleryTrackerCompositeColumn *> compositeColumns;
     const QVector<int> aliasColumns;
     const QVector<int> resourceKeys;
-    Cache rCache;   // Remove cache.
-    Cache iCache;   // Insert cache.
+    QVector<QVariant> values;
+    QVector<QVariant> syncValues;
+    QVector<SyncEvent> syncEvents;
+    QMutex mutex;
 
     QGalleryTrackerResultSetThread parserThread;
     QList<QGalleryTrackerMetaDataEdit *> edits;
     QBasicTimer updateTimer;
-    SyncEventQueue syncEvents;
-
-    inline int rCacheIndex(const const_row_iterator &iterator) const {
-        return iterator - rCache.values.begin(); }
-    inline int iCacheIndex(const const_row_iterator &iterator) const {
-        return iterator - iCache.values.begin(); }
 
     void update();
     void requestUpdate()
@@ -359,14 +216,6 @@ public:
     void query();
 
     void run();
-
-    void synchronize();
-
-    void postSyncEvent(SyncEvent *event)
-    {
-        if (syncEvents.enqueue(event))
-            QCoreApplication::postEvent(q_func(), new QEvent(QEvent::UpdateLater));
-    }
 
     void processSyncEvents();
     void removeItems(const int rIndex, const int iIndex, const int count);
@@ -382,16 +231,6 @@ public:
 };
 
 QT_END_NAMESPACE_DOCGALLERY
-
-template <> inline void qSwap<QT_DOCGALLERY_PREPEND_NAMESPACE(QGalleryTrackerResultSetPrivate::Row)>(
-        QT_DOCGALLERY_PREPEND_NAMESPACE(QGalleryTrackerResultSetPrivate::Row) &row1,
-        QT_DOCGALLERY_PREPEND_NAMESPACE(QGalleryTrackerResultSetPrivate::Row) &row2)
-{
-    typedef QVector<QVariant>::iterator iterator;
-
-    for (iterator it1 = row1.begin, it2 = row2.begin; it1 != row1.end; ++it1, ++it2)
-        qSwap(*it1, *it2);
-}
 
 #endif
 

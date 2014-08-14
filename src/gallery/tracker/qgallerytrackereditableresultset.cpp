@@ -91,7 +91,7 @@ bool QGalleryTrackerEditableResultSet::setMetaData(int key, const QVariant &valu
 {
     Q_D(QGalleryTrackerEditableResultSet);
 
-    if (!d->currentRow || key < d->valueOffset || key >= d->columnCount)
+    if (d->currentIndex == -1 || key < d->valueOffset || key >= d->columnCount)
         return false;
     else if (key >= d->aliasOffset)
         key = d->aliasColumns.at(key - d->aliasOffset) + d->valueOffset;
@@ -99,7 +99,7 @@ bool QGalleryTrackerEditableResultSet::setMetaData(int key, const QVariant &valu
     if (key >= d->compositeOffset)
         return false;
 
-    if (*(d->currentRow + key) == value)
+    if (*(d->currentRow() + key) == value)
         return true;
 
     QGalleryTrackerMetaDataEdit *edit = 0;
@@ -115,8 +115,8 @@ bool QGalleryTrackerEditableResultSet::setMetaData(int key, const QVariant &valu
     if (!edit) {
         edit = new QGalleryTrackerMetaDataEdit(
                 d->metaDataInterface,
-                (d->currentRow + 1)->toString(),
-                d->currentRow->toString(),
+                (d->currentRow() + 1)->toString(),
+                d->currentRow()->toString(),
                 this);
         edit->setIndex(d->currentIndex);
 
@@ -134,7 +134,7 @@ bool QGalleryTrackerEditableResultSet::setMetaData(int key, const QVariant &valu
     edit->setValue(
             d->fieldNames.at(key - d->valueOffset),
             d->valueColumns.at(key - d->valueOffset)->toString(value),
-            (d->currentRow + key)->toString());
+            (d->currentRow() + key)->toString());
 
     return true;
 }
