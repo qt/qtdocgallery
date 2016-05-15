@@ -68,7 +68,7 @@ public:
             const QGalleryDBusInterfacePointer &metaDataInterface,
             const QString &uri,
             const QString &service,
-            QObject *parent = 0);
+            QObject *parent = Q_NULLPTR);
     ~QGalleryTrackerMetaDataEdit();
 
     int index() const { return m_index; }

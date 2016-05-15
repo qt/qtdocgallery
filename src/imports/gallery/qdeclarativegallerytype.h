@@ -130,7 +130,7 @@ protected:
         CanceledUpdate
     };
 
-    explicit QDeclarativeGalleryType(QObject *parent = 0);
+    explicit QDeclarativeGalleryType(QObject *parent = Q_NULLPTR);
 
     void deferredExecute();
 
@@ -153,7 +153,7 @@ class QDeclarativeDocumentGalleryType : public QDeclarativeGalleryType
     Q_OBJECT
     Q_PROPERTY(QDocGallery::QDeclarativeDocumentGallery::ItemType itemType READ itemType WRITE setItemType NOTIFY itemTypeChanged)
 public:
-    explicit QDeclarativeDocumentGalleryType(QObject *parent = 0);
+    explicit QDeclarativeDocumentGalleryType(QObject *parent = Q_NULLPTR);
     ~QDeclarativeDocumentGalleryType();
 
     void classBegin();

@@ -69,8 +69,8 @@ class Q_GALLERY_EXPORT QGalleryQueryModel : public QAbstractItemModel
     Q_PROPERTY(QString errorString READ errorString NOTIFY errorChanged)
     Q_PROPERTY(QGalleryAbstractRequest::State state READ state NOTIFY stateChanged)
 public:
-    QGalleryQueryModel(QObject *parent = 0);
-    QGalleryQueryModel(QAbstractGallery *gallery, QObject *parent = 0);
+    QGalleryQueryModel(QObject *parent = Q_NULLPTR);
+    QGalleryQueryModel(QAbstractGallery *gallery, QObject *parent = Q_NULLPTR);
     ~QGalleryQueryModel();
 
     QAbstractGallery *gallery() const;

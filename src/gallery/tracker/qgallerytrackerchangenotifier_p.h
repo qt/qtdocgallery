@@ -66,7 +66,7 @@ public:
     QGalleryTrackerChangeNotifier(
             const QString &service,
             const QGalleryDBusInterfacePointer &daemonInterface,
-            QObject *parent = 0);
+            QObject *parent = Q_NULLPTR);
 
 public Q_SLOTS:
     void itemsEdited(const QString &service);

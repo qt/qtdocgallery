@@ -70,7 +70,7 @@ public:
             QGalleryTrackerResultSetArguments *arguments,
             const QGalleryDBusInterfacePointer &metaDataInterface,
             bool autoUpdate,
-            QObject *parent = 0);
+            QObject *parent = Q_NULLPTR);
     ~QGalleryTrackerEditableResultSet();
 
     bool setMetaData(int key, const QVariant &value);

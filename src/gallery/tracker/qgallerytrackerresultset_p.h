@@ -124,7 +124,7 @@ public:
             TrackerSparqlConnection *connection,
             QGalleryTrackerResultSetArguments *arguments,
             bool autoUpdate,
-            QObject *parent = 0);
+            QObject *parent = Q_NULLPTR);
     ~QGalleryTrackerResultSet();
 
     QStringList propertyNames() const;

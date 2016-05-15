@@ -64,7 +64,7 @@ class QDeclarativeGalleryFilterBase : public QObject
 {
     Q_OBJECT
 public:
-    explicit QDeclarativeGalleryFilterBase(QObject *parent = 0)
+    explicit QDeclarativeGalleryFilterBase(QObject *parent = Q_NULLPTR)
         : QObject(parent)
     {
     }
@@ -114,7 +114,7 @@ Q_SIGNALS:
 
 protected:
     explicit QDeclarativeGalleryValueFilter(
-            QGalleryFilter::Comparator comparator, QObject *parent = 0)
+            QGalleryFilter::Comparator comparator, QObject *parent = Q_NULLPTR)
         : QDeclarativeGalleryFilterBase(parent)
     {
         m_filter.setComparator(comparator);
@@ -148,7 +148,7 @@ Q_SIGNALS:
 
 protected:
     explicit QDeclarativeGalleryStringFilter(
-            QGalleryFilter::Comparator comparator, QObject *parent = 0)
+            QGalleryFilter::Comparator comparator, QObject *parent = Q_NULLPTR)
         : QDeclarativeGalleryFilterBase(parent)
     {
         m_filter.setComparator(comparator);
@@ -161,7 +161,7 @@ class QDeclarativeGalleryEqualsFilter : public QDeclarativeGalleryValueFilter
 {
     Q_OBJECT
 public:
-    explicit QDeclarativeGalleryEqualsFilter(QObject *parent = 0)
+    explicit QDeclarativeGalleryEqualsFilter(QObject *parent = Q_NULLPTR)
         : QDeclarativeGalleryValueFilter(QGalleryFilter::Equals, parent)
     {
     }
@@ -173,7 +173,7 @@ class QDeclarativeGalleryLessThanFilter : public QDeclarativeGalleryValueFilter
 {
     Q_OBJECT
 public:
-    explicit QDeclarativeGalleryLessThanFilter(QObject *parent = 0)
+    explicit QDeclarativeGalleryLessThanFilter(QObject *parent = Q_NULLPTR)
         : QDeclarativeGalleryValueFilter(QGalleryFilter::LessThan, parent)
     {
     }
@@ -183,7 +183,7 @@ class QDeclarativeGalleryLessThanEqualsFilter : public QDeclarativeGalleryValueF
 {
     Q_OBJECT
 public:
-    explicit QDeclarativeGalleryLessThanEqualsFilter(QObject *parent = 0)
+    explicit QDeclarativeGalleryLessThanEqualsFilter(QObject *parent = Q_NULLPTR)
         : QDeclarativeGalleryValueFilter(QGalleryFilter::LessThanEquals, parent)
     {
     }
@@ -193,7 +193,7 @@ class QDeclarativeGalleryGreaterThanFilter : public QDeclarativeGalleryValueFilt
 {
     Q_OBJECT
 public:
-    explicit QDeclarativeGalleryGreaterThanFilter(QObject *parent = 0)
+    explicit QDeclarativeGalleryGreaterThanFilter(QObject *parent = Q_NULLPTR)
         : QDeclarativeGalleryValueFilter(QGalleryFilter::GreaterThan, parent)
     {
     }
@@ -203,7 +203,7 @@ class QDeclarativeGalleryGreaterThanEqualsFilter : public QDeclarativeGalleryVal
 {
     Q_OBJECT
 public:
-    explicit QDeclarativeGalleryGreaterThanEqualsFilter(QObject *parent = 0)
+    explicit QDeclarativeGalleryGreaterThanEqualsFilter(QObject *parent = Q_NULLPTR)
         : QDeclarativeGalleryValueFilter(QGalleryFilter::GreaterThanEquals, parent)
     {
     }
@@ -213,7 +213,7 @@ class QDeclarativeGalleryContainsFilter : public QDeclarativeGalleryStringFilter
 {
     Q_OBJECT
 public:
-    explicit QDeclarativeGalleryContainsFilter(QObject *parent = 0)
+    explicit QDeclarativeGalleryContainsFilter(QObject *parent = Q_NULLPTR)
         : QDeclarativeGalleryStringFilter(QGalleryFilter::Contains, parent)
     {
     }
@@ -223,7 +223,7 @@ class QDeclarativeGalleryStartsWithFilter : public QDeclarativeGalleryStringFilt
 {
     Q_OBJECT
 public:
-    explicit QDeclarativeGalleryStartsWithFilter(QObject *parent = 0)
+    explicit QDeclarativeGalleryStartsWithFilter(QObject *parent = Q_NULLPTR)
         : QDeclarativeGalleryStringFilter(QGalleryFilter::StartsWith, parent)
     {
     }
@@ -234,7 +234,7 @@ class QDeclarativeGalleryEndsWithFilter : public QDeclarativeGalleryStringFilter
 {
     Q_OBJECT
 public:
-    explicit QDeclarativeGalleryEndsWithFilter(QObject *parent = 0)
+    explicit QDeclarativeGalleryEndsWithFilter(QObject *parent = Q_NULLPTR)
         : QDeclarativeGalleryStringFilter(QGalleryFilter::EndsWith, parent)
     {
     }
@@ -244,7 +244,7 @@ class QDeclarativeGalleryWildcardFilter : public QDeclarativeGalleryStringFilter
 {
     Q_OBJECT
 public:
-    explicit QDeclarativeGalleryWildcardFilter(QObject *parent = 0)
+    explicit QDeclarativeGalleryWildcardFilter(QObject *parent = Q_NULLPTR)
         : QDeclarativeGalleryStringFilter(QGalleryFilter::Wildcard, parent)
     {
     }
@@ -259,7 +259,7 @@ class QDeclarativeGalleryFilterGroup
     Q_PROPERTY(QQmlListProperty<QDocGallery::QDeclarativeGalleryFilterBase> filters READ filters)
     Q_CLASSINFO("DefaultProperty", "filters")
 public:
-    explicit QDeclarativeGalleryFilterGroup(QObject *parent = 0)
+    explicit QDeclarativeGalleryFilterGroup(QObject *parent = Q_NULLPTR)
         : QDeclarativeGalleryFilterBase(parent)
         , m_complete(false)
     {
@@ -289,7 +289,7 @@ class QDeclarativeGalleryFilterUnion : public QDeclarativeGalleryFilterGroup
 {
     Q_OBJECT
 public:
-    explicit QDeclarativeGalleryFilterUnion(QObject *parent = 0)
+    explicit QDeclarativeGalleryFilterUnion(QObject *parent = Q_NULLPTR)
         : QDeclarativeGalleryFilterGroup(parent)
     {
     }
@@ -301,7 +301,7 @@ class QDeclarativeGalleryFilterIntersection : public QDeclarativeGalleryFilterGr
 {
     Q_OBJECT
 public:
-    explicit QDeclarativeGalleryFilterIntersection(QObject *parent = 0)
+    explicit QDeclarativeGalleryFilterIntersection(QObject *parent = Q_NULLPTR)
         : QDeclarativeGalleryFilterGroup(parent)
     {
     }

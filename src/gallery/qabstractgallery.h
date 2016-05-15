@@ -52,7 +52,7 @@ class Q_GALLERY_EXPORT QAbstractGallery : public QObject
 {
     Q_OBJECT
 public:
-    QAbstractGallery(QObject *parent = 0);
+    QAbstractGallery(QObject *parent = Q_NULLPTR);
     ~QAbstractGallery();
 
     virtual bool isRequestSupported(QGalleryAbstractRequest::RequestType type) const = 0;

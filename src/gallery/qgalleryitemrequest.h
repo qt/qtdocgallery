@@ -68,8 +68,8 @@ class Q_GALLERY_EXPORT QGalleryItemRequest : public QGalleryAbstractRequest
     Q_PROPERTY(QList<QGalleryResource> resources READ resources NOTIFY itemChanged)
 
 public:
-    explicit QGalleryItemRequest(QObject *parent = 0);
-    explicit QGalleryItemRequest(QAbstractGallery *gallery, QObject *parent = 0);
+    explicit QGalleryItemRequest(QObject *parent = Q_NULLPTR);
+    explicit QGalleryItemRequest(QAbstractGallery *gallery, QObject *parent = Q_NULLPTR);
     ~QGalleryItemRequest();
 
     QStringList propertyNames() const;

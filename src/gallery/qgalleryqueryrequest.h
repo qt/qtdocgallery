@@ -82,8 +82,8 @@ public:
         DirectDescendants
     };
 
-    explicit QGalleryQueryRequest(QObject *parent = 0);
-    explicit QGalleryQueryRequest(QAbstractGallery *gallery, QObject *parent = 0);
+    explicit QGalleryQueryRequest(QObject *parent = Q_NULLPTR);
+    explicit QGalleryQueryRequest(QAbstractGallery *gallery, QObject *parent = Q_NULLPTR);
     ~QGalleryQueryRequest();
 
     QStringList propertyNames() const;

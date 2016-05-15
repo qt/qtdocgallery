@@ -77,7 +77,7 @@ public:
             const QString &path,
             const char *interface,
             const QDBusConnection &connection = QDBusConnection::sessionBus(),
-            QObject *parent = 0)
+            QObject *parent = Q_NULLPTR)
         : QDBusAbstractInterface(service, path, interface, connection, parent) {}
 
 Q_SIGNALS:

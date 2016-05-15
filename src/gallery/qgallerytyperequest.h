@@ -64,8 +64,8 @@ class Q_GALLERY_EXPORT QGalleryTypeRequest : public QGalleryAbstractRequest
     Q_PROPERTY(bool valid READ isValid NOTIFY typeChanged)
 
 public:
-    explicit QGalleryTypeRequest(QObject *parent = 0);
-    explicit QGalleryTypeRequest(QAbstractGallery *gallery, QObject *parent = 0);
+    explicit QGalleryTypeRequest(QObject *parent = Q_NULLPTR);
+    explicit QGalleryTypeRequest(QAbstractGallery *gallery, QObject *parent = Q_NULLPTR);
     ~QGalleryTypeRequest();
 
     QStringList propertyNames() const;
