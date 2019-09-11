@@ -83,6 +83,6 @@ QAbstractGallery *QDeclarativeDocumentGallery::gallery(QObject *object)
     return qt_declarativeDocumentGalleryInstance();
 }
 
-#include "moc_qdeclarativedocumentgallery.cpp"
-
 QT_END_NAMESPACE_DOCGALLERY
+
+#include "moc_qdeclarativedocumentgallery.cpp"

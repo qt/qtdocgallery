@@ -1000,6 +1000,6 @@ QGalleryAbstractResponse *QDocumentGallery::createResponse(QGalleryAbstractReque
 
 #endif // QT_DOCUMENT_GALLERY_NULL
 
-#include "moc_qdocumentgallery.cpp"
-
 QT_END_NAMESPACE_DOCGALLERY
+
+#include "moc_qdocumentgallery.cpp"

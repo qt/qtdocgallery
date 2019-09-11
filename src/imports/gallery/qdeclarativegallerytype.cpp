@@ -384,6 +384,6 @@ void QDeclarativeDocumentGalleryType::setItemType(QDeclarativeDocumentGallery::I
     Clears the results of a request.
 */
 
-#include "moc_qdeclarativegallerytype.cpp"
-
 QT_END_NAMESPACE_DOCGALLERY
+
+#include "moc_qdeclarativegallerytype.cpp"

@@ -396,6 +396,6 @@ QDeclarativeDocumentGallery::ItemType QDeclarativeDocumentGalleryItem::itemType(
     Clears the results of a request.
 */
 
-#include "moc_qdeclarativegalleryitem.cpp"
-
 QT_END_NAMESPACE_DOCGALLERY
+
+#include "moc_qdeclarativegalleryitem.cpp"

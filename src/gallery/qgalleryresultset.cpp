@@ -322,6 +322,6 @@ bool QGalleryResultSet::fetchLast()
     at \a index has changed.
 */
 
-#include "moc_qgalleryresultset.cpp"
-
 QT_END_NAMESPACE_DOCGALLERY
+
+#include "moc_qgalleryresultset.cpp"

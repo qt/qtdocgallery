@@ -328,6 +328,6 @@ void QGalleryAbstractResponse::error(int error, const QString &errorString)
     Signals that a response was canceled.
 */
 
-#include "moc_qgalleryabstractresponse.cpp"
-
 QT_END_NAMESPACE_DOCGALLERY
+
+#include "moc_qgalleryabstractresponse.cpp"

@@ -375,6 +375,6 @@ void QGalleryTypeRequest::setResponse(QGalleryAbstractResponse *response)
         emit typeChanged();
 }
 
-#include "moc_qgallerytyperequest.cpp"
-
 QT_END_NAMESPACE_DOCGALLERY
+
+#include "moc_qgallerytyperequest.cpp"

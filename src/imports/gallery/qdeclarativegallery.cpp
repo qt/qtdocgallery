@@ -85,6 +85,6 @@ public:
     }
 };
 
-#include "qdeclarativegallery.moc"
-
 QT_END_NAMESPACE_DOCGALLERY
+
+#include "qdeclarativegallery.moc"

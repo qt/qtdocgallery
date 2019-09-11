@@ -689,6 +689,6 @@ void QGalleryQueryRequest::setResponse(QGalleryAbstractResponse *response)
     emit resultSetChanged(d->resultSet);
 }
 
-#include "moc_qgalleryqueryrequest.cpp"
-
 QT_END_NAMESPACE_DOCGALLERY
+
+#include "moc_qgalleryqueryrequest.cpp"

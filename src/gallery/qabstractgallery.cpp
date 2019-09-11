@@ -122,6 +122,6 @@ QAbstractGallery::~QAbstractGallery()
     Creates a response to a gallery \a request.
 */
 
-#include "moc_qabstractgallery.cpp"
-
 QT_END_NAMESPACE_DOCGALLERY
+
+#include "moc_qabstractgallery.cpp"

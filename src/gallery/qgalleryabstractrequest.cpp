@@ -577,6 +577,6 @@ void QGalleryAbstractRequest::clear()
     Sets the \a response to an executed request.
 */
 
-#include "moc_qgalleryabstractrequest.cpp"
-
 QT_END_NAMESPACE_DOCGALLERY
+
+#include "moc_qgalleryabstractrequest.cpp"

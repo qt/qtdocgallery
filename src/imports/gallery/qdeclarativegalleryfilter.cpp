@@ -622,6 +622,6 @@ QGalleryFilter QDeclarativeGalleryFilterIntersection::filter() const
     return intersectionFilter;
 }
 
-#include "moc_qdeclarativegalleryfilter.cpp"
-
 QT_END_NAMESPACE_DOCGALLERY
+
+#include "moc_qdeclarativegalleryfilter.cpp"

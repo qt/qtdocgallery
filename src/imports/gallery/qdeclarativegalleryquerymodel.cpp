@@ -760,6 +760,6 @@ QVariant QDeclarativeDocumentGalleryModel::itemType(const QString &type) const
     return QVariant::fromValue(QDeclarativeDocumentGallery::itemTypeFromString(type));
 }
 
-#include "moc_qdeclarativegalleryquerymodel.cpp"
-
 QT_END_NAMESPACE_DOCGALLERY
+
+#include "moc_qdeclarativegalleryquerymodel.cpp"

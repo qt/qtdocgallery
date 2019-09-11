@@ -978,6 +978,6 @@ Qt::ItemFlags QGalleryQueryModel::flags(const QModelIndex &index) const
     return d_ptr->itemFlags.value(index.column()) ;
 }
 
-#include "moc_qgalleryquerymodel.cpp"
-
 QT_END_NAMESPACE_DOCGALLERY
+
+#include "moc_qgalleryquerymodel.cpp"
