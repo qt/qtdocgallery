@@ -733,7 +733,7 @@ static bool qt_writeOrientationCondition(
     QT_GALLERY_NIE_DATAOBJECT_PROPERTIES, \
     QT_GALLERY_NIE_INFORMATIONELEMENT_PROPERTIES, \
     QT_GALLERY_ITEM_PROPERTY("fileName"     , "nfo:fileName(?x)"         , String  , CanRead | CanSort | CanFilter), \
-    QT_GALLERY_ITEM_PROPERTY("fileSize"     , "nfo:fileSize(?x)"         , Int     , CanRead | CanSort | CanFilter), \
+    QT_GALLERY_ITEM_PROPERTY("fileSize"     , "nfo:fileSize(?x)"         , LongLong, CanRead | CanSort | CanFilter), \
     QT_GALLERY_ITEM_PROPERTY("lastAccessed" , "nfo:fileLastAccessed(?x)" , DateTime, CanRead | CanSort | CanFilter), \
     QT_GALLERY_ITEM_PROPERTY("lastModified" , "nfo:fileLastModified(?x)" , DateTime, CanRead | CanSort | CanFilter)
 
@@ -1232,7 +1232,8 @@ QDocumentGallery::Error QGalleryTrackerSchema::prepareTypeResponse(
             new QGalleryTrackerStaticColumn(qt_galleryItemTypeList[m_itemIndex].itemType));
     arguments->valueColumns = QVector<QGalleryTrackerValueColumn *>()
             << new QGalleryTrackerStringColumn
-            << new QGalleryTrackerIntegerColumn;
+            << new QGalleryTrackerIntegerColumn
+            << new QGalleryTrackerLongLongColumn;
 
     arguments->service = qt_galleryItemTypeList[m_itemIndex].service;
     arguments->updateMask = qt_galleryItemTypeList[m_itemIndex].updateMask;
@@ -1426,6 +1427,9 @@ static QVector<QGalleryTrackerValueColumn *> qt_createValueColumns(
             break;
         case QVariant::Url:
             columns.append(new QGalleryTrackerUrlColumn);
+            break;
+        case QVariant::LongLong:
+            columns.append(new QGalleryTrackerLongLongColumn);
             break;
         default:
             Q_ASSERT(false);

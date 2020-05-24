@@ -163,6 +163,26 @@ QVariant QGalleryTrackerIntegerColumn::toVariant(TrackerSparqlCursor *cursor, in
 
 }
 
+QVariant QGalleryTrackerLongLongColumn::toVariant(TrackerSparqlCursor *cursor, int index) const
+{
+    switch (TrackerSparqlValueType type = tracker_sparql_cursor_get_value_type(cursor, index)) {
+    case TRACKER_SPARQL_VALUE_TYPE_INTEGER:
+        return qint64(tracker_sparql_cursor_get_integer(cursor, index));
+    case TRACKER_SPARQL_VALUE_TYPE_DOUBLE:
+        return qint64(tracker_sparql_cursor_get_double(cursor, index));
+    case TRACKER_SPARQL_VALUE_TYPE_UNBOUND:
+    case TRACKER_SPARQL_VALUE_TYPE_BLANK_NODE:
+        break;
+    default:
+        if (!m_warned) {
+            m_warned = true;
+            qWarning() << "QGalleryTracker: Expected integer type at index" << index << "got" << type;
+        }
+        break;
+    }
+    return QVariant();
+}
+
 QVariant QGalleryTrackerDoubleColumn::toVariant(TrackerSparqlCursor *cursor, int index) const
 {
     switch (TrackerSparqlValueType type = tracker_sparql_cursor_get_value_type(cursor, index)) {

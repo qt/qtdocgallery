@@ -115,6 +115,12 @@ public:
     QVariant toVariant(TrackerSparqlCursor *cursor, int index) const;
 };
 
+class QGalleryTrackerLongLongColumn : public QGalleryTrackerValueColumn
+{
+public:
+    QVariant toVariant(TrackerSparqlCursor *cursor, int index) const;
+};
+
 class QGalleryTrackerDoubleColumn : public QGalleryTrackerValueColumn
 {
 public:
